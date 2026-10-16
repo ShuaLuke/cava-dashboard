@@ -137,8 +137,8 @@
   const srcTag = () => CT.src === "own" ? '<div class="tt-hint">Your data</div>' : '<div class="tt-hint">Sample data (synthetic)</div>';
 
   /* ---------- shell: jobs first, Explore keeps every view ---------- */
-  const JOBS = [["home", "Home"], ["review", "Monthly review"], ["menu", "Menu change"], ["price", "Price change"], ["ideas", "New item ideas"], ["explore", "Explore"], ["data", "Data"]];
-  function resetFlows() { CT.flow = { review: { month: null, stores: null, step: 1 }, price: { step: 1, ups: {}, prices: {}, elasticity: -0.8, base: "last", q: "", name: "", options: [] }, menu: { step: 1, type: null, def: null, name: "", options: [] }, ideas: { open: null } }; }
+  const JOBS = [["home", "Home"], ["advise", "What to do"], ["review", "Monthly review"], ["menu", "Menu change"], ["price", "Price change"], ["ideas", "New item ideas"], ["explore", "Explore"], ["data", "Data"]];
+  function resetFlows() { CT.flow = { review: { month: null, stores: null, step: 1 }, price: { step: 1, ups: {}, prices: {}, elasticity: -0.8, base: "last", q: "", name: "", options: [] }, menu: { step: 1, type: null, def: null, name: "", options: [] }, ideas: { open: null }, advise: advBlank() }; }
   function render() {
     const box = dEl("cost-out"); if (!box) return;
     if (!CT.ready) { box.innerHTML = `<p class="hint">Preparing the sample dataset…</p>`; return; }
@@ -176,6 +176,7 @@
       if (CT.job === "price") return jobPrice(M);
       if (CT.job === "menu") return jobMenu(M);
       if (CT.job === "ideas") return jobIdeas(M);
+      if (CT.job === "advise") return jobAdvise(M);
       const R = results(null);
       if (CT.tab === "costs") return tabCosts(R, M);
       if (CT.tab === "sales") return tabSales(R, M);
@@ -483,6 +484,7 @@
     else if (job === "review") { CT.flow.review.step = +rest[0] || 1; CT.job = "review"; }
     else if (job === "menu") { CT.job = "menu"; if (rest[0]) { CT.flow.menu.type = rest[0]; CT.flow.menu.def = mcBlank(rest[0]); CT.flow.menu.step = 2; } }
     else if (job === "ideas") CT.job = "ideas";
+    else if (job === "advise") { const f = CT.flow.advise; if (rest[0] === "cost" && rest[1]) { f.type = "cost"; f.cid = rest[1]; f.pct = +rest[2] || 15; } else if (rest[0] === "general") f.type = "general"; f.pick = null; f.step = rest[0] ? 2 : 1; if (!advTrigger(data().M)) f.step = 1; CT.job = "advise"; }
     else if (job === "explore") { CT.job = "explore"; CT.tab = rest[0] || "costs"; if (rest[1]) { if (CT.tab === "costs") CT.ui.costTab = rest[1]; if (CT.tab === "sales") CT.ui.salesTab = rest[1]; if (CT.tab === "ops") CT.ui.opsTab = rest[1]; } }
     else CT.job = job;
     render(); const main = dEl("main"); if (main) main.scrollTop = 0;
@@ -498,6 +500,8 @@
     const slip = Ra.ops.trend.items.filter(x => x.slipping);
     const rec = Rl.reconcile.rows.filter(r => r.month === last); const recBad = rec.filter(r => r.verdict === "Fail" || r.verdict === "Review");
     const sug = CM.suggest(M, Ra, t).slice(0, 1)[0];
+    let best = null; try { const key = "H|" + CT.src + "|" + last + "|" + t; best = CT.cache.get(key); if (!best) { best = CM.recommend(M, { months: new Set([last]), target: t }, { type: "general" }, { verify: false }); CT.cache.set(key, best); } } catch (e) { console.error(e); }
+    const top = best && best.candidates[0];
     const fcX = X(pf(Rl.totals.fc), { l: `Theoretical food cost · ${monthName(last)}`, f: "food cost of everything sold ÷ net sales", v: [["Food cost", $0(Rl.totals.cogs)], ["Net sales", $0(Rl.totals.rev)], ["Target", pf(t, 0)]], src: SRC.cost + " + " + SRC.sales });
     const card = (cls, title, big, text, link, label) => `<div class="flag-card ${cls}"><div class="fc-head">${title}</div><div class="fc-big">${big}</div><div class="fc-text">${text}</div><button class="card-link" data-act="${link}">${label} →</button></div>`;
     const cards = [
@@ -505,13 +509,14 @@
       card(thin.length ? "warn" : "ok", "Up-charges covering their cost", thin.length ? esc(thin[0].name) : "All covered", thin.length ? `${esc(thin[0].name)} earns ${X($(thin[0].margin), { l: "Margin per add", f: "up-charge − incremental cost", v: [["Up-charge", $(thin[0].upcharge)], ["Portion cost", $(thin[0].cost)], [thin[0].baseMain != null ? "Included main it replaces" : "Pure add", thin[0].baseMain != null ? $(thin[0].baseMain) : "—"]], src: SRC.cost })} on a ${$(thin[0].upcharge)} up-charge${thin.length > 1 ? `; ${thin.length - 1} more under 25% margin` : ""}.` : `Every up-charge keeps at least 25% of what the guest pays.`, thin.length ? `go:price:up:${esc(thin[0].cid)}` : "go:price", thin.length ? "Test a new up-charge" : "Price change"),
       card(slip.length ? "warn" : "ok", "Items whose margin slipped", slip.length, Ra.ops.trend.months.length < 2 ? "Needs two months of sales." : slip.length ? `Contribution per unit down since ${monthName(Ra.ops.trend.months[0])}: ${esc(fmtList(slip.map(x => x.name), 3))}.` : "No item lost more than 10¢ of contribution.", "go:review:3", "See where to look"),
       card(!rec.length ? "quiet" : recBad.length ? "bad" : "ok", `Reconciliation · ${monthName(last)}`, !rec.length ? "No books" : recBad.length ? recBad[0].verdict : "Pass", !rec.length ? "Load actuals.csv to check theoretical food cost against the books." : recBad.length ? `${esc(fmtList(recBad.map(r => `${r.name} (${r.verdict}, ${pts(r.gap)})`), 2))}; ${rec.length - recBad.length} of ${rec.length} pass.` : `All ${rec.length} store-months pass: the books sit ${pts(d3.mean(rec, r => r.gap))} above theoretical, inside the 0–3 point band.`, "go:explore:recon", "Reconcile"),
+      card(top ? "idea" : "quiet", "Best move right now", top ? sgn(top.dGp, $0) : "—", top ? `${esc(top.label)} · ${top.confidence === "data" ? "arithmetic on the data" : esc(top.assumes || "rests on the demand assumption")}${top.culinary ? "; needs culinary sign-off" : ""}.` : "Nothing improves on today under the default rules.", "go:advise:general", "What to do"),
       card("idea", "Best new-item candidate", sug ? `${sug.perStoreWeek.toFixed(0)}/store-week` : "—", sug ? `${esc(sug.mains.join(" + ") || "A build")} guests already order ${sug.perStoreWeek.toFixed(0)} times per store-week, ${pf(sug.fc)} food cost at ${$(sug.avgPrice)}; nothing on the menu is more than ${Math.round(sug.sim * 100)}% alike.` : "Needs build-your-own modifiers to find builds guests make themselves.", "go:ideas", "New item ideas"),
     ];
     return jobHead("Home", `What needs attention in ${monthName(last)}, and where to go next. Hover any figure for the formula, the values and the source file; amber means an assumption.`) + `<div class="flag-cards">${cards.join("")}</div>
       <div class="sub">Start a job</div><div class="job-cards">${jobCards(M)}</div>
       ${reading(`<b>In a hurry?</b> To answer “should we raise the salmon up-charge?”: Home → the up-charge card → set a new up-charge and a demand assumption → check the ladder → compare. About three minutes.`)}`;
   }
-  const jobCards = M => [["review", "Monthly review", "Where food cost landed, what moved it, which stores and items to look at, one-page summary."], ["menu", "Evaluate a menu change", "New item, LTO, portion change, swap or removal: cost, margin, ripple across the menu and prep."], ["price", "Price change simulation", "New prices or up-charges, volume impact under a stated demand assumption, ladder check, compare options."], ["ideas", "Suggest new menu items", "Builds guests already order, components you already stock, margin at a target price."]].map(([k, l, d]) => `<button class="job-card" data-act="go:${k}"><b>${l}</b><span>${d}</span></button>`).join("");
+  const jobCards = M => [["advise", "What to do", "Describe a cost change, a shortage, a new product or a planned price; get the best moves and a plan."], ["review", "Monthly review", "Where food cost landed, what moved it, which stores and items to look at, one-page summary."], ["menu", "Evaluate a menu change", "New item, LTO, portion change, swap or removal: cost, margin, ripple across the menu and prep."], ["price", "Price change simulation", "New prices or up-charges, volume impact under a stated demand assumption, ladder check, compare options."], ["ideas", "Suggest new menu items", "Builds guests already order, components you already stock, margin at a target price."]].map(([k, l, d]) => `<button class="job-card" data-act="go:${k}"><b>${l}</b><span>${d}</span></button>`).join("");
 
   /* ---------- Monthly review ---------- */
   function rvAct(arg) { const [k, v] = arg.split(":"); const f = CT.flow.review; if (k === "step") f.step = +v; if (k === "store") { const all = [...data().M.stores.keys()]; const s = f.stores ? new Set(f.stores) : new Set(all); if (s.has(v)) { if (s.size > 1) s.delete(v); } else s.add(v); f.stores = s.size === all.length ? null : s; } if (k === "summary") rvSummary(); render(); }
@@ -798,6 +803,89 @@
   }
 
 
+  /* ---------- What to do: given a situation, the best course of action ---------- */
+  const ADV_TYPES = [["general", "Improve food cost", "Nothing changed; find the best moves on today's menu."], ["cost", "A component cost changed", "A supplier price moved, or is about to."], ["unavailable", "A component is unavailable", "A shortage or a delisting: what replaces it?"], ["newComponent", "A new component is available", "A new product or supplier: where does it fit, and what does it earn?"], ["price", "A price change is planned", "What else should move with it?"]];
+  function advBlank() { return { step: 1, type: "general", cid: "", pct: 15, iid: "", upId: "", value: "", comp: { name: "", station: "Mains", cost: "", upcharge: "" }, opts: { elasticity: -0.8, allowPortion: true, allowSwap: true, allowRemove: true, allowNew: true, maxStep: 1 }, pick: null, result: null, base: "last" }; }
+  if (!CT.flow.advise) CT.flow.advise = advBlank();
+  const advScope = M => CT.flow.advise.base === "all" ? {} : { months: lastMonths(M, 1) };
+  function advTrigger(M) { const f = CT.flow.advise; if (f.type === "cost") return f.cid ? { type: "cost", cid: f.cid, pct: +f.pct || 0 } : null; if (f.type === "unavailable") return f.cid ? { type: "unavailable", cid: f.cid } : null; if (f.type === "newComponent") return f.comp.name && +f.comp.cost > 0 ? { type: "newComponent", comp: { name: f.comp.name, station: f.comp.station, cost: +f.comp.cost, upcharge: +f.comp.upcharge || 0 } } : null; if (f.type === "price") { if (f.upId) return +f.value >= 0 && f.value !== "" ? { type: "price", cid: f.upId, value: +f.value } : null; if (f.iid) return +f.value > 0 ? { type: "price", iid: f.iid, value: +f.value } : null; return null; } return { type: "general" }; }
+  function advRun(M, pick) {
+    const f = CT.flow.advise; const trig = advTrigger(M); if (!trig) return null;
+    const sc = Object.assign({ target: CT.scope.target }, advScope(M)); const scope = { stores: null, months: sc.months ? new Set(sc.months) : null, channel: "all", target: CT.scope.target };
+    const key = "A|" + CT.src + "|" + JSON.stringify([trig, f.opts, sc, pick ? [...pick] : null]);
+    let r = CT.cache.get(key); if (r) return r;
+    r = CM.recommend(M, scope, trig, Object.assign({}, f.opts, pick ? { pick } : {})); CT.cache.set(key, r); return r;
+  }
+  function advAct(arg) { const [k, ...r] = arg.split(":"); const v = r.join(":"); const f = CT.flow.advise; const M = data().M;
+    if (k === "step") f.step = +v;
+    else if (k === "type") { f.type = v; f.pick = null; }
+    else if (k === "run") { f.pick = null; f.result = advRun(M); if (f.result) f.step = 2; }
+    else if (k === "toggle") { const r = advRun(M, f.pick); if (!r) return; const set = new Set(f.pick || r.plan.map(p => p.id)); if (set.has(v)) set.delete(v); else set.add(v); f.pick = set; }
+    else if (k === "reset") { f.pick = null; }
+    else if (k === "explore") { const r = advRun(M, f.pick); if (r) { CT.scn = Object.assign(blankScn(), r.combined, { name: "What to do: " + advLabel(M) }); go("explore:scenarios"); } return; }
+    else if (k === "price") { const r = advRun(M, f.pick); if (r) { const p = CT.flow.price; p.prices = Object.assign({}, r.combined.prices); p.ups = Object.assign({}, r.combined.upcharges); p.elasticity = f.opts.elasticity; p.base = f.base; p.step = 2; CT.job = "price"; } }
+    else if (k === "menu") { const r = advRun(M, f.pick); const c = r && r.plan.find(p => p.kind === v); if (c) { const m = CT.flow.menu; if (c.kind === "new") { const n = c.scn.newItems[0]; m.type = "new"; m.def = Object.assign(mcBlank("new"), { name: n.name, line: n.line, price: n.price, recipe: n.recipe.map(p => ({ ...p })), units: n.unitsPerStoreWeek, cannibal: Math.round(n.cannibal * 100) }); } else if (c.kind === "portion") { const iid = Object.keys(c.scn.recipes)[0]; m.type = "portion"; m.def = Object.assign(mcBlank("portion"), { item: iid, name: M.items.get(iid).name, recipe: c.scn.recipes[iid].map(p => ({ ...p })) }); } else if (c.kind === "swap" && c.scn.swaps) { m.type = "swap"; m.def = Object.assign(mcBlank("swap"), { swapFrom: c.scn.swaps[0].from, swapTo: c.scn.swaps[0].to }); } else if (c.kind === "remove") { m.type = "remove"; m.def = Object.assign(mcBlank("remove"), { item: c.scn.remove[0], retention: Math.round(c.scn.retention * 100) }); } else return; m.step = 3; CT.job = "menu"; } }
+    else if (k === "summary") advSummary();
+    render(); }
+  function advSet(a, b, value, el) { const f = CT.flow.advise;
+    if (a === "cid") f.cid = value; else if (a === "pct") f.pct = value; else if (a === "iid") { f.iid = value; f.upId = ""; const M = data().M; if (value) f.value = M.itemPrice(value, null); } else if (a === "upId") { f.upId = value; f.iid = ""; const M = data().M; if (value) f.value = (M.comps.get(value) || {}).upcharge; } else if (a === "value") f.value = value; else if (a === "base") f.base = value;
+    else if (a.startsWith("comp")) f.comp[a.slice(4).toLowerCase()] = value; else if (a === "el") { f.opts.elasticity = +value; el.nextElementSibling && (el.nextElementSibling.textContent = value); return; } else if (a === "maxStep") f.opts.maxStep = +value; else if (a.startsWith("allow")) f.opts[a] = !!el.checked;
+    if (["iid", "upId", "base", "cid", "compStation", "maxStep"].includes(a) || a.startsWith("allow")) render(); else rerenderSoon(); }
+  function advLabel(M) { const f = CT.flow.advise; const t = advTrigger(M); if (!t) return ""; if (t.type === "cost") return `${M.comps.get(t.cid).name} ${t.pct > 0 ? "+" : ""}${t.pct}%`; if (t.type === "unavailable") return `${M.comps.get(t.cid).name} unavailable`; if (t.type === "newComponent") return `${t.comp.name} available at ${$(t.comp.cost)}`; if (t.type === "price") return t.cid ? `${M.comps.get(t.cid).name} up-charge → ${$(t.value)}` : `${M.items.get(t.iid).name} → ${$(t.value)}`; return "improve food cost"; }
+  function jobAdvise(M) {
+    const f = CT.flow.advise; const t = CT.scope.target;
+    if (!M.sales.length) return jobHead("What to do", "Needs sales.") + reading("Load a sales file (and modifiers) on the Data tab so the advisor can weigh moves by what actually sells.");
+    const head = jobHead("What to do", "Describe the situation; the tool tries every move it knows (repricing, up-charges with the ladder, portion trims, swaps, removals, new items from builds guests already order), ranks them by gross profit with the rules applied, and assembles a plan you can edit and hand to the flows.") + stepper(["Describe the situation", "Best moves", "The plan"], f.step, "adv");
+    const compsOpt = compOptions(M).filter(([id]) => !M.comps.get(id).transient); const curated = itemOptions(M, i => !i.byo);
+    if (f.step === 1) {
+      const trig = advTrigger(M);
+      const form = f.type === "cost" ? `<div class="ct-row">${sel("adv:cid", [["", "— component —"]].concat(compsOpt), f.cid)}<label class="hint">changes by</label><input type="number" data-set="adv:pct" value="${f.pct}" step="1" style="width:70px"><span class="hint">% (negative for a decrease)</span></div>`
+        : f.type === "unavailable" ? `<div class="ct-row">${sel("adv:cid", [["", "— component —"]].concat(compsOpt), f.cid)}</div>`
+        : f.type === "newComponent" ? `<div class="ct-row"><input type="text" data-set="adv:compName" value="${esc(f.comp.name)}" placeholder="Name (e.g. Grilled shrimp)" style="flex:1">${sel("adv:compStation", [...new Set([...M.comps.values()].map(c => c.station))].map(s => [s, s]), f.comp.station)}<label class="hint">cost per portion</label><input type="number" data-set="adv:compCost" value="${f.comp.cost}" step="0.05" min="0" style="width:80px" placeholder="$"><label class="hint">up-charge</label><input type="number" data-set="adv:compUpcharge" value="${f.comp.upcharge}" step="0.05" min="0" style="width:80px" placeholder="$0"></div><p class="hint">Joins the model for this session as a component you can swap in or build with. To keep it, add it to components.csv.</p>`
+        : f.type === "price" ? `<div class="ct-row">${sel("adv:upId", [["", "— an up-charge —"]].concat([...M.comps.values()].filter(c => c.upcharge > 0).map(c => [c.id, `${c.name} up-charge (${$(c.upcharge)})`])), f.upId)}<span class="hint">or</span>${sel("adv:iid", [["", "— an item —"]].concat(curated), f.iid)}<label class="hint">new</label><input type="number" data-set="adv:value" value="${f.value}" step="0.05" min="0" style="width:84px" placeholder="$"></div>` : `<p class="hint">Looks at items over target, thin up-charges, Dogs and the builds guests already order.</p>`;
+      return head + `<div class="adv-cards">${ADV_TYPES.map(([k, l, d]) => `<button class="job-card ${f.type === k ? "on" : ""}" data-act="adv:type:${k}"><b>${l}</b><span>${d}</span></button>`).join("")}</div>
+        <div class="adv-form">${form}
+          <div class="adv-opts"><span class="label">Base period</span>${sel("adv:base", [["last", `Latest month (${monthName(M.months[M.months.length - 1] || "")})`], ["all", `All months (${monthsLabel(M.months)})`]], f.base)}<span class="label">Demand ${asmBadge("Elasticity: how much volume moves when a price moves. −0.8: a 10% rise loses 8%.")}</span><input type="range" data-set="adv:el" min="-2" max="0" step="0.1" value="${f.opts.elasticity}" style="width:110px"><output>${f.opts.elasticity}</output><span class="label">Max price step</span>${sel("adv:maxStep", [[0.5, "$0.50"], [1, "$1.00"], [1.5, "$1.50"], [2, "$2.00"]], f.opts.maxStep)}
+            <label><input type="checkbox" data-set="adv:allowPortion" ${f.opts.allowPortion ? "checked" : ""}> portion trims</label><label><input type="checkbox" data-set="adv:allowSwap" ${f.opts.allowSwap ? "checked" : ""}> swaps</label><label><input type="checkbox" data-set="adv:allowRemove" ${f.opts.allowRemove ? "checked" : ""}> removals</label><label><input type="checkbox" data-set="adv:allowNew" ${f.opts.allowNew ? "checked" : ""}> new items</label></div>
+          <div class="ct-row"><button class="tour-next" data-act="adv:run" ${trig ? "" : "disabled"}>Find the best moves →</button><span class="hint">${trig ? esc(advLabel(M)) : "Fill in the situation first."}</span></div>
+        </div>`;
+    }
+    const r = advRun(M, f.pick); if (!r) { f.step = 1; return head + reading("The situation is incomplete; go back a step."); }
+    const S = r.situation; const period = r.RT.scope.months.length === 1 ? monthName(r.RT.scope.months[0]) : monthsLabel(r.RT.scope.months);
+    const sitTiles = S.kind === "cost" ? `<div class="ops-tiles">${tile(`${$(S.before)} → ${$(S.after)}`, `${esc(S.comps[0].name)} per portion`)}${tile(X(nf(S.usage), { l: "Portions used", f: "Σ portions in recipes and modifiers of everything sold", src: SRC.cost }), `portions in ${period}`)}${tile(`${pf(S.fc0)} → ${pf(S.fc)}`, "food cost %", null, S.fc > t ? "pc-hi" : "")}${tile(X(sgn(S.dGp, $0), { l: "Gross profit effect at current prices", f: "− portions used × cost change", v: [["Portions", nf(S.usage)], ["Change per portion", sgn(S.after - S.before, $)]], src: SRC.cost }), `gross profit, ${period}, if nothing changes`, null, S.dGp < 0 ? "pc-hi" : "")}${tile(S.items.length, "curated items use it")}</div>`
+      : S.kind === "unavailable" ? `<div class="ops-tiles">${tile(S.lostItems.length, "curated items can't be made")}${tile(nf(S.picks.byoPicks), "build-your-own orders picked it")}${tile(X(sgn(S.dGp, $0), { l: "If nothing is done", f: "those items come off the menu (with the retention assumption) and the picks pay no up-charge", src: SRC.sales, asm: `retention ${Math.round(r.opts.retention * 100)}%` }), `gross profit, ${period}, doing nothing`, null, "pc-hi")}${tile(`${pf(S.fc0)} → ${pf(S.fc)}`, "food cost %")}</div>`
+      : S.kind === "newComponent" ? `<div class="ops-tiles">${tile($(S.cost), `${esc(S.comps[0].name)} per portion`)}${tile($(S.included), "average included main today")}${tile(S.comps[0].upcharge ? $(S.comps[0].upcharge) : "none", "planned up-charge")}</div>`
+      : S.kind === "price" ? `<div class="ops-tiles">${tile(`${pf(S.fc0)} → ${pf(S.fc)}`, "food cost % with the planned change")}${tile(X(sgn(S.dGp, $0), { l: "Planned change on its own", f: "scenario − base", src: SRC.sales, asm: `elasticity ${r.opts.elasticity}` }), `gross profit, ${period}`)}${tile(r.RT.ladder.filter(l => l.gap < -0.05).length, "items it leaves below the ladder", null, r.RT.ladder.filter(l => l.gap < -0.05).length ? "pc-hi" : "")}</div>`
+      : `<div class="ops-tiles">${tile(pf(S.fc0), "food cost today", null, S.fc0 > t ? "pc-hi" : "")}${tile(r.R0.itemList.filter(x => !x.addon && !x.byo && x.fc > t).length, `meals over the ${pf(t, 0)} target`)}${tile(r.R0.upcharges.filter(u => u.margin < 0.25 * u.upcharge).length, "thin up-charges")}${tile($k(S.gp0), `gross profit, ${period}`)}</div>`;
+    const sitRead = S.kind === "cost" ? reading(`<b>${esc(S.comps[0].name)} ${r.trigger.pct > 0 ? "up" : "down"} ${Math.abs(r.trigger.pct)}%</b>: ${$(S.before)} → ${$(S.after)} a portion. At current prices and volumes that is <b>${sgn(S.dGp, $0)}</b> of gross profit in ${period} and food cost ${pf(S.fc0)} → ${pf(S.fc)}. It touches ${S.items.length} curated item${S.items.length === 1 ? "" : "s"}${S.picks ? ` and ${nf(S.picks)} build-your-own picks` : ""}.`, S.dGp < 0 ? "warn" : "ok")
+      : S.kind === "unavailable" ? reading(`Without <b>${esc(S.comps[0].name)}</b>, ${S.lostItems.length} curated item${S.lostItems.length === 1 ? "" : "s"} (${esc(fmtList(S.lostItems.map(x => x.name), 4))}) cannot be made and ${nf(S.picks.byoPicks)} build-your-own orders lose their pick. Doing nothing costs <b>${sgn(S.dGp, $0)}</b> in ${period}; the moves below are measured against that.`, "warn")
+      : S.kind === "newComponent" ? reading(`<b>${esc(S.comps[0].name)}</b> at ${$(S.cost)} a portion${S.comps[0].upcharge ? ` with a ${$(S.comps[0].upcharge)} up-charge` : ""}, on the ${esc(S.comps[0].station)} station. The moves below are where it earns the most: as a replacement in existing recipes, or as a curated item built from what guests already order on that station.`)
+      : S.kind === "price" ? reading(`The planned change alone is worth <b>${sgn(S.dGp, $0)}</b> in ${period}${r.RT.ladder.filter(l => l.gap < -0.05).length ? ` but leaves ${r.RT.ladder.filter(l => l.gap < -0.05).length} curated items below their build-your-own price` : ""}. The moves below are what should go with it.`, r.RT.ladder.filter(l => l.gap < -0.05).length ? "warn" : "ok")
+      : reading(`Food cost is <b>${pf(S.fc0)}</b> against a ${pf(t, 0)} target in ${period}. The moves below are ranked by what they add to gross profit, discounted when they break a rule (over target, below the ladder, more than 15% volume at risk) or need culinary sign-off.`);
+    const picked = f.pick || new Set(r.plan.map(p => p.id));
+    const moveCard = (c, i) => `<div class="move ${picked.has(c.id) ? "in" : ""}"><input type="checkbox" data-act="adv:toggle:${esc(c.id)}" ${picked.has(c.id) ? "checked" : ""} aria-label="Include in the plan"><div><div class="move-title">${i + 1}. ${esc(c.label)}</div><div class="move-meta"><span class="tag ${c.confidence === "data" ? "data" : "asm"}">${c.confidence === "data" ? "data" : "assumption"}</span>${c.culinary ? `<span class="tag cul">culinary sign-off</span>` : ""}${c.overTarget ? flag("still over target", "warn") : ""}${c.volumeLoss > 0.15 ? flag(`${pf(c.volumeLoss * 100, 0)} volume at risk`, "warn") : ""}${c.fixesLadder ? flag("repairs the ladder", "ok") : ""}${c.assumes ? `<span>${esc(c.assumes)}</span>` : ""}</div><ul class="move-why">${c.reasons.filter(Boolean).map(w => `<li>${esc(w)}</li>`).join("")}</ul></div><div class="move-gain">${X(sgn(c.dGp, $0), { l: "Gross profit effect", f: c.kind === "price" ? "units kept × new contribution − units × old contribution" : c.kind === "upcharge" ? "picks kept × (Δ − lost up-charge share) + curated items moved" : c.kind === "portion" ? "units × portions trimmed × portion cost" : c.kind === "swap" ? "portions × (old cost − new cost)" : c.kind === "remove" ? "− its contribution + what moves to the line" : "units × contribution − what it pulls from the line", src: SRC.cost + " + " + SRC.sales, asm: c.assumes || undefined })}<small>${period}</small></div></div>`;
+    if (f.step === 2) {
+      return head + sitTiles + sitRead + `<div class="ct-head"><div class="sub">Moves, best first · ${r.candidates.length} considered · ticked ones make the plan</div><div class="ct-tools"><button class="linkbtn" data-act="adv:reset">Back to the suggested plan</button></div></div>
+        <div class="moves">${r.candidates.map(moveCard).join("") || `<p class="empty">No move improves on ${S.kind === "unavailable" ? "doing nothing" : "today"} under these rules. Loosen the options on step 1 (a bigger price step, swaps, removals).</p>`}</div>
+        ${stepNav("adv", 2, 3, "See the plan")}`;
+    }
+    // step 3: the plan, engine-verified
+    const V = r.verified; const plan = r.plan;
+    const planRead = !plan.length ? reading(`Nothing is ticked. Go back and include at least one move.`) : reading(`${plan.length === 1 ? "One move" : plan.length + " moves"}: ${esc(fmtList(plan.map(p => p.label.toLowerCase()), 3))}. Together they ${V && V.dGp >= 0 ? "add" : "cost"} <b>${V ? sgn(V.dGp, $0) : sgn(r.planDGp, $0)}</b> of gross profit in ${period} against ${S.kind === "unavailable" ? "doing nothing" : S.kind === "general" ? "today" : "leaving the change unanswered"}${V && S.kind !== "general" && S.kind !== "unavailable" ? ` (${sgn(V.dGp0, $0)} against today, before the ${S.kind === "cost" ? "cost change" : "change"})` : S.kind === "unavailable" && V ? ` (${sgn(V.dGp0, $0)} against today, with ${esc(S.comps[0].name)} still available)` : ""}; food cost lands at <b>${V ? pf(V.fc) : "—"}</b>${V ? `, ${V.over} meal${V.over === 1 ? "" : "s"} over target${V.belowLadder ? ` and ${V.belowLadder} below the ladder` : ""}` : ""}. ${plan.some(p => p.confidence === "assumption") ? "Volume figures rest on the demand assumption; " : ""}${plan.some(p => p.culinary) ? "portion and recipe moves need a plate test." : ""}`, V && V.dGp >= 0 ? "ok" : "warn");
+    const tiles = V ? `<div class="ops-tiles">${tile(X(sgn(V.dGp, $0), { l: "Gross profit change", f: "full engine run of the combined plan minus the baseline", v: [["Baseline", $0(r.RT.totals.gp)], ["With the plan", $0(V.gp)], ["Quick estimate (sum of moves)", sgn(r.planDGp, $0)]], src: SRC.cost + " + " + SRC.sales, asm: plan.some(p => p.assumes) ? plan.filter(p => p.assumes).map(p => p.assumes).join("; ") : undefined }), `gross profit, ${period}`, null, V.dGp < 0 ? "pc-hi" : "")}${tile(`${pf(r.RT.totals.fc)} → ${pf(V.fc)}`, "food cost %", null, V.fc > t ? "pc-hi" : "")}${tile(`${V.over0} → ${V.over}`, "meals over target")}${tile(V.belowLadder, "items below the ladder", null, V.belowLadder ? "pc-hi" : "")}${tile($k(V.rev - r.RT.totals.rev), "net sales change")}</div>` : "";
+    const handoff = plan.length ? `<div class="ct-row">${plan.some(p => p.kind === "price" || p.kind === "upcharge") ? `<button class="linkbtn" data-act="adv:price">Open prices in Price change</button>` : ""}${["new", "portion", "swap", "remove"].filter(k => plan.some(p => p.kind === k && (k !== "swap" || p.scn.swaps))).map(k => `<button class="linkbtn" data-act="adv:menu:${k}">Open the ${k === "new" ? "new item" : k === "portion" ? "portion change" : k === "swap" ? "swap" : "removal"} in Menu change</button>`).join("")}<button class="linkbtn" data-act="adv:explore">Open the whole plan in Explore → Scenarios</button><button class="tour-next" data-act="adv:summary">Open the summary</button></div>` : "";
+    return head + reading(`<b>${esc(advLabel(M))}</b> · ${period}`) + tiles + planRead + `<div class="moves">${plan.map(moveCard).join("")}</div>` + handoff + stepNav("adv", 3, 3);
+  }
+  function advSummary() {
+    const M = data().M; const f = CT.flow.advise; const r = advRun(M, f.pick); if (!r) return; const V = r.verified; const period = r.RT.scope.months.length === 1 ? monthName(r.RT.scope.months[0]) : monthsLabel(r.RT.scope.months);
+    const html = `<p class="sum-lead">Situation: ${esc(advLabel(M))}. Base period ${esc(period)}, demand assumption elasticity ${f.opts.elasticity}.</p>
+      ${V ? sumTable(["", "Baseline", "With the plan"], [["Gross profit", $0(r.RT.totals.gp), $0(V.gp)], ["Food cost %", pf(r.RT.totals.fc), pf(V.fc)], ["Meals over target", V.over0, V.over], ["Items below the ladder", r.RT.ladder.filter(l => l.gap < -0.05).length, V.belowLadder]]) : ""}
+      <h3>The plan</h3><ol>${r.plan.map(p => `<li><b>${esc(p.label)}</b> (${sgn(p.dGp, $0)}; ${p.confidence}${p.culinary ? ", culinary sign-off" : ""})<br><span class="hint">${esc(p.reasons.filter(Boolean).join(" · "))}</span></li>`).join("")}</ol>
+      <h3>Other moves considered</h3><ul>${r.candidates.filter(c => !r.plan.includes(c)).slice(0, 8).map(c => `<li>${esc(c.label)} (${sgn(c.dGp, $0)})</li>`).join("") || "<li>none</li>"}</ul>
+      <p class="sum-foot">Moves are scored with the same formulas as the scenario engine, then the chosen plan is verified with a full run. Volume effects rest on the demand assumption; cost effects are arithmetic on the data. Method: docs/methodology.md.</p>`;
+    showSummary("What to do · " + advLabel(M), html);
+  }
+
   /* ---------- wiring ---------- */
   function setUI(k, v) { CT.ui[k] = v; }
   function act(a, el) {
@@ -811,6 +899,7 @@
       case "pc": return pcAct(arg);
       case "mc": return mcAct(arg);
       case "id": return idAct(arg);
+      case "adv": return advAct(arg);
       case "print": return printSummary(arg);
       case "src": CT.src = arg; CT.cache.clear(); CT.scope = { stores: null, months: null, channel: "all", target: CT.scope.target }; resetFlows(); return rerender();
       case "clear": if (confirm("Remove every loaded file, saved scenario and column mapping from this browser and go back to the sample data?")) clearAll(); return;
@@ -885,6 +974,7 @@
       case "pc": return pcSet(a, b, value, el);
       case "mc": return mcSet(a, b, value, el);
       case "rv": return rvSet(a, value);
+      case "adv": return advSet(a, b, value, el);
       default: CT.ui[k] = value; return;
     }
   }

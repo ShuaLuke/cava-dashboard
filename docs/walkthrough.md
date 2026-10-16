@@ -1,6 +1,6 @@
 # One decision, end to end
 
-A live question answered on the sample data, step by step, the way it would be answered on CAVA's. The sample is synthetic (see `docs/sample-data.md`), so the numbers illustrate the method, not CAVA.
+A live question answered on the sample data, step by step, the way it would be answered on an operator's own data. The sample is synthetic (see `docs/sample-data.md`), so the numbers illustrate the method, not CAVA.
 
 ## The question
 
@@ -63,7 +63,7 @@ Save each as a named scenario, tick them, and the comparison table puts A, B and
 
 ## Step 4 · What would make this real
 
-On CAVA's data the same four steps run unchanged. Three things would sharpen the answer:
+On real data the same four steps run unchanged. Three things would sharpen the answer:
 
 1. Actual salmon pick elasticity from a past up-charge change (replace the −0.8 assumption).
 2. The waste log and inventory counts for salmon (Operations → Theoretical vs actual), since an over-portioned 4 oz is a cost problem that no up-charge fixes.

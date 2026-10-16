@@ -1,6 +1,6 @@
 # Security review package
 
-For CAVA's security team: what the page is, what it loads, what it stores, and how to verify each claim.
+For a security review: what the page is, what it loads, what it stores, and how to verify each claim.
 
 ## What it is
 
@@ -38,7 +38,7 @@ offline: default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inlin
          connect-src 'none'; form-action 'none'; base-uri 'none'
 ```
 
-`connect-src 'none'` means `fetch`, `XMLHttpRequest`, WebSocket, beacons and EventSource are all blocked by the browser itself, so even a bug could not send data out. `form-action 'none'` blocks form posts. `'unsafe-inline'` is required because the whole application is one inline script; there is no eval and no dynamically loaded code. If CAVA self-hosts, the same policy can be sent as an HTTP header (recommended, since a header also allows `frame-ancestors`).
+`connect-src 'none'` means `fetch`, `XMLHttpRequest`, WebSocket, beacons and EventSource are all blocked by the browser itself, so even a bug could not send data out. `form-action 'none'` blocks form posts. `'unsafe-inline'` is required because the whole application is one inline script; there is no eval and no dynamically loaded code. If the page is self-hosted, the same policy can be sent as an HTTP header (recommended, since a header also allows `frame-ancestors`).
 
 ## Third-party code
 

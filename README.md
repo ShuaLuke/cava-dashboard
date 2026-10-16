@@ -24,7 +24,7 @@ Six tabs: **Data** (load CSV/TSV/.xlsx, templates, validation, column mapping, s
 - Inputs: `docs/data-dictionary.md`, blank templates in `data/templates/`, filled examples in `data/sample/`.
 - Method: `docs/methodology.md`; tests: `node --test tests/*.test.js`.
 - Privacy: `docs/security-review.md`. The page's content-security policy blocks every network connection; the offline build makes no requests at all.
-- The sample: `docs/sample-data.md`. A worked decision: `docs/walkthrough.md`. The gating test: `docs/reconciliation-test.md`. Delivery and support: `docs/delivery-and-support.md`. The asks tracker: `docs/cava-pilot-tracker.md`.
+- The sample: `docs/sample-data.md`. A worked decision: `docs/walkthrough.md`. The gating test: `docs/reconciliation-test.md`.
 
 ## Run it
 Open `index.html` in a browser. It needs an internet connection for D3 (cdnjs) and fonts (Google Fonts). `dist/offline/index.html` is the same page with D3 and the fonts embedded: it needs no connection and makes no network requests.

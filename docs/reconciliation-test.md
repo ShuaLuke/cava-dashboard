@@ -1,10 +1,10 @@
 # The reconciliation test
 
-The one test that decides whether anything else is worth pursuing: load one real store-month on CAVA's side and check whether theoretical food cost lands close to what the books show. The pass criteria below are fixed in advance and built into the tool (`CostModel.RECON` in `src/costmodel.js`, shown on the Reconcile tab).
+The one test that decides whether anything else is worth pursuing: load one real store-month on the operator's own machine and check whether theoretical food cost lands close to what the books show. The pass criteria below are fixed in advance and built into the tool (`CostModel.RECON` in `src/costmodel.js`, shown on the Reconcile tab).
 
-## What CAVA loads
+## What to load
 
-Private to CAVA; nothing leaves the machine (see `docs/security-review.md`). Use the offline build (`dist/offline/index.html`) on an internal laptop.
+Nothing leaves the machine (see `docs/security-review.md`). Use the offline build (`dist/offline/index.html`) on an internal laptop.
 
 | File | What it holds for the store-month | Where it usually comes from |
 |---|---|---|
@@ -41,7 +41,7 @@ A pass on one store-month means the component model and the cost inputs are soun
 
 ## What to do with each outcome
 
-- **Pass**: proceed to the proof-of-value decision (`docs/walkthrough.md`) on CAVA's data, then a second store-month to confirm.
+- **Pass**: proceed to the proof-of-value decision (`docs/walkthrough.md`) on real data, then a second store-month to confirm.
 - **Review**: list the top five items by sales and check their recipes and costs by hand against the Costs tab (click an item for its build-up). Check cost effective dates against invoice dates. Load the waste log and re-read "+ logged waste".
 - **Fail**: compare one high-volume component's theoretical usage with purchases (`inventory.csv`, Operations → Theoretical vs actual). A large variance on one component points at a recipe or portion error; a uniform variance across components points at costs or sales coverage.
 

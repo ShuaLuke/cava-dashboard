@@ -4,3 +4,4 @@ __pycache__/
 .claude/
 data/sample/sales.csv
 data/sample/modifiers.csv
+private/

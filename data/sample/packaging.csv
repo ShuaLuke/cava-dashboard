@@ -1,0 +1,12 @@
+line,channel,cost
+Bowls,dine_in,0.32
+Bowls,digital,0.61
+Pitas,dine_in,0.18
+Pitas,digital,0.47
+Sides,dine_in,0.12
+Sides,digital,0.22
+Drinks,dine_in,0.14
+Drinks,digital,0.18
+Desserts,dine_in,0.06
+Desserts,digital,0.1
+all,all,0.1

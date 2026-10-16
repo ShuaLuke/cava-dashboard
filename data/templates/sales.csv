@@ -1,0 +1,2 @@
+order_id,line_id,store_id,date,time,channel,daypart,item_id,qty,net_price
+DC-001-20260701-0042,1,DC-001,2026-07-01,12:35,app,lunch,BYO-BOWL,1,16.00

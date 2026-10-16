@@ -1,0 +1,2 @@
+component_id,component_name,station,case_cost,case_size,case_unit,portion_size,portion_unit,yield_pct,portion_cost,upcharge,effective_date,store_id,perishable,shelf_life_days,prep_steps,par_portions,calories,sodium_mg
+glazed-salmon,Glazed Salmon,Mains,118.40,40,lb,4,oz,80,0.92,4.25,2026-09-01,,1,3,3,120,320,630

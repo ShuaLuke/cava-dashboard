@@ -1,0 +1,68 @@
+component_id,component_name,station,case_cost,case_size,case_unit,portion_size,portion_unit,yield_pct,portion_cost,upcharge,effective_date,store_id,perishable,shelf_life_days,prep_steps,par_portions,calories,sodium_mg
+power-greens,Power Greens,Greens,13,4,lb,2.5,oz,95,,0,,,1,3,1,22,30,35
+arugula,Arugula,Greens,16,4,lb,2,oz,95,,0,,,1,3,1,50,20,25
+super-greens,Super Greens,Greens,14,4,lb,2.5,oz,95,,0,,,1,3,1,56,35,35
+baby-spinach,Baby Spinach,Greens,12,4,lb,2,oz,95,,0,,,1,3,1,1,20,70
+romaine,Romaine,Greens,19,10,lb,3,oz,75,,0,,,1,3,2,44,20,10
+saffron-basmati-rice,Saffron Basmati Rice,Grains,38,25,lb,1.8,oz,98,,0,,,0,2,2,94,290,770
+brown-rice,Brown Rice,Grains,27,25,lb,1.8,oz,98,,0,,,0,2,2,41,310,770
+black-lentils,Black Lentils,Grains,45,25,lb,1.5,oz,98,,0,,,0,2,2,23,270,520
+tzatziki,Tzatziki,Dips + Spreads,38,2,gal,2,fl oz,100,,0,,,1,4,3,80,30,60
+hummus,Traditional Hummus,Dips + Spreads,26,2,gal,2,fl oz,100,,0,,,1,5,3,108,50,90
+crazy-feta,Crazy Feta,Dips + Spreads,58,2,gal,2,fl oz,100,,0,,,1,5,3,78,70,230
+harissa,Harissa,Dips + Spreads,44,2,gal,2,fl oz,100,,0,,,1,7,3,21,70,250
+red-pepper-hummus,Red Pepper Hummus,Dips + Spreads,30,2,gal,2,fl oz,100,,0,,,1,5,3,33,40,105
+roasted-eggplant-dip,Roasted Eggplant Dip,Dips + Spreads,40,2,gal,2,fl oz,100,,0,,,1,4,4,14,50,160
+glazed-salmon,Glazed Salmon,Mains,139,10,lb,4,oz,90,,4.25,,,1,2,4,34,320,630
+grilled-steak,Grilled Steak,Mains,168,20,lb,4,oz,82,,3.7,,,1,3,3,34,170,280
+harissa-honey-chicken,Harissa Honey Chicken,Mains,118,40,lb,4,oz,78,,1.65,,,1,3,4,39,260,670
+grilled-chicken,Grilled Chicken,Mains,112,40,lb,4,oz,78,,0,,,1,3,3,88,250,670
+falafel,Falafel,Mains,34,100,each,3,each,100,,0,,,0,2,2,14,350,810
+spicy-lamb-meatballs,Spicy Lamb Meatballs,Mains,62,10,lb,3.5,oz,92,,2.45,,,1,3,3,12,300,680
+braised-lamb,Braised Lamb,Mains,176,20,lb,4,oz,72,,3.85,,,1,3,5,2,210,450
+roasted-vegetables,Roasted Vegetables,Mains,46,20,lb,4,oz,85,,0,,,1,3,3,12,100,600
+fiery-broccoli,Fiery Broccoli,Toppings,34,20,lb,2.5,oz,80,,0,,,1,2,2,31,35,170
+fire-roasted-corn,Fire-Roasted Corn,Toppings,22,12,lb,2,oz,95,,0,,,1,3,2,71,45,105
+avocado,Avocado,Toppings,62,48,each,0.5,each,100,,2.85,,,1,1,2,63,110,0
+pickled-onions,Pickled Onions,Toppings,19,2,gal,1,fl oz,100,,0,,,0,14,1,142,20,0
+pickles,Salt-Brined Pickles,Toppings,31,5,gal,1.5,fl oz,100,,0,,,0,30,1,26,5,180
+tomato-onion,Tomato + Onion,Toppings,29,20,lb,2,oz,90,,0,,,1,2,2,113,20,125
+tomato-cucumber,Tomato + Cucumber,Toppings,31,20,lb,2,oz,90,,0,,,1,2,2,24,5,0
+sumac-cabbage-slaw,Sumac Cabbage Slaw,Toppings,18,10,lb,2,oz,95,,0,,,1,3,2,49,30,170
+kalamata-olives,Kalamata Olives,Toppings,52,2,gal,1,fl oz,100,,0,,,0,30,1,42,35,360
+cucumber,Persian Cucumber,Toppings,24,20,lb,2,oz,85,,0,,,1,3,2,113,15,110
+crumbled-feta,Crumbled Feta,Toppings,46,10,lb,1,oz,100,,0,,,1,10,1,129,35,125
+pita-crisps,Pita Crisps,Toppings,17,5,lb,0.75,oz,100,,0,,,0,14,1,37,70,25
+greek-goddess-dressing,Greek Goddess,Dressings,28,1,gal,1.5,fl oz,100,,0,,,1,7,2,23,35,115
+balsamic-date-vinaigrette,Balsamic Date Vinaigrette,Dressings,26,1,gal,1.5,fl oz,100,,0,,,0,14,2,1,60,250
+yogurt-dill-dressing,Yogurt Dill,Dressings,22,1,gal,1.5,fl oz,100,,0,,,1,5,2,39,30,190
+lemon-herb-tahini,Lemon Herb Tahini,Dressings,30,1,gal,1.5,fl oz,100,,0,,,0,10,2,26,70,140
+greek-vinaigrette,Greek Vinaigrette,Dressings,19,1,gal,1.5,fl oz,100,,0,,,0,14,2,59,130,230
+garlic-dressing,Garlic Dressing,Dressings,21,1,gal,1.5,fl oz,100,,0,,,1,7,2,14,180,90
+skhug,Skhug,Dressings,34,1,gal,1.5,fl oz,100,,0,,,1,5,3,19,80,150
+hot-harissa-vinaigrette,Hot Harissa Vinaigrette,Dressings,27,1,gal,1.5,fl oz,100,,0,,,0,14,2,47,70,270
+pita,Pita,Sides,36,120,each,1,each,100,,0,,,0,5,1,66,320,720
+pita-chips,Pita Chips,Sides,31,10,lb,3,oz,100,,0,,,0,30,1,29,280,420
+harissa-bbq-seasoning,Harissa BBQ Seasoning,Pantry,38,5,lb,0.1,oz,100,,0,,,0,180,1,14,0,90
+pomegranate-apple,Pomegranate Apple,Drinks,29,2.5,gal,16,fl oz,100,,0,,,1,5,1,7,250,
+blueberry-lavender,Blueberry Lavender,Drinks,31,2.5,gal,16,fl oz,100,,0,,,1,5,1,2,190,
+cucumber-mint-lime,Cucumber Mint Lime,Drinks,26,2.5,gal,16,fl oz,100,,0,,,1,5,1,2,240,
+classic-lemonade,Classic Lemonade,Drinks,17,2.5,gal,16,fl oz,100,,0,,,1,5,1,7,360,
+jasmine-green-tea,Jasmine Green Tea,Drinks,22,1,lb,0.2,oz,100,,0,,,0,180,1,3,0,
+unsweet-tea,Unsweet Tea,Drinks,14,1,lb,0.2,oz,100,,0,,,0,180,1,3,0,
+fountain-soda,Fountain Soda,Drinks,82,5,gal,3.5,fl oz,100,,0,,,0,90,1,7,270,
+spindrift-lemon,Spindrift Lemon,Drinks,31,24,each,1,each,100,,0,,,0,180,0,3,3,
+spindrift-half-tea-and-half-lemon,Spindrift Half Tea & Half Lemon,Drinks,31,24,each,1,each,100,,0,,,0,180,0,3,5,
+open-water-still,Open Water Still,Drinks,18,12,each,1,each,100,,0,,,0,365,0,3,0,
+open-water-sparkling,Open Water Sparkling,Drinks,18,12,each,1,each,100,,0,,,0,365,0,4,0,
+kids-apple-juice,Kids Apple Juice,Drinks,23,40,each,1,each,100,,0,,,0,180,0,2,35,
+kids-milk,Kids Milk,Drinks,34,50,each,1,each,100,,0,,,1,10,0,1,110,
+kids-chocolate-milk,Kids Chocolate Milk,Drinks,38,50,each,1,each,100,,0,,,1,10,0,2,150,
+salted-chocolate-oat-cookie,Salted Chocolate Oat Cookie,Sweets,52,48,each,1,each,100,,0,,,0,7,0,5,240,
+greyston-blondie,Greyston Blondie,Sweets,40,36,each,1,each,100,,0,,,0,7,0,5,140,
+greyston-brownie,Greyston Brownie,Sweets,40,36,each,1,each,100,,0,,,0,7,0,5,150,
+apricot-honey-cookie,Apricot Honey Cookie,Sweets,54,48,each,1,each,100,,0,,,0,7,0,5,220,
+glazed-salmon,Glazed Salmon,Mains,156,10,lb,4,oz,90,,4.25,2026-09-01,,1,2,4,,320,630
+avocado,Avocado,Toppings,57,48,each,0.5,each,100,,2.85,2026-09-01,,1,1,2,,110,0
+grilled-chicken,Grilled Chicken,Mains,116.5,40,lb,4,oz,78,,0,2026-09-01,,1,3,3,,250,670
+harissa-honey-chicken,Harissa Honey Chicken,Mains,122.5,40,lb,4,oz,78,,1.65,2026-09-01,,1,3,4,,260,670

@@ -9,6 +9,7 @@
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Spread Sheet dashboard: CAVA, Sweetgreen and Chipotle menus by component, compared head to head">
 <meta name="twitter:card" content="summary_large_image">
+<meta http-equiv="Content-Security-Policy" content="__CSP__">
 <meta name="theme-color" content="#d48a00">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23ffc247'/%3E%3Cstop offset='.55' stop-color='%23d48a00'/%3E%3Cstop offset='1' stop-color='%23c8501f'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='8' fill='url(%23g)'/%3E%3Cg fill='none' stroke='%23fff' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 14h20c0 6-4.5 10-10 10S6 20 6 14z'/%3E%3Cpath d='M11 10c1-2 3-2 4 0s3 2 4 0'/%3E%3C/g%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -398,25 +399,90 @@ svg .tip-on { outline: none; stroke: var(--ink); stroke-width: 1.5; }
 }
 
 /* cost what-if */
-.cost-grid { display: grid; grid-template-columns: minmax(250px, 300px) minmax(0, 1fr); gap: 20px; align-items: start; }
-@media (max-width: 1100px) { .cost-grid { grid-template-columns: 1fr; } }
-.preview-badge { display: inline-flex; align-items: center; gap: 6px; font-size: 11.5px; font-weight: 600; letter-spacing: .02em; color: var(--warn); background: var(--warn-soft); border: 1px solid rgba(178, 94, 0, 0.2); border-radius: 999px; padding: 2px 9px; width: fit-content; }
-.assume { background: var(--raise); border-radius: 14px; padding: 14px 16px; display: grid; gap: 8px; }
-.assume h3 { font-size: 14px; }
-.assume .hint { font-size: 12px; }
-.as-row { display: grid; grid-template-columns: minmax(0, 1fr) 84px 46px; gap: 8px; align-items: center; font-size: 12.5px; }
-.as-row input { accent-color: var(--accent); width: 100%; }
-.as-row output { font-family: var(--mono); font-size: 12px; text-align: right; }
-.as-row .lbl { display: flex; gap: 6px; align-items: center; min-width: 0; }
-.as-row .lbl span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.unlock { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 10px; }
-.unlock > div { border: 1px solid var(--line); border-radius: 12px; padding: 11px 13px; display: grid; gap: 3px; align-content: start; }
-.unlock b { font-weight: 600; font-size: 13.5px; }
-.unlock span { font-size: 12.5px; color: var(--muted); }
-.unlock .need { font-size: 11.5px; color: var(--teal); font-weight: 500; }
+/* cost & sales tool */
+.ct-banner { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; font-size: 13px; border-radius: 12px; padding: 9px 14px; border: 1px solid; }
+.ct-banner.sample { background: rgba(108, 99, 217, 0.08); border-color: rgba(108, 99, 217, 0.3); color: #3f3a8f; }
+.ct-banner.own { background: var(--teal-soft); border-color: rgba(95, 143, 62, 0.4); color: #2f5a1c; }
+.ct-banner b { font-size: 11.5px; letter-spacing: .04em; }
+.ct-banner .ct-dot { width: 8px; height: 8px; border-radius: 50%; background: currentColor; }
+.ct-banner-tools { margin-left: auto; display: flex; gap: 6px; flex-wrap: wrap; }
+.ct-bar { display: grid; gap: 10px; }
+.seg { background: var(--raise); border-radius: 999px; padding: 3px; gap: 2px; width: fit-content; max-width: 100%; }
+.seg .chip { border: 0; background: none; color: var(--muted); padding: 6px 14px; font-size: 13.5px; }
+.seg .chip[aria-pressed="true"] { background: var(--surface); color: var(--ink); box-shadow: 0 1px 3px rgba(20, 22, 31, 0.12); }
+.ct-scope { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; font-size: 12.5px; }
+.ct-scope .label { color: var(--muted); font-weight: 500; margin-left: 6px; }
+.ct-scope .chip { padding: 3px 10px; font-size: 12.5px; }
+.ct-scope select, .ct-scope input, .ct-editor select, .ct-editor input[type="text"], .ct-editor input[type="number"], .ct-editor input[type="search"], .ct-tools input, .ct-map select, .ct-file-tools select, .ct-row select, .ct-row input { font: inherit; font-size: 12.5px; border: 1px solid var(--line); border-radius: 8px; padding: 4px 8px; background: var(--surface); color: var(--ink); max-width: 100%; }
+.ct-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 24px; align-items: start; }
+.ct-grid.scn { grid-template-columns: minmax(300px, 380px) minmax(0, 1fr); }
+@media (max-width: 960px) { .ct-grid, .ct-grid.scn { grid-template-columns: 1fr; } }
+.ct-col { display: grid; gap: 10px; align-content: start; min-width: 0; }
+.ct-col h3 { font-size: 15px; }
+.ct-drop { display: grid; gap: 4px; justify-items: center; text-align: center; padding: 22px 16px; border: 2px dashed rgba(212, 138, 0, 0.45); border-radius: 14px; background: var(--accent-soft); cursor: pointer; font-size: 13.5px; }
+.ct-drop.over, .ct-drop:hover { border-color: var(--accent); background: #fff0cc; }
+.ct-opts { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; font-size: 12.5px; }
+.ct-check { display: flex; gap: 8px; align-items: start; color: var(--muted); font-size: 12.5px; max-width: 60ch; }
+.ct-check input { margin-top: 3px; accent-color: var(--accent); }
+.ct-templates { display: grid; gap: 6px; }
+.ct-tpl { border: 1px solid var(--line); border-radius: 10px; padding: 8px 11px; display: grid; gap: 3px; font-size: 13px; }
+.ct-tpl b { font-weight: 600; }
+.ct-tpl .hint { font-size: 12px; }
+.ct-tpl-tools { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 2px; }
+.ct-file { border: 1px solid var(--line); border-left: 4px solid var(--line); border-radius: 10px; padding: 8px 11px; display: grid; gap: 5px; font-size: 13px; }
+.ct-file.ok { border-left-color: var(--teal); } .ct-file.warn { border-left-color: var(--warn); } .ct-file.bad { border-left-color: #b4232c; }
+.ct-file-head { display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: center; }
+.ct-file-head b { font-weight: 600; overflow-wrap: anywhere; }
+.ct-file-tools { margin-left: auto; display: flex; gap: 6px; flex-wrap: wrap; }
+.ct-map { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 6px 10px; padding-top: 6px; border-top: 1px solid var(--line); }
+.ct-map label { display: grid; gap: 2px; font-size: 11.5px; color: var(--muted); font-family: var(--mono); }
+.ct-map .hint { grid-column: 1 / -1; font-family: var(--body); }
+.ct-actions { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+.ct-actions .tour-next { padding: 7px 16px; }
+.ct-actions .tour-next[disabled] { opacity: .45; cursor: not-allowed; }
+.ct-vlist { margin: 0; padding-left: 18px; font-size: 12.5px; display: grid; gap: 3px; }
+.ct-vlist.bad li::marker { color: #b4232c; } .ct-vlist.warn li::marker { color: var(--warn); } .ct-vlist.info li::marker { color: var(--muted); }
+.ct-vlist b { font-weight: 600; font-family: var(--mono); font-size: 11.5px; }
+.ct-notes { margin: 0; padding-left: 18px; font-size: 12.5px; color: var(--muted); display: grid; gap: 4px; }
+.ct-notes b { color: var(--ink); font-weight: 600; }
+.ct-block { display: grid; gap: 6px; min-width: 0; margin-top: 8px; }
+.ct-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 6px 14px; }
+.ct-head .sub { margin: 0; }
+.ct-tools { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.ct-tbl { overflow: auto; border: 1px solid var(--line); border-radius: 12px; }
+table.ct { min-width: 0; }
+table.ct th { cursor: default; }
+table.ct td.empty { color: var(--muted); }
+table.ct .hint { font-family: var(--body); }
+.ct-up { color: var(--teal); } .ct-down { color: var(--warn); }
+.flag.bad { background: #fde8e8; color: #9a1b24; }
+.ct-editor { display: grid; gap: 8px; background: var(--raise); border-radius: 14px; padding: 12px 14px; align-content: start; }
+.ct-row { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; font-size: 12.5px; }
+.ct-row output { font-family: var(--mono); font-size: 12px; min-width: 36px; }
+.ct-sec { border: 1px solid var(--line); border-radius: 10px; background: var(--surface); }
+.ct-sec summary { cursor: pointer; padding: 7px 11px; font-size: 13px; font-weight: 600; list-style: none; display: flex; align-items: center; gap: 8px; }
+.ct-sec summary::before { content: "▸"; color: var(--muted); font-size: 11px; }
+.ct-sec[open] summary::before { content: "▾"; }
+.ct-sec-body { padding: 0 11px 10px; display: grid; gap: 6px; }
+.ct-chips { display: flex; flex-wrap: wrap; gap: 5px; }
+.ct-chip { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; background: var(--accent-soft); color: var(--accent-deep); border-radius: 999px; padding: 2px 4px 2px 10px; }
+.ct-chip .linkbtn { padding: 0 6px; font-size: 11px; border: 0; background: none; color: inherit; }
+.ct-chip input { accent-color: var(--accent); }
+.ct-list { display: grid; gap: 3px; font-size: 12.5px; }
+.ct-list > div { display: flex; justify-content: space-between; align-items: center; gap: 8px; padding: 2px 0; border-bottom: 1px dashed var(--line); }
+.ct-mini { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 6px; }
+.ct-mini .stat { padding: 8px 10px; box-shadow: none; background: var(--surface); }
+.ct-mini .stat b { font-size: 18px; }
+.ct-saved { display: flex; flex-wrap: wrap; gap: 6px; }
+.ct-pick-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 14px 24px; }
+.ct-pick-grid .bar { grid-template-columns: minmax(0, 1.4fr) minmax(40px, 1fr) 44px; }
 .cbar { display: flex; height: 8px; border-radius: 999px; overflow: hidden; background: var(--raise); min-width: 80px; }
 .cbar i { display: block; height: 100%; }
 .pc-hi { color: var(--warn); font-weight: 600; }
+table.heat { border-collapse: separate; border-spacing: 3px; width: 100%; font-size: 12.5px; min-width: 420px; }
+table.heat th { font-weight: 500; color: var(--muted); font-size: 11.5px; text-align: left; white-space: nowrap; padding: 2px 4px; }
+table.heat thead th { text-align: center; }
+table.heat td { text-align: center; font-family: var(--mono); font-size: 11.5px; border-radius: 6px; padding: 7px 4px; cursor: help; }
 
 /* head to head */
 .h2h-pick { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
@@ -506,15 +572,6 @@ body.drawer-open .drawer-scrim { opacity: 1; }
 .sm-head { font-size: 10.5px; font-weight: 600; fill: var(--muted) !important; letter-spacing: .02em; text-transform: uppercase; }
 svg .sm-node.tip-on, svg .sm-link.tip-on { stroke: none; }
 
-/* simulated sales */
-.sim-wrap { display: grid; gap: 14px; border: 1px dashed rgba(108, 99, 217, 0.45); border-radius: 16px; padding: 16px; background: linear-gradient(180deg, rgba(108, 99, 217, 0.04), transparent 60%); }
-.preview-badge.sim { color: #4b44b0; background: rgba(108, 99, 217, 0.1); border-color: rgba(108, 99, 217, 0.25); }
-table.heat { border-collapse: separate; border-spacing: 3px; width: 100%; font-size: 12.5px; min-width: 420px; }
-table.heat th { font-weight: 500; color: var(--muted); font-size: 11.5px; text-align: left; white-space: nowrap; padding: 2px 4px; }
-table.heat thead th { text-align: center; }
-table.heat td { text-align: center; font-family: var(--mono); font-size: 11.5px; border-radius: 6px; padding: 7px 4px; cursor: help; }
-.lift-track { position: relative; }
-.lift-track::after { content: ""; position: absolute; left: 50%; top: -2px; bottom: -2px; width: 1px; background: var(--muted); opacity: .5; }
 </style>
 <!--BODY-->
 
@@ -536,7 +593,7 @@ table.heat td { text-align: center; font-family: var(--mono); font-size: 11.5px;
       <button data-view="gaps"><svg viewBox="0 0 16 16"><path d="M8 2v3M8 11v3M2 8h3M11 8h3M3.8 3.8l2 2M10.2 10.2l2 2M12.2 3.8l-2 2M5.8 10.2l-2 2"/></svg>Menu gaps</button>
       <button data-view="groups"><svg viewBox="0 0 16 16"><rect x="2" y="3" width="4" height="10" rx="1"/><rect x="10" y="3" width="4" height="10" rx="1"/><path d="M6 8h4"/></svg>Compare brands</button>
       <button data-view="h2h"><svg viewBox="0 0 16 16"><path d="M2 4h5v8H2zM9 4h5v8H9z"/><path d="M4.5 6.5v3M11.5 6.5v3"/></svg>Head to head</button>
-      <div class="nav-group">What if</div>
+      <div class="nav-group">Your data</div>
       <button data-view="costs"><svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="6"/><path d="M10 5.8c-.4-.6-1.1-.9-2-.9-1.1 0-2 .6-2 1.5 0 2 4 1.1 4 3.2 0 .9-.9 1.5-2 1.5-.9 0-1.7-.4-2.1-1M8 3.6v1.3M8 11.1v1.3"/></svg>Cost &amp; sales</button>
     </nav>
     <details class="filters" id="filters" open>
@@ -634,7 +691,7 @@ table.heat td { text-align: center; font-family: var(--mono); font-size: 11.5px;
         <li>What counts as an item: each chain's named, fixed-recipe items (curated bowls, pitas, salads, wraps, plates, burritos, kids meals) plus sides, drinks and desserts. Build-your-own orders have no fixed recipe, so they're left out; CAVA's build-your-own line is kept as a station catalog instead (see Prep &amp; inventory and Menu gaps). Chipotle's regular burritos, bowls, tacos and salads are all build-your-own, so only its named items appear.</li>
         <li>Each ingredient line on a menu is mapped to one component. Generic produce merges across brands (cucumber is cucumber everywhere), while named preparations stay distinct (CAVA's grilled chicken, Sweetgreen's blackened chicken and Chipotle's adobo chicken are three components). Plain “rice” at CAVA counts as saffron basmati rice, and a side dip's description maps to the dip itself. Drink and dessert components come from the menu descriptions.</li>
         <li>Bowls, pitas, salads, wraps, plates, burritos and kids meals are <b>meals</b>; sides, chips, drinks and desserts are <b>add-ons</b>. <b>Vegetarian</b> means no chicken, beef, pork, lamb or fish.</li>
-        <li>The “Cost &amp; sales” tab uses made-up, adjustable cost assumptions and a random simulated sales sample to show what real cost and POS data would make possible. None of those numbers are CAVA's real costs, sales or margins.</li>
+        <li>The “Cost &amp; sales” tool opens on a <b>synthetic sample dataset</b>: made-up costs inside published fast-casual ranges, CAVA's real menu structure and prices, and seeded random sales for three imaginary stores over three months. None of it is CAVA's real cost, sales or margin data. Loading your own files replaces the sample; the files are parsed and computed in the browser only, with no upload and no storage unless you opt in. Method, data dictionary and security notes are in the <code>docs</code> folder of the repository.</li>
         <li>Operations views use the menus only. Sales and cost data aren't included. Menu gaps compare whichever menu lines are selected; Compare brands and Head to head always use every brand.</li>
         <li>A frequent pairing means the menu uses it often. It doesn't rank taste or nutrition.</li>
       </ul>
@@ -658,7 +715,10 @@ table.heat td { text-align: center; font-family: var(--mono); font-size: 11.5px;
 </aside>
 <div class="tip" id="tip" hidden></div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+<!--D3--><script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js" integrity="__D3_SRI__" crossorigin="anonymous"></script>
+<script>__COSTMODEL__</script>
+<script>__SAMPLE__</script>
+<script>__XLSX__</script>
 <script>
 const ITEMS = __DATA__;
 const FAMS = [
@@ -1583,259 +1643,13 @@ function renderGaps(B) {
   box.querySelectorAll("[data-gr]").forEach(b => b.onclick = () => { ops.rest = b.dataset.gr; renderGaps(opsBase()); });
 }
 
-/* ---------- with cost data (what-if) ---------- */
-// Assumed cost of one portion of each component type. Placeholders until real invoices and recipe yields exist.
-const COST_DEFAULT = { green: 0.35, grain: 0.4, dip: 0.3, main: 1.9, topping: 0.2, dressing: 0.15, bread: 0.3, sweet: 0.6, drink: 0.35 };
-const COST_MAX = { green: 2, grain: 2, dip: 2, main: 6, topping: 1.5, dressing: 1, bread: 2, sweet: 3, drink: 2 };
-const COST_BASE = { extra: 0.45, target: 30 };
-const cost = { per: { ...COST_DEFAULT }, ...COST_BASE, sort: "pc" };
-try { const s = JSON.parse(localStorage.getItem("cv-cost") || "null"); if (s && s.per) { Object.assign(cost.per, s.per); cost.extra = s.extra ?? cost.extra; cost.target = s.target ?? cost.target; } } catch (e) {}
-function saveCost() { try { localStorage.setItem("cv-cost", JSON.stringify({ per: cost.per, extra: cost.extra, target: cost.target })); } catch (e) {} }
-function estCost(d) {
-  const n = {}; d.ings.forEach(i => { const f = ING_FAM[i.name]; n[f] = (n[f] || 0) + 1; });
-  // a second component of the same type (half-and-half mains, two dips) costs half a portion
-  const parts = FAMS.map(([f]) => [f, n[f] ? cost.per[f] * (1 + 0.5 * (n[f] - 1)) : 0]).filter(p => p[1]);
-  const total = d3.sum(parts, p => p[1]) + cost.extra;
-  return { parts, total, pc: total / d.price * 100, gp: d.price - total, atTarget: total / (cost.target / 100) };
-}
-
-/* simulated sales: a seeded random sample that shows what POS data would make possible. Not real data. */
-const sim = { seed: 7, leader: "profit" };
-function rng(seed) { let t = seed >>> 0; return () => { t += 0x6D2B79F5; let r = Math.imul(t ^ t >>> 15, 1 | t); r ^= r + Math.imul(r ^ r >>> 7, 61 | r); return ((r ^ r >>> 14) >>> 0) / 4294967296; }; }
-const FOODS = ["Pita chips", "Side dip", "House juice", "Dessert", "Kids meal"];
+/* ---------- cost & sales tool ---------- */
+// The tool lives in src/costtool.js (UI) over src/costmodel.js (engine) and src/sample.js (synthetic data); build.py inlines them after this script.
+// "main" style of an item, shared with Compare brands and Head to head.
 const MAIN_STYLE = { "Chicken": "Chicken", "Beef, pork & lamb": "Beef, pork & lamb", "Seafood": "Seafood", "Plant-based mains": "Plant-based" };
 const STYLES_SIM = ["Chicken", "Beef, pork & lamb", "Seafood", "Plant-based", "No main", "Add-on"];
 const styleOf = d => d.small ? "Add-on" : (d.ings.map(i => MAIN_STYLE[i.cat]).find(Boolean) || "No main");
-function simulate(rows) {
-  const r = rng(sim.seed);
-  const out = rows.map(x => {
-    const pop = 140 * Math.exp(-0.08 * (x.d.price - 12)) * (0.3 + 1.6 * r()) * (x.d.small ? 0.7 : 1);
-    const sold = Math.max(4, Math.round(pop));
-    return { ...x, sold, rev: sold * x.d.price, profit: sold * x.gp, lift: Math.round((r() - 0.4) * 34), style: styleOf(x.d) };
-  });
-  const attach = STYLES_SIM.map(() => FOODS.map(() => 0.08 + 0.55 * r()));
-  return { rows: out, attach };
-}
-function salesSection(costRows) {
-  if (!costRows.length) return "";
-  const { rows, attach } = simulate(costRows);
-  const totRev = d3.sum(rows, x => x.rev), totProfit = d3.sum(rows, x => x.profit), totSold = d3.sum(rows, x => x.sold);
-  const avgSold = totSold / rows.length, avgGp = d3.sum(rows, x => x.profit) / totSold;
-  const quad = x => x.sold >= avgSold ? (x.gp >= avgGp ? "Star" : "Plowhorse") : (x.gp >= avgGp ? "Puzzle" : "Dog");
-  const QUADS = { Star: ["var(--teal)", "Popular and profitable. Keep and feature."], Plowhorse: ["var(--f-grain)", "Popular, thin margin. Reprice or trim cost."],
-    Puzzle: ["var(--f-sweet)", "Profitable, rarely ordered. Promote or reposition."], Dog: ["var(--muted)", "Neither. Candidates to cut."] };
-  const qCount = Object.fromEntries(Object.keys(QUADS).map(k => [k, rows.filter(x => quad(x) === k)]));
-  const simTag = '<div class="tt-hint">Simulated sample, not real sales</div>';
-  const tipRow = x => `<b>${esc(x.d.item)}</b> <span class="tt-k">${esc(x.d.line)}</span>` + ttRows([["Sold / month", x.sold], ["Revenue", "$" + Math.round(x.rev).toLocaleString()],
-    ["Est. profit / item", m2(x.gp)], ["Est. profit / month", "$" + Math.round(x.profit).toLocaleString()], ["Quadrant", quad(x)]]) + simTag;
-
-  // menu-engineering scatter
-  const W = 600, H = 270, L = 44, Rm = 12, T = 14, B = 30;
-  // cap axes near the 97th percentile so one outlier doesn't flatten the rest; outliers sit on the edge
-  const cap = (vals, step) => Math.ceil(d3.quantile(vals.slice().sort(d3.ascending), 0.97) * 1.1 / step) * step;
-  const xMax = cap(rows.map(x => x.sold), 50), yMax = cap(rows.map(x => x.gp), 5);
-  const sx = v => L + Math.min(v, xMax) / xMax * (W - L - Rm), sy = v => T + (1 - Math.min(v, yMax) / yMax) * (H - T - B);
-  const scatter = `<svg viewBox="0 0 ${W} ${H}" style="width:100%;height:auto;display:block" role="img" aria-label="Simulated menu engineering matrix">
-    <rect x="${sx(avgSold)}" y="${T}" width="${W - Rm - sx(avgSold)}" height="${sy(avgGp) - T}" fill="var(--teal-soft)" opacity=".7"></rect>
-    ${d3.range(0, yMax + 1, 5).map(t => `<line x1="${L}" x2="${W - Rm}" y1="${sy(t)}" y2="${sy(t)}" stroke="var(--line)"></line><text x="${L - 6}" y="${sy(t) + 4}" text-anchor="end" font-size="11" style="fill:var(--muted);font-family:var(--mono)">$${t}</text>`).join("")}
-    ${d3.range(0, xMax + 1, xMax > 200 ? 100 : 50).map(t => `<text x="${sx(t)}" y="${H - 10}" text-anchor="middle" font-size="11" style="fill:var(--muted);font-family:var(--mono)">${t}</text>`).join("")}
-    <line x1="${sx(avgSold)}" x2="${sx(avgSold)}" y1="${T}" y2="${H - B}" stroke="var(--ink)" stroke-dasharray="4 4" opacity=".5"></line>
-    <line x1="${L}" x2="${W - Rm}" y1="${sy(avgGp)}" y2="${sy(avgGp)}" stroke="var(--ink)" stroke-dasharray="4 4" opacity=".5"></line>
-    <text x="${W - Rm - 6}" y="${T + 14}" text-anchor="end" font-size="12" font-weight="650" style="fill:var(--teal)">Stars</text>
-    <text x="${L + 6}" y="${T + 14}" font-size="12" font-weight="650" style="fill:var(--f-sweet)">Puzzles</text>
-    <text x="${W - Rm - 6}" y="${H - B - 8}" text-anchor="end" font-size="12" font-weight="650" style="fill:var(--warn)">Plowhorses</text>
-    <text x="${L + 6}" y="${H - B - 8}" font-size="12" font-weight="650" style="fill:var(--muted)">Dogs</text>
-    ${rows.map(x => `<circle cx="${sx(x.sold).toFixed(1)}" cy="${sy(x.gp).toFixed(1)}" r="5.5" fill="${QUADS[quad(x)][0]}" fill-opacity=".85" stroke="var(--surface)" ${tipAttr(tipRow(x))}></circle>`).join("")}
-  </svg>`;
-
-  // leaders
-  const key = sim.leader === "profit" ? "profit" : sim.leader === "rev" ? "rev" : "sold";
-  const lead = rows.slice().sort((a, b) => b[key] - a[key]).slice(0, 8), lmax = lead[0][key];
-  const fmt = v => key === "sold" ? Math.round(v) + "" : "$" + Math.round(v).toLocaleString();
-  const top10 = d3.sum(rows.slice().sort((a, b) => b.profit - a.profit).slice(0, 10), x => x.profit);
-
-  // food pairing heatmap
-  const present = STYLES_SIM.filter(st => rows.some(x => x.style === st));
-  const heat = css("--heat");
-  const cellTip = (st, f, v) => { const items = rows.filter(x => x.style === st).sort((a, b) => b.sold - a.sold);
-    return `<b>${esc(st)} + ${esc(f)}</b>` + ttRows([["Orders with both", Math.round(v * 100) + "%"]]) + `<div class="tt-k" style="margin-top:4px">Items with this main</div>` + ttList(items.map(x => esc(x.d.item)), 5) + simTag; };
-  const heatmap = `<div class="scroll"><table class="heat">
-    <thead><tr><th></th>${FOODS.map(f => `<th>${esc(f)}</th>`).join("")}</tr></thead>
-    <tbody>${present.map(st => { const si = STYLES_SIM.indexOf(st); return `<tr><th>${esc(st)}</th>${FOODS.map((f, fi) => { const v = attach[si][fi];
-      return `<td tabindex="0" ${tipAttr(cellTip(st, f, v))} style="background:rgba(${heat},${(0.08 + v * 1.4).toFixed(2)});color:${v > 0.42 ? "#fff" : "var(--ink)"}">${Math.round(v * 100)}%</td>`; }).join("")}</tr>`; }).join("")}</tbody></table></div>`;
-
-  // check lift
-  const lifts = rows.slice().sort((a, b) => b.sold - a.sold).slice(0, 10).sort((a, b) => b.lift - a.lift), lm = d3.max(lifts, x => Math.abs(x.lift)) || 1;
-
-  return `
-    <div class="sim-wrap">
-      <div class="view-tools">
-        <div style="display:grid;gap:4px"><span class="preview-badge sim">SIMULATED SALES · RANDOM SAMPLE</span>
-          <h3 style="font-size:17px">What sales data would show</h3></div>
-        <button class="linkbtn" id="sim-shuffle">Shuffle sample ↻</button>
-      </div>
-      <p class="hint">These sales are random numbers, made up to show the layout. Profit uses the cost assumptions above. Shuffle to see a different random sample. With real POS data, every chart here would show what actually happens, and build-your-own orders could be analysed by the components guests pick.</p>
-      <div class="ops-tiles">
-        <div class="stat" tabindex="0" ${tipAttr(`<b>Simulated month</b>` + ttRows([["Items sold", totSold.toLocaleString()], ["Revenue", "$" + Math.round(totRev).toLocaleString()], ["Avg price paid", m2(totRev / totSold)]]) + simTag)}><b class="num">$${Math.round(totRev / 1000)}k</b><span>item revenue / month</span></div>
-        <div class="stat" tabindex="0" ${tipAttr(`<b>Est. gross profit</b>` + ttRows([["Profit", "$" + Math.round(totProfit).toLocaleString()], ["Margin", pct(totProfit, totRev)]]) + simTag)}><b class="num">$${Math.round(totProfit / 1000)}k</b><span>est. gross profit / month</span></div>
-        <div class="stat" tabindex="0" ${tipAttr(`<b>Profit concentration</b><div class="tt-k">Top 10 of ${rows.length} items</div>` + ttList(rows.slice().sort((a, b) => b.profit - a.profit).slice(0, 10).map(x => `${esc(x.d.item)} <span class="tt-k">$${Math.round(x.profit).toLocaleString()}</span>`), 10) + simTag)}><b class="num">${pct(top10, totProfit)}</b><span>of profit from the top 10 items</span></div>
-        <div class="stat" tabindex="0" ${tipAttr(`<b>Stars</b>` + ttList(qCount.Star.map(x => esc(x.d.item)), 10) + simTag)}><b class="num" style="color:var(--teal)">${qCount.Star.length}</b><span>Stars: popular and profitable</span></div>
-      </div>
-      <div class="ops-two">
-        <div style="min-width:0">
-          <div class="sub" style="margin-top:0">Menu engineering · popularity × profit per item</div>
-          ${scatter}
-          <div class="swatch-legend">${Object.entries(QUADS).map(([k, [c, why]]) => `<span tabindex="0" ${tipAttr(`<b>${k}s · ${qCount[k].length}</b><div class="tt-k">${why}</div>` + ttList(qCount[k].map(x => esc(x.d.item)), 6))}><i class="dot" style="background:${c}"></i>${k}s ${qCount[k].length}</span>`).join("")}<span>x: sold / month · y: est. profit per item</span></div>
-        </div>
-        <div style="min-width:0;display:grid;gap:8px;align-content:start">
-          <div class="view-tools"><div class="sub" style="margin:0">Top sellers</div>
-            <div class="controls">${[["profit", "Profit"], ["rev", "Revenue"], ["sold", "Units"]].map(([k, l]) => `<button class="chip" data-sim-ld="${k}" aria-pressed="${sim.leader === k}">${l}</button>`).join("")}</div></div>
-          <div class="bars">${lead.map(x => `<div class="bar" tabindex="0" ${tipAttr(tipRow(x))}><span class="name">${esc(x.d.item)}</span>
-            <span class="track"><span class="fill" style="display:block;width:${x[key] / lmax * 100}%;background:${QUADS[quad(x)][0]}"></span></span><span class="val">${fmt(x[key])}</span></div>`).join("")}</div>
-        </div>
-      </div>
-      <div class="ops-two">
-        <div style="min-width:0">
-          <div class="sub" style="margin-top:0">Main + add-on · share of orders with both</div>
-          ${heatmap}
-        </div>
-        <div style="min-width:0">
-          <div class="sub" style="margin-top:0">Order lift · avg order with this item vs. the average order</div>
-          <div class="bars">${lifts.map(x => `<div class="bar lift" tabindex="0" ${tipAttr(`<b>${esc(x.d.item)}</b>` + ttRows([["Orders with this item spend", (x.lift >= 0 ? "+" : "−") + "$" + Math.abs(x.lift)], ["Sold / month", x.sold]]) + simTag)}>
-            <span class="name">${esc(x.d.item)}</span>
-            <span class="track lift-track"><span class="fill" style="display:block;position:relative;left:${x.lift >= 0 ? 50 : 50 - Math.abs(x.lift) / lm * 50}%;width:${Math.abs(x.lift) / lm * 50}%;background:${x.lift >= 0 ? "var(--teal)" : "var(--f-topping)"}"></span></span>
-            <span class="val">${x.lift >= 0 ? "+" : "−"}$${Math.abs(x.lift)}</span></div>`).join("")}</div>
-          <p class="hint" style="margin-top:6px">Ten best sellers. A positive lift would suggest an item leads to bigger orders, which is worth testing before you act on it.</p>
-        </div>
-      </div>
-    </div>`;
-}
-
-function renderCosts(ds) {
-  const box = document.getElementById("cost-out");
-  if (!box.querySelector(".assume")) {
-    box.innerHTML = `
-      <div class="cost-grid">
-        <aside style="display:grid;gap:12px;align-content:start">
-          <span class="preview-badge">PREVIEW · ASSUMED COSTS</span>
-          <p class="hint">There's no cost data yet. Every number on this page comes from the assumptions below, not from CAVA's real costs. Swap in real portion yields and invoice prices, and this tab becomes a live margin report.</p>
-          <div class="assume" id="cost-assume"></div>
-        </aside>
-        <div style="display:grid;gap:18px;min-width:0" id="cost-results"></div>
-      </div>`;
-    renderCostAssume();
-  }
-  renderCostResults(ds);
-}
-function renderCostAssume() {
-  const a = document.getElementById("cost-assume");
-  const row = (id, label, dot, val, min, max, step, fmt) => `
-    <label class="as-row" for="${id}"><span class="lbl">${dot}<span>${label}</span></span>
-      <input type="range" id="${id}" min="${min}" max="${max}" step="${step}" value="${val}"><output id="${id}-o">${fmt(val)}</output></label>`;
-  a.innerHTML = `
-    <h3>Cost of one portion, by component type</h3>
-    <p class="hint">A rough guess at what one scoop or one portion of each type costs the kitchen. A second component of the same type adds half a portion.</p>
-    ${FAMS.map(([f, l]) => row("c-" + f, esc(l), `<i class="dot" style="background:var(--f-${f})"></i>`, cost.per[f], 0, COST_MAX[f], 0.05, m2)).join("")}
-    ${row("c-extra", "Packaging & waste", "", cost.extra, 0, 1.5, 0.05, m2)}
-    <div style="height:1px;background:var(--line);margin:4px 0"></div>
-    ${row("c-target", "<b>Target food cost</b>", "", cost.target, 18, 42, 1, v => v + "%")}
-    <div><button class="linkbtn" id="cost-reset">Reset assumptions</button></div>`;
-  FAMS.forEach(([f]) => wireRange("c-" + f, v => { cost.per[f] = v; }, m2));
-  wireRange("c-extra", v => { cost.extra = v; }, m2);
-  wireRange("c-target", v => { cost.target = v; }, v => v + "%");
-  document.getElementById("cost-reset").onclick = () => { Object.assign(cost.per, COST_DEFAULT); Object.assign(cost, COST_BASE); saveCost(); renderCostAssume(); renderCostResults(current()); };
-}
-function wireRange(id, set, fmt) {
-  const el = document.getElementById(id);
-  el.addEventListener("input", () => { set(+el.value); document.getElementById(id + "-o").textContent = fmt(+el.value); saveCost(); renderCostResults(current()); });
-}
-function renderCostResults(ds) {
-  const out = document.getElementById("cost-results");
-  const rows = ds.filter(hasPrice).map(d => ({ d, ...estCost(d) }));
-  const c = rows.filter(r => !r.d.small), z = rows.filter(r => r.d.small);
-  const over = c.filter(r => r.pc > cost.target);
-  const avgPc = rs => rs.length ? d3.mean(rs, r => r.pc) : null;
-  const B = opsBase();
-  const fresh1 = [...B.info.values()].filter(r => r.items.length === 1 && r.perish).length;
-  const shared3 = [...B.info.values()].filter(r => r.rests.size >= 2).length;
-  const breakdown = r => ttRows(r.parts.map(([f, v]) => [`<i class="dot" style="background:var(--f-${f});margin-right:5px"></i>${esc(FAM_NAME[f])}`, m2(v)]).concat([["Packaging & waste", m2(cost.extra)]]));
-  const tipFor = r => `<b>${esc(r.d.item)}</b> <span class="tt-k">${esc(r.d.line)}</span>` + breakdown(r)
-    + ttRows([["<b>Est. cost</b>", `<b>${m2(r.total)}</b>`], ["Menu price", money(r.d.price)], ["Food cost", r.pc.toFixed(1) + "%"], ["Gross profit", m2(r.gp)], [`Price for ${cost.target}%`, m2(r.atTarget)]])
-    + '<div class="tt-hint">Assumed costs, not real ones</div>';
-
-  // scatter: price vs pour cost
-  const W = 600, H = 250, L = 40, Rm = 12, T = 10, Bm = 30;
-  const yMax = Math.max(40, Math.ceil((d3.max(rows, r => r.pc) || 0) / 10) * 10);
-  const sx = v => L + v / PMAX * (W - L - Rm), sy = v => T + (1 - v / yMax) * (H - T - Bm);
-  const dots = rows.map(r => `<circle cx="${sx(Math.min(r.d.price, PMAX)).toFixed(1)}" cy="${sy(r.pc).toFixed(1)}" r="5.5" fill="${r.d.small ? "var(--surface)" : r.pc > cost.target ? "var(--warn)" : "var(--accent)"}" fill-opacity="${r.d.small ? 1 : .8}" stroke="${r.d.small ? "var(--teal)" : "var(--surface)"}" stroke-width="${r.d.small ? 2 : 1}" ${tipAttr(tipFor(r))}></circle>`).join("");
-  const yTicks = d3.range(0, yMax + 1, 10);
-  const scatter = `<svg viewBox="0 0 ${W} ${H}" style="width:100%;height:auto;display:block" role="img" aria-label="Estimated food cost against menu price">
-    ${yTicks.map(t => `<line x1="${L}" x2="${W - Rm}" y1="${sy(t)}" y2="${sy(t)}" stroke="var(--line)"></line><text x="${L - 6}" y="${sy(t) + 4}" text-anchor="end" font-size="11" style="fill:var(--muted);font-family:var(--mono)">${t}%</text>`).join("")}
-    ${[0, 10, 20, 30, 40].map(t => `<text x="${sx(t)}" y="${H - 10}" text-anchor="middle" font-size="11" style="fill:var(--muted);font-family:var(--mono)">$${t}</text>`).join("")}
-    <line x1="${L}" x2="${W - Rm}" y1="${sy(cost.target)}" y2="${sy(cost.target)}" stroke="var(--warn)" stroke-width="1.5" stroke-dasharray="5 4"></line>
-    <text x="${W - Rm}" y="${sy(cost.target) - 6}" text-anchor="end" font-size="11" font-weight="600" style="fill:var(--warn)">target ${cost.target}%</text>
-    ${dots}</svg>`;
-
-  // by menu line
-  const byRest = LINES.filter(r => state.lines.has(r)).map(r => { const rs = c.filter(x => x.d.line === r);
-    return { r, rs, pc: avgPc(rs), gp: rs.length ? d3.mean(rs, x => x.gp) : null, over: rs.filter(x => x.pc > cost.target).length }; });
-  const pcMax = d3.max(byRest, x => x.pc || 0) || 1;
-
-  const sorted = rows.slice().sort(cost.sort === "pc" ? (a, b) => b.pc - a.pc : cost.sort === "gp" ? (a, b) => b.gp - a.gp : (a, b) => a.gp - b.gp);
-  const tot = d3.sum(rows, r => r.total) || 1;
-  out.innerHTML = `
-    <div class="ops-tiles">
-      <div class="stat" tabindex="0" ${tipAttr(`<b>Average est. food cost</b>` + ttRows([["Meals", avgPc(c) == null ? "—" : avgPc(c).toFixed(1) + "%"], ["Add-ons", avgPc(z) == null ? "—" : avgPc(z).toFixed(1) + "%"]]) + '<div class="tt-hint">Fast-casual kitchens usually run 28–32% food cost</div>')}><b class="num">${avgPc(c) == null ? "—" : avgPc(c).toFixed(1) + "%"}</b><span>est. avg food cost, meals</span></div>
-      <div class="stat" tabindex="0" ${tipAttr(`<b>Est. gross profit per item</b>` + ttRows([["Meals (median)", c.length ? m2(d3.median(c, r => r.gp)) : "—"], ["Add-ons (median)", z.length ? m2(d3.median(z, r => r.gp)) : "—"]]))}><b class="num">${c.length ? m2(d3.median(c, r => r.gp)) : "—"}</b><span>est. gross profit, median meal</span></div>
-      <div class="stat" tabindex="0" ${tipAttr(`<b>Over the ${cost.target}% target</b>` + ttList(over.sort((a, b) => b.pc - a.pc).map(r => `${esc(r.d.item)} <span class="tt-k">${r.pc.toFixed(0)}% · ${esc(r.d.line)}</span>`), 10))}><b class="num ${over.length ? "pc-hi" : ""}">${over.length}</b><span>meals over the ${cost.target}% target</span></div>
-      <div class="stat" tabindex="0" ${tipAttr(`<b>Add-ons vs meals</b>` + ttRows([["Add-on profit (median)", z.length ? m2(d3.median(z, r => r.gp)) : "—"], ["Meal profit (median)", c.length ? m2(d3.median(c, r => r.gp)) : "—"]]) + '<div class="tt-hint">Lower prices mean less profit per item, even with cheaper components</div>')}><b class="num">${z.length && c.length ? pct(d3.median(z, r => r.gp), d3.median(c, r => r.gp)) : "—"}</b><span>add-on profit as a share of a meal's</span></div>
-    </div>
-    <div class="ops-two">
-      <div style="min-width:0">
-        <div class="sub" style="margin-top:0">Est. food cost against menu price · every item</div>
-        ${scatter}
-        <div class="swatch-legend"><span><i class="dot" style="background:var(--accent)"></i>Meal</span><span><i class="dot" style="background:var(--warn)"></i>Over target</span><span><i class="ring" style="border-color:var(--teal)"></i>Add-on</span><span>Hover or tap a dot for the cost build-up</span></div>
-      </div>
-      <div style="min-width:0">
-        <div class="sub" style="margin-top:0">Est. food cost by menu line</div>
-        <div class="bars">${byRest.map(x => `<div class="bar" tabindex="0" ${tipAttr(`<b>${esc(x.r)}</b>` + ttRows([["Avg food cost", x.pc == null ? "—" : x.pc.toFixed(1) + "%"], ["Avg gross profit", x.gp == null ? "—" : m2(x.gp)], ["Over target", `${x.over} of ${x.rs.length}`]]))}>
-          <span class="name">${esc(x.r)}</span><span class="track"><span class="fill" style="display:block;width:${(x.pc || 0) / pcMax * 100}%;background:${(x.pc || 0) > cost.target ? "var(--warn)" : "var(--accent)"}"></span></span><span class="val">${x.pc == null ? "—" : x.pc.toFixed(1) + "%"}</span></div>`).join("")}</div>
-        <div class="sub">Where the money goes · share of est. component cost</div>
-        <div class="mix-stack">${FAMS.map(([f, l]) => { const v = d3.sum(rows, r => (r.parts.find(p => p[0] === f) || [0, 0])[1]); return v ? `<i style="width:${v / tot * 100}%;background:var(--f-${f})" ${tipAttr(`<b>${esc(l)}</b>` + ttRows([["Share of est. cost", pct(v, tot)], ["Est. total, one of each item", m2(v)]]))}></i>` : ""; }).join("")}<i style="width:${cost.extra * rows.length / tot * 100}%;background:var(--line)" ${tipAttr(`<b>Packaging &amp; waste</b>` + ttRows([["Share of est. cost", pct(cost.extra * rows.length, tot)]]))}></i></div>
-      </div>
-    </div>
-    <div style="display:grid;gap:8px;min-width:0">
-      <div class="view-tools"><div class="sub" style="margin:0">Item by item</div>
-        <div class="controls">${[["pc", "Highest food cost"], ["lo", "Lowest profit"], ["gp", "Highest profit"]].map(([k, l]) => `<button class="chip" data-cs="${k}" aria-pressed="${cost.sort === k}">${l}</button>`).join("")}</div></div>
-      <div class="tbl-wrap" style="max-height:300px"><table class="ops">
-        <thead><tr><th>Item</th><th>Menu line</th><th class="n">Price</th><th class="n">Est. cost</th><th class="n">Food cost</th><th class="n">Gross profit</th><th class="n">Price for ${cost.target}%</th><th>Cost mix</th></tr></thead>
-        <tbody>${sorted.map(r => `<tr ${tipAttr(tipFor(r))}>
-          <td>${esc(r.d.item)}${!r.d.small && r.d.veg ? '<span class="zp">vegetarian</span>' : ""}</td><td style="color:var(--muted)">${esc(r.d.line)}</td>
-          <td class="n">${money(r.d.price)}</td><td class="n">${m2(r.total)}</td>
-          <td class="n ${r.pc > cost.target && !r.d.small ? "pc-hi" : ""}">${r.pc.toFixed(1)}%</td><td class="n">${m2(r.gp)}</td><td class="n">${m2(r.atTarget)}</td>
-          <td><span class="cbar">${r.parts.map(([f, v]) => `<i style="width:${v / r.total * 100}%;background:var(--f-${f})"></i>`).join("")}<i style="width:${cost.extra / r.total * 100}%;background:var(--line)"></i></span></td></tr>`).join("")}</tbody></table></div>
-    </div>
-    ${salesSection(rows)}
-    <div style="display:grid;gap:10px">
-      <div class="sub" style="margin:0">What real data would unlock</div>
-      <div class="unlock">
-        <div><b>True plate cost per item</b><span>Exact cost and margin for all ${ITEMS.length} items, not a guess by component type.</span><span class="need">Needs: portion weights per component and invoice prices</span></div>
-        <div><b>The recipe-cost table</b><span>One sheet makes most of this real: component or SKU, case size, case cost, and grams or scoops per portion. It usually already exists as the culinary team's recipe-costing spreadsheet or an export from Restaurant365, MarginEdge or Crunchtime. Missing yields fall back to standard portions, labeled as such.</span><span class="need">Needs: a one-time CSV, refreshed when prices change</span></div>
-        <div><b>Menu engineering, for real</b><span>The simulated matrix above, filled with actual sales: what to promote, reprice or cut.</span><span class="need">Needs: sales counts per item from the POS</span></div>
-        <div><b>Build-your-own mix</b><span>How often each station component is actually picked, and which combinations guests build for themselves that the curated menu doesn't offer.</span><span class="need">Needs: item-level POS data with modifiers</span></div>
-        <div><b>Meal + add-on attach</b><span>Which sides, drinks and desserts each meal is ordered with, so the app and the line can suggest add-ons people already choose.</span><span class="need">Needs: item-level POS orders</span></div>
-        <div><b>Spend per order</b><span>Whether orders with a given item spend more overall, and which items lead to a dessert or a drink.</span><span class="need">Needs: order totals and item-level sales</span></div>
-        <div><b>Repricing and up-charge checks</b><span>The price each item needs to hit the target, and whether the ${STATION.filter(s => s.upcharge > 0 && ["Mains", "Toppings"].includes(s.station)).length} up-charged components cover their cost at current volume.</span><span class="need">Needs: real costs and sales counts</span></div>
-        <div><b>Waste cost</b><span>What the ${fresh1} fresh, single-use components from Prep &amp; inventory cost in spoilage each week, and the ${stationUnused().length} station components no curated item moves.</span><span class="need">Needs: par levels and waste logs</span></div>
-        <div><b>Cross-utilization</b><span>${shared3} components already work on 2+ menu lines. Real volumes would show which new items could ride on stock the line already carries.</span><span class="need">Needs: sales counts and prep pars</span></div>
-        <div><b>Price and cost trends</b><span>Track menu prices, up-charges and component costs month to month, by location, and flag items whose margin is slipping.</span><span class="need">Needs: monthly menu snapshots and invoices</span></div>
-      </div>
-    </div>`;
-  out.querySelectorAll("[data-cs]").forEach(b => b.onclick = () => { cost.sort = b.dataset.cs; renderCostResults(current()); });
-  document.getElementById("sim-shuffle").onclick = () => { sim.seed = (sim.seed * 7919 + 13) % 100003; renderCostResults(current()); };
-  out.querySelectorAll("[data-sim-ld]").forEach(b => b.onclick = () => { sim.leader = b.dataset.simLd; renderCostResults(current()); });
-}
-
+function renderCosts() { if (window.ctInit) window.ctInit(); } // the tool renders itself; sidebar filters don't apply to it
 
 /* ---------- compare groups ---------- */
 const grp = { focus: null, mix: "fam" };
@@ -2070,7 +1884,7 @@ const VIEWS = {
   gaps: { sec: "ops", tab: "gaps", title: "Menu gaps", sub: "Pairings the other menu lines use that one doesn't, station components no curated item uses, and how each line's mix compares." },
   h2h: { sec: "h2h", title: "Head to head", sub: "Pick any two menu lines, or two brands, and compare them side by side: price, calories, what they're built from, and what only one of them uses. Ignores the sidebar filters." },
   groups: { sec: "groups", title: "Compare brands", sub: "How CAVA, Sweetgreen and Chipotle differ: price, add-ons, what they build from, signature components, and the pairings the others use that one doesn't. Uses every brand regardless of the filters." },
-  costs: { sec: "costs", title: "Cost & sales (what if)", sub: "A preview of what real cost and sales data would unlock. Costs are adjustable assumptions and sales are a random simulated sample, not CAVA's real numbers." },
+  costs: { sec: "costs", title: "Cost & sales", sub: "Recipe costs, sales mix, menu engineering and what-if scenarios, by the component. Opens on a synthetic sample dataset; load your own recipe-cost and POS files and everything runs in this browser tab, with nothing uploaded. Ignores the sidebar filters." },
   about: { sec: "about", title: "About the data", sub: "Where the numbers come from and how components were grouped." }
 };
 let view = "overview";
@@ -2222,7 +2036,7 @@ function renderOverview(ds, S) {
 /* overview drawer: opens the inspector over the dashboard, with its own back stack */
 const drawer = { stack: [], opener: null };
 const dEl = id => document.getElementById(id);
-function drawerLabel(t) { return t.type === "fam" ? FAM_NAME[t.a] : t.type === "pair" ? `${t.a} + ${t.b}` : t.a; }
+function drawerLabel(t) { return t.type === "ct" ? t.title : t.type === "fam" ? FAM_NAME[t.a] : t.type === "pair" ? `${t.a} + ${t.b}` : t.a; }
 function openDrawer(t, push = true) {
   if (dEl("drawer").hidden) { drawer.stack = []; drawer.opener = document.activeElement; }
   if (push) drawer.stack.push(t);
@@ -2236,7 +2050,8 @@ function renderDrawer() {
   const ds = current(), S = stats(ds), body = dEl("drawer-body");
   hideTip();
   dEl("drawer-back").hidden = drawer.stack.length < 2;
-  dEl("drawer-title").textContent = drawer.stack.length > 1 ? drawerLabel(drawer.stack[drawer.stack.length - 2]) + " ›" : "Details";
+  dEl("drawer-title").textContent = drawer.stack.length > 1 ? drawerLabel(drawer.stack[drawer.stack.length - 2]) + " ›" : t.type === "ct" ? t.title : "Details";
+  if (t.type === "ct") { body.innerHTML = t.html; return; }
   renderInspect(body, ds, S, t, nt => { if (nt.type === "lookup" || nt.type === "famPair") { closeDrawer(); navCommon(nt); } else { drawer.stack.push(nt); renderDrawer(); body.scrollTop = 0; } },
     { foot: `<div class="crumbs" style="margin-top:6px"><button class="linkbtn" id="drawer-map">Open in pairing map →</button>${t.type !== "fam" ? `<button class="linkbtn" id="drawer-look">Open in lookup →</button>` : ""}</div>` });
   dEl("drawer-map").onclick = () => { closeDrawer();
@@ -2283,7 +2098,7 @@ const TOUR = [
   { view: "prep", target: "#ops-prep .ops-tiles", title: "Prep & inventory", text: "What the line has to stock, the <b>fresh components only one curated item uses</b>, and the station components no curated item shows off. Built from the menu alone." },
   { view: "groups", target: ".gtiles", title: "Compare brands", text: "CAVA, Sweetgreen and Chipotle side by side: price, add-ons, what they build from, each brand's signature components, and the pairings the others use that one doesn't." },
   { view: "h2h", target: ".h2h-pick", title: "Head to head", text: "Compare any two menu lines or two brands: prices, calories, what they're built from, and the components and pairings only one of them uses." },
-  { view: "costs", target: "#cost-assume", title: "Cost & sales: a what-if", text: "There's no cost or sales data, so this tab runs on <b>adjustable assumptions and a random sample</b>, clearly labeled. It shows what plugging into the POS would make real." },
+  { view: "costs", target: "#ct-banner", title: "Cost & sales: your data, in this tab", text: "Opens on a <b>synthetic sample</b> so every view works out of the box. Load your own recipe-cost and POS files from the Data tab: they stay in this browser tab, and the Reconcile tab checks theoretical food cost against your books." },
   { view: "overview", title: "That's the tour", text: "Sources and caveats are under <b>About the data</b>. You can replay this from <b>Take a tour</b> at the bottom of the sidebar." }
 ];
 const tour = { i: -1 };
@@ -2339,4 +2154,5 @@ document.addEventListener("keydown", e => {
 const mq = matchMedia("(prefers-color-scheme: dark)"); mq.addEventListener && mq.addEventListener("change", render);
 new MutationObserver(render).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
 </script>
+<script>__COSTTOOL__</script>
 

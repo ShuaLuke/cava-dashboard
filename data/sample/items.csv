@@ -1,0 +1,60 @@
+item_id,item_name,line,price,byo,active,store_id,menu_calories
+BYO-BOWL,Build-your-own bowl,Bowls,11.75,1,1,,
+BYO-PITA,Build-your-own pita,Pitas,11.75,1,1,,
+greek-goddess-steak-salad,Greek Goddess Steak Salad,Bowls,15.45,0,1,,470
+greek-goddess-salmon,Greek Goddess Salmon,Bowls,16,0,1,,700
+pomegranate-glazed-salmon,Pomegranate Glazed Salmon,Bowls,18.85,0,1,,1040
+salmon-yogurt-dill,Salmon + Yogurt Dill,Bowls,16,0,1,,710
+chicken-rice,Chicken + Rice,Bowls,11.75,0,1,,700
+harissa-avocado,Harissa Avocado,Bowls,16.25,0,1,,830
+steak-harissa,Steak + Harissa,Bowls,15.45,0,1,,620
+greek-salad,Greek Salad,Bowls,11.75,0,1,,580
+falafel-crunch,Falafel Crunch,Bowls,11.75,0,1,,860
+spicy-lamb-avocado,Spicy Lamb + Avocado,Bowls,17.05,0,1,,800
+steak-feta,Steak + Feta,Pitas,15.45,0,1,,820
+greek-chicken,Greek Chicken,Pitas,11.75,0,1,,720
+spicy-chicken-avocado,Spicy Chicken + Avocado,Pitas,16.25,0,1,,930
+harissa-bbq-pita-chips,Harissa BBQ Pita Chips,Sides,2.75,0,1,,280
+classic-pita-chips,Classic Pita Chips,Sides,2.75,0,1,,280
+side-pita,Side Pita,Sides,2.45,0,1,,320
+side-crazy-feta,Side Crazy Feta®,Sides,4.15,0,1,,210
+side-hummus,Side Hummus,Sides,3.45,0,1,,140
+side-harissa,Side Harissa,Sides,3.45,0,1,,220
+side-tzatziki,Side Tzatziki,Sides,3.45,0,1,,100
+side-red-pepper-hummus,Side Red Pepper Hummus,Sides,3.45,0,1,,110
+side-roasted-eggplant,Side Roasted Eggplant,Sides,3.65,0,1,,150
+pomegranate-apple,Pomegranate Apple,Drinks,3.75,0,1,,250
+blueberry-lavender,Blueberry Lavender,Drinks,3.75,0,1,,190
+cucumber-mint-lime,Cucumber Mint Lime,Drinks,3.75,0,1,,240
+classic-lemonade,Classic Lemonade,Drinks,3.75,0,1,,360
+jasmine-green-tea,Jasmine Green Tea,Drinks,3.75,0,1,,0
+unsweet-tea,Unsweet Tea,Drinks,3.75,0,1,,0
+fountain-soda,Fountain Soda,Drinks,3.75,0,1,,270
+spindrift-lemon,Spindrift Lemon,Drinks,2.95,0,1,,3
+spindrift-half-tea-and-half-lemon,Spindrift Half Tea & Half Lemon,Drinks,2.95,0,1,,5
+open-water-still,Open Water Still,Drinks,2.95,0,1,,0
+open-water-sparkling,Open Water Sparkling,Drinks,2.95,0,1,,0
+kids-apple-juice,Kids Apple Juice,Drinks,2.55,0,1,,35
+kids-milk,Kids Milk,Drinks,2.55,0,1,,110
+kids-chocolate-milk,Kids Chocolate Milk,Drinks,2.55,0,1,,150
+salted-chocolate-oat-cookie,Salted Chocolate Oat Cookie,Desserts,3.35,0,1,,240
+greyston-blondie,Greyston Blondie,Desserts,2.75,0,1,,140
+greyston-brownie,Greyston Brownie,Desserts,2.75,0,1,,150
+apricot-honey-cookie,Apricot Honey Cookie,Desserts,3.35,0,1,,220
+harissa-lamb-pita,Harissa Lamb Pita (regional),Pitas,16.45,0,1,,890
+greek-goddess-steak-salad,,,15.15,,,MD-014,
+greek-goddess-salmon,,,15.7,,,MD-014,
+pomegranate-glazed-salmon,,,18.55,,,MD-014,
+salmon-yogurt-dill,,,15.7,,,MD-014,
+chicken-rice,,,11.45,,,MD-014,
+harissa-avocado,,,15.95,,,MD-014,
+steak-harissa,,,15.15,,,MD-014,
+greek-salad,,,11.45,,,MD-014,
+falafel-crunch,,,11.45,,,MD-014,
+spicy-lamb-avocado,,,16.75,,,MD-014,
+steak-feta,,,15.15,,,MD-014,
+greek-chicken,,,11.45,,,MD-014,
+spicy-chicken-avocado,,,15.95,,,MD-014,
+harissa-lamb-pita,,,16.15,,,MD-014,
+BYO-BOWL,,,11.45,,,MD-014,
+BYO-PITA,,,11.45,,,MD-014,

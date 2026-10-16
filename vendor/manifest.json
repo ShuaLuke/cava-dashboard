@@ -1,0 +1,35 @@
+{
+ "files": {
+  "d3.v7.8.5.min.js": {
+   "url": "https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js",
+   "sha256": "d6b03aefc9f6c44c7bc78713679c78c295028fa914319119e5cc4b4954855b1c",
+   "bytes": 279633
+  },
+  "fonts/Geist-400_700.woff2": {
+   "url": "https://fonts.gstatic.com/s/geist/v5/gyByhwUxId8gMEwcGFWNOITd.woff2",
+   "sha256": "9b6f5ff45b278c744b5f379a2c4ecbaf858a842b8eaf82ac8d21b699ca16c608",
+   "bytes": 29288
+  },
+  "fonts/GeistMono-400_600.woff2": {
+   "url": "https://fonts.gstatic.com/s/geistmono/v6/or3nQ6H-1_WfwkMZI_qYFrcdmhHkjko.woff2",
+   "sha256": "5f3d6ad60f29d6cb708414ec6887163d63bf197377ef5417d2483ff31ace6c3b",
+   "bytes": 23108
+  }
+ },
+ "d3_sri": "sha384-su5kReKyYlIFrI62mbQRKXHzFobMa7BHp1cK6julLPbnYcCW9NIZKJiTODjLPeDh",
+ "fonts": [
+  {
+   "family": "Geist",
+   "weight": "400 700",
+   "file": "fonts/Geist-400_700.woff2",
+   "unicode_range": "U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD"
+  },
+  {
+   "family": "Geist Mono",
+   "weight": "400 600",
+   "file": "fonts/GeistMono-400_600.woff2",
+   "unicode_range": "U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD"
+  }
+ ],
+ "fonts_css_url": "https://fonts.googleapis.com/css2?family=Geist:wght@400..700&family=Geist+Mono:wght@400..600&display=swap"
+}

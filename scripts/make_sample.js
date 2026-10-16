@@ -1,0 +1,33 @@
+// Write the blank input templates, the data dictionary and the synthetic sample files from the definitions in src/.
+// Usage: node scripts/make_sample.js
+// data/templates/*.csv   one header row + one example row per file type (from CostModel.TEMPLATES)
+// docs/data-dictionary.md the same definitions as a document
+// data/sample/*.csv      the full synthetic dataset the tool opens on (sales.csv and modifiers.csv are large and not committed;
+//                        one store-week excerpts of each are), plus sample-manifest.json with sizes
+const fs = require("fs"), path = require("path");
+const root = path.join(__dirname, "..");
+const CM = require(path.join(root, "src", "costmodel.js")), SD = require(path.join(root, "src", "sample.js"));
+const items = require(path.join(root, "data", "items.json")), station = require(path.join(root, "data", "station.json"));
+const T = CM.TEMPLATES;
+fs.mkdirSync(path.join(root, "data", "templates"), { recursive: true }); fs.mkdirSync(path.join(root, "data", "sample"), { recursive: true });
+for (const t of CM.TYPES) fs.writeFileSync(path.join(root, "data", "templates", T[t].file), CM.templateCSV(t));
+// data dictionary
+let md = `# Data dictionary\n\nThe input files the Cost & sales tool reads, with exact column names, types and units. Blank templates with one example row are in \`data/templates/\`; filled examples are in \`data/sample/\` and downloadable from the tool's Data tab.\n\nGeneral rules:\n\n- CSV, TSV or Excel (.xlsx). In a workbook, name each sheet after the file type (components, items, …) and every sheet loads at once.\n- Column order does not matter. Headers are matched by name, case-insensitively, ignoring spaces and punctuation; the alternative names listed below are recognised automatically, and anything else can be mapped by hand on load.\n- Dates: YYYY-MM-DD preferred; M/D/YYYY, YYYYMMDD, D-Mon-YY and Excel date cells are accepted. Months: YYYY-MM.\n- Money in dollars without symbols (12.50). Percentages as numbers (80 means 80%).\n- Codes (store_id, item_id, component_id) must match exactly across files. They are case-sensitive.\n- Several files of the same type can be loaded together (one sales file per month, for example); their rows are concatenated.\n- Rows the tool cannot use are never dropped silently: every problem is listed on the Data tab with the file, row and reason.\n\n`;
+for (const t of CM.TYPES) {
+  md += `## ${T[t].label} · \`${T[t].file}\`\n\n${T[t].need === "required" ? "**Required.**" : T[t].need === "optional" ? "Optional." : "Needed " + T[t].need + "."} ${T[t].desc}\n\n| Column | Required | Type | Meaning | Example | Also recognised as |\n|---|---|---|---|---|---|\n`;
+  for (const c of T[t].cols) md += `| \`${c.k}\` | ${c.req ? "yes" : ""} | ${c.type}${c.unit ? " (" + c.unit + ")" : ""} | ${c.desc.replace(/\|/g, "\\|")} | ${c.ex ? "`" + c.ex + "`" : ""} | ${c.aliases.join(", ")} |\n`;
+  md += "\n";
+}
+md += `## Units\n\nWeight: g, kg, oz, lb. Volume: ml, l, fl oz, cup, pt, qt, gal. Count: each, ct, piece, serving, portion, scoop, bag, bottle, can, dozen. A case and its portion must use the same kind of unit; a weight case with a volume portion is reported as a unit mismatch.\n\n## Channels and dayparts\n\nChannel values are normalised to in_store, app, web, delivery, catering or other (so "Mobile App", "DoorDash" and "Counter" all work). Dayparts, when not given, come from the time column: before 11:00 breakfast, 11:00–14:59 lunch, 15:00–16:59 afternoon, 17:00 and later dinner.\n\n## Minimum sets\n\n- Costs only: components, items, recipes.\n- Sales, menu engineering, scenarios with volumes: add sales (and modifiers for build-your-own).\n- Reconciliation test: add actuals.\n- Everything: add stores, packaging, waste and inventory.\n`;
+fs.writeFileSync(path.join(root, "docs", "data-dictionary.md"), md);
+// sample files
+const { files, meta } = SD.makeSample({ items, station });
+const sizes = {};
+for (const t of CM.TYPES) { const rows = files[t] || []; const csv = CM.toCSV(rows, T[t].cols.map(c => c.k)); fs.writeFileSync(path.join(root, "data", "sample", T[t].file), csv); sizes[T[t].file] = { rows: rows.length, bytes: csv.length }; }
+// one store-week excerpts of the two big files
+const week = new Set(); for (const r of files.sales) { if (r.store_id === "DC-001" && r.date <= "2026-07-07") week.add(r.order_id); }
+const sx = files.sales.filter(r => week.has(r.order_id)), mx = files.modifiers.filter(r => week.has(r.order_id));
+fs.writeFileSync(path.join(root, "data", "sample", "sales-excerpt-DC-001-week1.csv"), CM.toCSV(sx, T.sales.cols.map(c => c.k)));
+fs.writeFileSync(path.join(root, "data", "sample", "modifiers-excerpt-DC-001-week1.csv"), CM.toCSV(mx, T.modifiers.cols.map(c => c.k)));
+fs.writeFileSync(path.join(root, "data", "sample", "sample-manifest.json"), JSON.stringify({ generated_by: "scripts/make_sample.js (src/sample.js, seed " + meta.seed + ")", note: "Synthetic data. sales.csv and modifiers.csv are regenerated by this script and not committed; the excerpts cover DC-001, 2026-07-01 to 07-07.", meta, files: sizes, excerpts: { "sales-excerpt-DC-001-week1.csv": sx.length, "modifiers-excerpt-DC-001-week1.csv": mx.length } }, null, 1));
+console.log("templates:", CM.TYPES.length, "sample files:", sizes, "excerpt rows:", sx.length, mx.length);

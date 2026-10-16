@@ -1,84 +1,47 @@
 # One decision, end to end
 
-A live question answered on the sample data, step by step, the way it would be answered on an operator's own data. The sample is synthetic (see `docs/sample-data.md`), so the numbers illustrate the method, not CAVA.
+A live question answered on the sample data in the Cost & sales tool, the way it would be answered on an operator's own data. The sample is synthetic (see `docs/sample-data.md`), so the numbers illustrate the method, not any real chain. Time to answer: about three minutes, no documentation needed.
 
 ## The question
 
-Salmon's case cost went up 12% on September 1. The $4.25 up-charge was set before that. **Does the up-charge still cover salmon, and what should we do: raise it, reprice the salmon bowls, or trim the portion?**
+Salmon's case cost went up 12% on September 1. The $4.25 up-charge was set before that. **Should we raise the salmon up-charge?**
 
-## Step 1 · See what the cost change did (Costs → Cost history)
+## Home → the flag
 
-The September snapshot lists the four components that changed and every item they moved:
+Home opens on what needs attention in the latest month. The second card reads: *Up-charges covering their cost · Glazed Salmon earns $0.79 on a $4.25 up-charge.* Hovering the $0.79 shows the formula (up-charge − incremental cost), the values (portion cost $4.33, included main it replaces $0.88) and the source file. Click **Test a new up-charge →**.
 
-| Component | Before | After | Change |
-|---|---|---|---|
-| Glazed Salmon | $3.86 | $4.33 | +12.2% |
-| Avocado | $0.65 | $0.59 | −8.1% |
-| Harissa Honey Chicken | $0.95 | $0.98 | +3.8% |
-| Grilled Chicken | $0.90 | $0.93 | +4.0% |
+## Price change simulation
 
-| Item | Cost before | After | Food cost % | Driven by |
-|---|---|---|---|---|
-| Greek Goddess Salmon | $5.95 | $6.43 | 37.2% → 40.2% | Glazed Salmon |
-| Salmon + Yogurt Dill | $5.77 | $6.24 | 36.0% → 39.0% | Glazed Salmon |
-| Pomegranate Glazed Salmon | $5.85 | $6.27 | 31.1% → 33.3% | Glazed Salmon |
+The flow opens on step 2 with Glazed Salmon already selected, base period September, costs as of September 30.
 
-Three curated bowls are now well over a 30% target, and the two $16 ones were over it before.
+**Step 2 · Set the new price.** Type 4.75 (or click +$0.50). The row updates:
 
-## Step 2 · Check the up-charge (Costs → Up-charges, scope: September)
+| | Before | After |
+|---|---|---|
+| Margin per add | $0.79 | $1.29 |
+| Picks kept | 1,305 | 1,182 (−9%) |
+| Margin on this up-charge, September | $1,035 | $1,529 |
 
-| | |
-|---|---|
-| Up-charge | $4.25 |
-| Salmon portion cost | $4.33 |
-| Average included main it replaces | $0.88 |
-| Incremental cost | $3.46 |
-| **Margin per add** | **$0.79** |
-| Break-even portion cost | $5.13 |
-| Picks in September (3 stores) | 1,305 (101 per store-week) |
-| Margin in scope | $1,035 |
+The reading says: *Raising Glazed Salmon to $4.75 lifts margin per add to $1.29 and, with 9% fewer picks assumed, margin on the up-charge rises +$494 in Sep 2026.* The 9% rests on the demand assumption shown in the amber bar at the top (elasticity −0.8: a 10% price rise loses 8% of volume); drag it to 0 to see the no-volume-loss case (+$653), or to −1.5 for a pessimistic one. Picks and margin figures are marked amber because they depend on it; margin per add is not, because it is arithmetic on the data.
 
-The up-charge still covers salmon, but barely: a further 18% cost rise would take the margin to zero.
+Across the menu in September: net sales +$69, food cost 27.1% → 26.9%, gross profit +$494.
 
-## Step 3 · Compare the options (Scenarios, scope: September, elasticity −0.8)
+**Step 3 · Check the ladder.** The reading warns: *3 curated items now sit below build-your-own: Greek Goddess Salmon ($16.00 vs $16.50 to build it), Pomegranate Glazed Salmon ($18.85 vs $19.35), Salmon + Yogurt Dill ($16.00 vs $16.50).* Raising the up-charge alone makes the curated salmon bowls the cheaper way to get salmon. Click **Reprice them to the ladder**: the three bowls get +$0.50 and the reading turns green. With the demand assumption applied to those bowls too, the combined change comes to +$424 gross profit on −$190 sales.
 
-Each option is one entry in the scenario editor; the results panel shows the change against the September base of $261,335 sales, $182,360 gross profit and 27.08% theoretical food cost.
+**Step 4 · Compare & export.** Name it "Salmon +0.50 with ladder" and save. Click *Start another*, pick Glazed Salmon again, try $5.25 (+$864 on a 19% pick loss), save it. The comparison table shows Base and both options: sales, gross profit, food cost %, units, items below the ladder, salmon margin per add and salmon picks. *Open the summary* gives a one-page write-up with the assumption stated, to print or save as a PDF; the CSV button exports the comparison.
 
-| Option | How entered | Food cost % | Δ sales | Δ gross profit | Salmon margin per add | Salmon picks |
-|---|---|---|---|---|---|---|
-| A · Raise the up-charge to $4.75 | Up-charge changes: Glazed Salmon → 4.75 | 26.91% | +$69 | **+$494** | $1.29 | 1,182 (−9%) |
-| A' · Same, no demand loss (elasticity 0) | as above, elasticity 0 | 27.01% | +$653 | +$653 | $1.29 | 1,305 |
-| B · Raise the up-charge to $5.25 | Up-charge changes: → 5.25 | 26.75% | +$15 | +$864 | $1.79 | 1,059 (−19%) |
-| C · Reprice the three salmon bowls +$0.50 | Repricing: 16.00 → 16.50 ×2, 18.85 → 19.35 | 27.04% | −$260 | −$69 | $0.79 | 1,305 |
-| D · Trim the portion to 3.5 oz | Cost change: Glazed Salmon −12.5% | 26.57% | $0 | **+$1,324** | $1.33 | 1,305 |
+## The answer
 
-Reading it:
+Raise it to $4.75 and move the three curated salmon bowls with it. $5.25 earns more only if a 19% drop in salmon picks is believable; at −0.8 elasticity the $4.75 option is the safer gain. A fourth option sits outside pricing: Menu change → Portion change → Greek Goddess Salmon → salmon 0.875 portions (3.5 oz) saves more than any up-charge change with no guest-facing price move, if culinary accepts the portion.
 
-- **C fails.** The curated salmon bowls are Plowhorses (popular, thin margin) and the price elasticity eats the gain; it also leaves the up-charge, where most salmon is sold, untouched. Build-your-own salmon picks (1,305) outnumber the three curated bowls (1,140 units) in September.
-- **A is safe.** Even with a 9% drop in picks, September gross profit improves. One side effect: the Price ladder table now shows the three curated salmon bowls $0.50 **below** build-your-own (base + $4.75 = $16.50 against a $16.00 price), so A on its own makes the curated bowls the cheaper way to get salmon. A together with C (reprice the bowls +$0.50) keeps the ladder straight and still gains +$424 in gross profit on −$190 sales.
-- **B earns more** but on a 19% pick loss, which is a bigger bet on the elasticity assumption than A.
-- **D earns the most** with no guest-facing change, if culinary agrees a 3.5 oz portion is acceptable. It is a portion decision, not a pricing one, so it needs the nutrition check (Costs → Nutrition check) and a plate test.
+## What would make this real
 
-Save each as a named scenario, tick them, and the comparison table puts A, B and D side by side for the meeting; "⤓ Comparison CSV" exports it.
+1. Actual salmon pick elasticity from a past up-charge change, replacing the −0.8 assumption.
+2. The waste log and inventory counts for salmon (Explore → Operations → Theoretical vs actual): an over-portioned 4 oz is a cost problem no up-charge fixes.
+3. The reconciliation test passing for the month (Home shows the latest verdict), so the base numbers are trusted.
 
-## Step 4 · What would make this real
+## A second example · from a build guests already order
 
-On real data the same four steps run unchanged. Three things would sharpen the answer:
+Home's last card: *Best new-item candidate · 60/store-week.* Click **New item ideas →**. The top candidate is the build guests make most that no curated item matches: super greens, saffron rice, hummus, tzatziki, grilled chicken, pickled onions, tomato + onion, cucumber, feta, Greek vinaigrette and the free quarter pita, ordered 2,348 times in the quarter (59.6 per store-week), 26.9% food cost at the $11.90 guests already pay, every component already at volume, and only 62% alike to Chicken + Rice. The "why" lists each of those reasons; hovering any figure shows its formula.
 
-1. Actual salmon pick elasticity from a past up-charge change (replace the −0.8 assumption).
-2. The waste log and inventory counts for salmon (Operations → Theoretical vs actual), since an over-portioned 4 oz is a cost problem that no up-charge fixes.
-3. The reconciliation test passing for the month, so the base numbers are trusted.
-
-## A second example · a six-week limited-time offer
-
-Scenarios → New item or limited-time offer: "Steak Harissa Crunch" (grilled steak, harissa, half Crazy Feta, saffron rice, fire-roasted corn, pickled onions, pita crisps, hot harissa vinaigrette) at $15.95, 80 units per store-week, 70% pulled from existing bowls, 6 weeks.
-
-| | |
-|---|---|
-| Food cost | $4.10 (25.7% at $15.95; $13.66 would hit 30%) |
-| Cross-utilization | 8 of 8 components already at volume; no new prep |
-| Projected units (3 stores × 6 weeks) | 1,440 |
-| Sales / gross profit from the item | $22,968 / $17,068 |
-| Net effect after cannibalization | +$8,261 sales, +$6,264 gross profit over the quarter; food cost 26.79% → 26.74% |
-
-Operations → Prep load then shows the item next to the existing bowls (8 components, 5 stations, 17 prep steps, nothing exclusive), and Sales → Build-your-own → Combinations not on the menu shows whether guests already build something like it: the second most common off-menu build (steak, Crazy Feta, avocado, corn, pickled onions, feta, skhug on power greens and brown rice; 1,336 orders, 34 per store-week, $18.60 average paid, 28.5% food cost) is a stronger candidate than this one, because the demand is already there.
+**Evaluate as a new item →** opens Menu change at step 3 with the recipe, a $11.90 price and 60 units per store-week filled in: $3.22 food cost, 27.1%. Step 4 shows the ripple with the assumptions flagged (60 units per store-week, 70% pulled from other bowls): gross profit +$2,782 over the quarter, 11 components on 7 stations, nothing new to prep, 12 items change. Save it, compare it with a limited-time offer version (6 weeks), export.

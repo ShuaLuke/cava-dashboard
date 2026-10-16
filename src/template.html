@@ -479,6 +479,60 @@ table.ct .hint { font-family: var(--body); }
 .cbar { display: flex; height: 8px; border-radius: 999px; overflow: hidden; background: var(--raise); min-width: 80px; }
 .cbar i { display: block; height: 100%; }
 .pc-hi { color: var(--warn); font-weight: 600; }
+/* jobs, steps, readings, explanations, print */
+.ct-jobs { display: flex; flex-wrap: wrap; gap: 4px; border-bottom: 1px solid var(--line); padding-bottom: 2px; }
+.ct-job { font: inherit; font-size: 13.5px; font-weight: 500; color: var(--muted); background: none; border: 0; border-bottom: 2px solid transparent; padding: 8px 12px 9px; cursor: pointer; margin-bottom: -3px; }
+.ct-job:hover { color: var(--ink); }
+.ct-job.on { color: var(--accent-deep); border-bottom-color: var(--accent); font-weight: 600; }
+.ct-job:nth-child(6) { margin-left: auto; }
+.job-head h2 { font-size: 19px; }
+.job-head .hint { max-width: 72ch; margin-top: 2px; }
+.flag-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 10px; }
+.flag-card { border: 1px solid var(--line); border-left: 4px solid var(--line); border-radius: 12px; padding: 12px 14px; display: grid; gap: 4px; align-content: start; background: var(--surface); }
+.flag-card.warn { border-left-color: var(--warn); } .flag-card.bad { border-left-color: #b4232c; } .flag-card.ok { border-left-color: var(--teal); } .flag-card.idea { border-left-color: var(--f-sweet); } .flag-card.quiet { border-left-color: var(--line); }
+.fc-head { font-size: 12.5px; font-weight: 600; color: var(--muted); }
+.fc-big { font-size: 24px; font-weight: 650; letter-spacing: -0.02em; line-height: 1.15; }
+.fc-text { font-size: 12.5px; color: var(--muted); }
+.flag-card .card-link { justify-self: start; margin-top: 2px; }
+.job-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 10px; }
+.job-card { font: inherit; text-align: left; border: 1px solid var(--line); border-radius: 12px; padding: 11px 13px; background: var(--surface); cursor: pointer; display: grid; gap: 3px; align-content: start; }
+.job-card:hover, .job-card.on { border-color: rgba(212, 138, 0, 0.5); background: var(--accent-soft); }
+.job-card b { font-weight: 600; font-size: 14px; } .job-card span { font-size: 12.5px; color: var(--muted); }
+.steps { display: flex; flex-wrap: wrap; gap: 4px; list-style: none; margin: 0; padding: 0; counter-reset: s; }
+.steps li button { font: inherit; font-size: 12.5px; color: var(--muted); background: var(--raise); border: 0; border-radius: 999px; padding: 5px 12px 5px 6px; display: inline-flex; align-items: center; gap: 7px; cursor: pointer; }
+.steps li button span { width: 20px; height: 20px; border-radius: 50%; background: var(--surface); display: grid; place-items: center; font-family: var(--mono); font-size: 11px; }
+.steps li.cur button { background: var(--accent-soft); color: var(--accent-deep); font-weight: 600; } .steps li.cur button span { background: var(--accent); color: #fff; }
+.steps li.done button span { background: var(--teal-soft); color: var(--teal); }
+.step-nav { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-top: 10px; }
+.step-nav .tour-next { margin-left: auto; padding: 7px 16px; }
+.reading { font-size: 14px; line-height: 1.5; border-left: 3px solid var(--line); padding: 6px 12px; background: var(--raise); border-radius: 0 10px 10px 0; max-width: 90ch; margin: 2px 0; }
+.reading.ok { border-left-color: var(--teal); } .reading.warn { border-left-color: var(--warn); } .reading.bad { border-left-color: #b4232c; }
+.x { border-bottom: 1px dotted var(--muted); cursor: help; }
+.x.x-asm { border-bottom: 1px dashed var(--warn); color: var(--warn); }
+.x-f { font-family: var(--mono); font-size: 11px; color: var(--muted); margin: 3px 0 4px; white-space: normal; }
+.x-note { margin-top: 5px; font-size: 11.5px; color: #ffd9a8; font-weight: 500; }
+.asm-badge { font-size: 10.5px; font-weight: 600; letter-spacing: .03em; text-transform: uppercase; color: var(--warn); background: var(--warn-soft); border-radius: 999px; padding: 1px 7px; cursor: help; vertical-align: 1px; }
+.looks { display: grid; gap: 6px; }
+.look { display: flex; justify-content: space-between; align-items: center; gap: 12px; border: 1px solid var(--line); border-radius: 10px; padding: 8px 12px; font-size: 13px; }
+.look .card-link { white-space: nowrap; }
+.pc-row { border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; display: grid; gap: 8px; margin-top: 8px; }
+.pc-what { display: flex; align-items: center; gap: 8px; font-size: 13.5px; } .pc-what .linkbtn { margin-left: auto; }
+.pc-asm { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px; font-size: 13px; background: var(--warn-soft); border-radius: 10px; padding: 8px 12px; }
+.pc-asm output { font-family: var(--mono); font-size: 12px; }
+.ideas { display: grid; gap: 8px; }
+.idea { border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; display: grid; gap: 8px; }
+.idea-head { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: start; }
+.idea-rank { width: 26px; height: 26px; border-radius: 50%; background: var(--accent-soft); color: var(--accent-deep); display: grid; place-items: center; font-weight: 650; font-size: 13px; flex: none; }
+.idea-title { flex: 1 1 240px; min-width: 0; } .idea-title b { font-size: 14.5px; } .idea-build { font-size: 12.5px; color: var(--muted); }
+.idea-nums { display: grid; grid-template-columns: repeat(4, minmax(90px, 1fr)); gap: 6px; flex: 1 1 380px; }
+.idea-nums .stat { padding: 7px 9px; box-shadow: none; background: var(--raise); border-color: transparent; } .idea-nums .stat b { font-size: 17px; }
+.idea-why { display: none; } .idea.open .idea-why, .idea:hover .idea-why, .idea:focus-within .idea-why { display: block; }
+#ct-print { display: none; }
+.sum h1 { font-size: 20px; margin-bottom: 2px; } .sum h3 { font-size: 14px; margin: 12px 0 4px; } .sum-meta, .sum-foot { font-size: 11.5px; color: var(--muted); } .sum-lead { font-size: 14px; }
+.sum-t { border-collapse: collapse; width: 100%; font-size: 12.5px; margin: 4px 0 6px; } .sum-t th, .sum-t td { text-align: left; padding: 4px 8px; border-bottom: 1px solid var(--line); } .sum-t td:not(:first-child), .sum-t th:not(:first-child) { text-align: right; font-variant-numeric: tabular-nums; }
+.sum ul { margin: 0; padding-left: 18px; font-size: 13px; }
+.sum-tools { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+@media print { .app, .tour, .drawer, .drawer-scrim, .tip { display: none !important; } #ct-print { display: block; padding: 0; color: #000; } body { background: #fff; } .sum-t th, .sum-t td { border-bottom: 1px solid #ccc; } }
 table.heat { border-collapse: separate; border-spacing: 3px; width: 100%; font-size: 12.5px; min-width: 420px; }
 table.heat th { font-weight: 500; color: var(--muted); font-size: 11.5px; text-align: left; white-space: nowrap; padding: 2px 4px; }
 table.heat thead th { text-align: center; }
@@ -2098,7 +2152,7 @@ const TOUR = [
   { view: "prep", target: "#ops-prep .ops-tiles", title: "Prep & inventory", text: "What the line has to stock, the <b>fresh components only one curated item uses</b>, and the station components no curated item shows off. Built from the menu alone." },
   { view: "groups", target: ".gtiles", title: "Compare brands", text: "CAVA, Sweetgreen and Chipotle side by side: price, add-ons, what they build from, each brand's signature components, and the pairings the others use that one doesn't." },
   { view: "h2h", target: ".h2h-pick", title: "Head to head", text: "Compare any two menu lines or two brands: prices, calories, what they're built from, and the components and pairings only one of them uses." },
-  { view: "costs", target: "#ct-banner", title: "Cost & sales: your data, in this tab", text: "Opens on a <b>synthetic sample</b> so every view works out of the box. Load your own recipe-cost and POS files from the Data tab: they stay in this browser tab, and the Reconcile tab checks theoretical food cost against your books." },
+  { view: "costs", target: "#ct-banner", title: "Cost & sales: your data, in this tab", text: "Opens on a <b>synthetic sample</b> so every job works out of the box: Home flags what needs attention, and the guided flows answer a pricing or menu question in minutes. Load your own recipe-cost and POS files from the Data tab; they stay in this browser tab." },
   { view: "overview", title: "That's the tour", text: "Sources and caveats are under <b>About the data</b>. You can replay this from <b>Take a tour</b> at the bottom of the sidebar." }
 ];
 const tour = { i: -1 };

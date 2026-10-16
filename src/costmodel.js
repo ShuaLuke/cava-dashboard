@@ -476,10 +476,10 @@
   //         elasticity: -0.8, retention: 0.8 }
   function normScenario(scn) {
     if (!scn) return null;
-    const s = Object.assign({ costPct: {}, costAbs: {}, prices: {}, upcharges: {}, remove: [], swaps: [], newItems: [], unavailable: [], elasticity: -0.8, retention: 0.8 }, scn);
+    const s = Object.assign({ costPct: {}, costAbs: {}, prices: {}, upcharges: {}, remove: [], swaps: [], newItems: [], unavailable: [], recipes: {}, elasticity: -0.8, retention: 0.8 }, scn);
     s.swapMap = new Map(s.swaps.filter(x => x.from && x.to && x.from !== x.to).map(x => [x.from, x.to]));
     s.removeSet = new Set(s.remove);
-    s.empty = !Object.keys(s.costPct).some(k => s.costPct[k]) && !Object.keys(s.costAbs).length && !Object.keys(s.prices).length && !Object.keys(s.upcharges).length && !s.remove.length && !s.swapMap.size && !s.newItems.length && !s.unavailable.length;
+    s.empty = !Object.keys(s.costPct).some(k => s.costPct[k]) && !Object.keys(s.costAbs).length && !Object.keys(s.prices).length && !Object.keys(s.upcharges).length && !s.remove.length && !s.swapMap.size && !s.newItems.length && !s.unavailable.length && !Object.keys(s.recipes).length;
     return s;
   }
 
@@ -491,8 +491,10 @@
     const inScope = L => (!scope.stores || scope.stores.has(L.store)) && (!scope.months || scope.months.has(L.month)) && (!scope.channel || scope.channel === "all" || L.ch === scope.channel);
     const lines = M.sales.filter(inScope);
     const storesIn = scope.stores ? [...scope.stores] : [...M.stores.keys()];
-    const R = { scope: { stores: storesIn, months: scope.months ? [...scope.months] : M.months, channel: scope.channel || "all", target }, hasSales: lines.length > 0, scenario: scn && !scn.empty ? scn.name || "Scenario" : null, warnings: [] };
-    const refDate = lines.length ? lines[lines.length - 1].date : (M.costDates[M.costDates.length - 1] || "9999-12-31");
+    const R = { scope: { stores: storesIn, months: scope.months ? [...scope.months] : M.months, channel: scope.channel || "all", target, costAsOf: scope.costAsOf || null }, hasSales: lines.length > 0, scenario: scn && !scn.empty ? scn.name || "Scenario" : null, warnings: [] };
+    const cDate = L => scope.costAsOf || L.date; // costAsOf: cost every line as of one date (used to split cost changes from mix changes)
+    const recipeOf = it => scn && scn.recipes && scn.recipes[it.id] ? scn.recipes[it.id] : it.recipe;
+    const refDate = scope.costAsOf || (lines.length ? lines[lines.length - 1].date : (M.costDates[M.costDates.length - 1] || "9999-12-31"));
     const refStore = storesIn[0] || "";
     R.refDate = refDate; R.refStore = refStore;
     const nStores = Math.max(1, storesIn.filter(s => lines.some(L => L.store === s)).length || storesIn.length);
@@ -504,9 +506,9 @@
     for (const it of M.items.values()) {
       if (!it.active) continue;
       const price = scn && scn.prices[it.id] != null ? scn.prices[it.id] : M.itemPrice(it.id, refStore);
-      const c = it.byo ? { food: 0, parts: [] } : costOf(M, it.recipe, refStore, refDate, scn);
+      const c = it.byo ? { food: 0, parts: [] } : costOf(M, recipeOf(it), refStore, refDate, scn);
       const pkgIn = M.pkg(it.line, "in_store"), pkgDig = M.pkg(it.line, "app");
-      R.items.set(it.id, { id: it.id, name: it.name, line: it.line, addon: it.addon, byo: it.byo, price, basePrice: M.itemPrice(it.id, refStore), food: c.food, parts: c.parts, pkgIn, pkgDig,
+      R.items.set(it.id, { id: it.id, name: it.name, line: it.line, addon: it.addon, byo: it.byo, price, basePrice: M.itemPrice(it.id, refStore), food: c.food, parts: c.parts, pkgIn, pkgDig, recipeChanged: !!(scn && scn.recipes && scn.recipes[it.id]),
         fc: price ? c.food / price * 100 : null, cm: price != null ? price - c.food : null, priceFor: priceFor(c.food, target), removed: !!(scn && scn.removeSet.has(it.id)),
         units: 0, rev: 0, cogs: 0, pkg: 0, orders: 0, stores: new Set(), months: new Map() });
     }
@@ -559,8 +561,8 @@
       let unitFood, parts;
       let unitRev = price || 0;
       if (it.byo || (L.mods && L.mods.length)) {
-        const base = it.byo ? { food: 0, parts: [] } : costOf(M, it.recipe, L.store, L.date, scn);
-        const mc = L.mods && L.mods.length ? costOf(M, modsToParts(L.mods), L.store, L.date, scn) : { food: 0, parts: [] };
+        const base = it.byo ? { food: 0, parts: [] } : costOf(M, recipeOf(it), L.store, cDate(L), scn);
+        const mc = L.mods && L.mods.length ? costOf(M, modsToParts(L.mods), L.store, cDate(L), scn) : { food: 0, parts: [] };
         unitFood = base.food + mc.food; parts = base.parts.concat(mc.parts);
         if (it.byo && !(L.mods && L.mods.length)) { uncostedRev.byoNoMods += unitRev * w; }
         if (L.net == null && !(scn && scn.prices[L.iid] != null)) unitRev = (M.itemPrice(L.iid, L.store) || 0) + sum(mc.parts, p => upchargeOf(M, p.cid, null) * p.portions);
@@ -576,7 +578,7 @@
           for (const [s, q] of st) { let a = byoByStation.get(s); if (!a) { a = { qty: 0, orders: 0 }; byoByStation.set(s, a); } a.qty += q * w; a.orders += w; }
         }
         for (const p of mc.parts) { let a = picks.get(p.cid); if (!a) { a = { picks: 0, qty: 0, rev: 0, byo: 0 }; picks.set(p.cid, a); } const wp = w * (pfOf.get(p.cid) || 1); a.picks += wp; a.qty += p.portions * wp; a.rev += upchargeOf(M, p.cid, scn) * p.portions * wp; if (it.byo) a.byo += wp; }
-      } else { unitFood = RI.food; parts = RI.parts; if (L.net == null && !(scn && scn.prices[L.iid] != null)) unitRev = M.itemPrice(L.iid, L.store) || 0; if (refStore !== L.store || RI.parts.length && L.date.slice(0, 7) !== refDate.slice(0, 7)) { const c = costOf(M, it.recipe, L.store, L.date, scn); unitFood = c.food; parts = c.parts; } }
+      } else { unitFood = RI.food; parts = RI.parts; if (L.net == null && !(scn && scn.prices[L.iid] != null)) unitRev = M.itemPrice(L.iid, L.store) || 0; if (refStore !== L.store || RI.parts.length && cDate(L).slice(0, 7) !== refDate.slice(0, 7)) { const c = costOf(M, recipeOf(it), L.store, cDate(L), scn); unitFood = c.food; parts = c.parts; } }
       const pkg = M.pkg(it.line, L.ch);
       const rev = unitRev * w, cogs = unitFood * w, pk = pkg * w;
       uncostedRev.total += rev;
@@ -701,6 +703,31 @@
     return R;
   }
 
+  /* ---------- 10b. Month-to-month decomposition ---------- */
+  // Why did food cost % move from month A to month B? Cost effect = A's sales re-costed at B's costs; the rest is mix and price.
+  // Per item: contribution to the change in points = (its cost ÷ all sales)_B − (its cost ÷ all sales)_A, which sums exactly to the total change.
+  function decompose(M, stores, monthA, monthB, target) {
+    const sc = m => ({ stores, months: new Set([m]), channel: "all", target });
+    const RA = analyze(M, sc(monthA)), RB = analyze(M, sc(monthB));
+    if (!RA.hasSales || !RB.hasSales) return { ok: false, RA, RB };
+    const asOf = RB.refDate; const RA2 = analyze(M, Object.assign(sc(monthA), { costAsOf: asOf }));
+    const fcA = RA.totals.fc, fcB = RB.totals.fc, fcA2 = RA2.totals.fc;
+    const items = [...RB.items.values()].map(b => { const a = RA.items.get(b.id); const sa = RA.totals.rev ? (a ? a.cogs : 0) / RA.totals.rev * 100 : 0, sb = RB.totals.rev ? b.cogs / RB.totals.rev * 100 : 0; return { id: b.id, name: b.name, line: b.line, pts: sb - sa, unitsA: a ? a.units : 0, unitsB: b.units, fcA: a && a.rev ? a.cogs / a.rev * 100 : null, fcB: b.rev ? b.cogs / b.rev * 100 : null, shareA: RA.totals.rev && a ? a.rev / RA.totals.rev : 0, shareB: RB.totals.rev ? b.rev / RB.totals.rev : 0 }; }).filter(x => Math.abs(x.pts) > 0.005).sort((x, y) => Math.abs(y.pts) - Math.abs(x.pts));
+    const lastA = RA.refDate; const comps = [...M.comps.values()].map(c => ({ cid: c.id, name: c.name, station: c.station, before: compCostRaw(M, c.id, "", lastA), after: compCostRaw(M, c.id, "", asOf), usage: RB.compUsage.get(c.id) || 0 })).filter(c => Math.abs(c.after - c.before) > 1e-9).map(c => Object.assign(c, { pct: c.before ? (c.after - c.before) / c.before * 100 : null, dollars: (c.after - c.before) * c.usage, pts: RB.totals.rev ? (c.after - c.before) * c.usage / RB.totals.rev * 100 : 0 })).sort((x, y) => Math.abs(y.pts) - Math.abs(x.pts));
+    const mix = (R) => { const meals = R.totals.meals || 1; const prem = R.byo.picks.filter(p => p.fam === "main" && p.upcharge > 0).reduce((a, p) => a + p.byoPicks, 0); return { byoShare: R.byo.orders / meals, premiumShare: R.byo.orders ? prem / R.byo.orders : null, addonShare: R.totals.units ? (R.totals.units - R.totals.meals) / R.totals.units : null, avgPaid: R.totals.units ? R.totals.rev / R.totals.units : null, aov: R.totals.aov }; };
+    return { ok: true, monthA, monthB, fcA, fcB, fcA2, total: fcB - fcA, costEffect: fcA2 - fcA, mixEffect: fcB - fcA2, items, components: comps, mixA: mix(RA), mixB: mix(RB), RA, RB, byStore: RB.byStore.map(s => { const a = RA.byStore.find(x => x.store === s.store); return { store: s.store, name: s.name, fcA: a ? a.fc : null, fcB: s.fc, delta: a && a.fc != null && s.fc != null ? s.fc - a.fc : null, rev: s.rev, gp: s.gp }; }) };
+  }
+  /* ---------- 10c. New-item candidates ---------- */
+  // Rank builds guests already order that no curated item offers: demand (orders per store-week) × contribution per order × share of components at volume.
+  function suggest(M, R, target) {
+    const t = target || R.scope.target || 30;
+    const list = R.byo.offMenu.map(b => { const recipe = b.comps.map(c => ({ cid: c.cid, portions: c.qty })); const cu = R.crossUtil(recipe); const cm = b.avgPrice - b.unitCost; const gpPerStoreWeek = cm * b.perStoreWeek; const line = b.line; const base = M.byoByLine.get(line) ? M.itemPrice(M.byoByLine.get(line), R.refStore) : null;
+      const price = Math.round(b.avgPrice * 20) / 20; const fcAtPrice = price ? b.unitCost / price * 100 : null;
+      const why = [`Ordered ${Math.round(b.n).toLocaleString()} times in scope (${b.perStoreWeek.toFixed(1)} per store-week)`, `${cu.atVolume} of ${cu.components} components already run at volume${cu.newLoad.length ? "; new prep: " + cu.newLoad.join(", ") : ""}`, `${(b.fc).toFixed(1)}% food cost at the $${b.avgPrice.toFixed(2)} guests already pay (${b.fc <= t ? "under" : "over"} the ${t}% target; $${(b.priceFor || 0).toFixed(2)} would hit it exactly)`, b.nearest ? `Closest menu item is ${b.nearest.name}, only ${Math.round(b.sim * 100)}% alike` : "Nothing like it on the menu"];
+      return { key: b.key, label: b.label, line, recipe, n: b.n, perStoreWeek: b.perStoreWeek, avgPrice: b.avgPrice, suggestedPrice: price, unitCost: b.unitCost, fc: b.fc, fcAtPrice, priceFor: b.priceFor, cm, gpPerStoreWeek, crossUtil: cu.score, newLoad: cu.newLoad, nearest: b.nearest, sim: b.sim, mains: b.mains, score: gpPerStoreWeek * (cu.score == null ? 1 : 0.5 + 0.5 * cu.score) * (b.fc <= t ? 1 : t / b.fc), why, base }; });
+    return list.sort((a, b) => b.score - a.score);
+  }
+
   const RECON = { coverage: 0.97, salesTol: 0.02, pass: [0, 3], review: [-1, 5] };
   function reconcile(M, scope, scn) {
     if (!M.actuals.length || !M.sales.length) return { rows: [], note: !M.actuals.length ? "No actuals file loaded." : "No sales loaded." };
@@ -778,6 +805,9 @@
     { name: "Packaging by channel", run: () => { const M = build(tiny()); return [M.pkg("Bowls", "in_store"), M.pkg("Bowls", "delivery")]; }, expect: [0.3, 0.55] },
     { name: "Reconciliation verdict bands", run: () => { const M = build(tiny()); const R = analyze(M, {}); return R.reconcile.rows.map(r => r.verdict); }, expect: ["Pass"], note: "theoretical 17.5% vs books 19.0% → gap 1.5 pts" },
     { name: "Price ladder gap", run: () => { const M = build(tiny()); const R = analyze(M, {}); return r2(R.ladder[0].gap); }, expect: 0, note: "bowl at $10 with no up-charged components sits on the $10 base" },
+    { name: "Cost as of a later date re-costs old sales", run: () => { const M = build(tiny()); const R = analyze(M, { costAsOf: "2026-09-10" }); return r2(R.items.get("bowl").food); }, expect: r2(1.02 + 0.15 + 0.40), note: "July bowl costed at the September chicken price" },
+    { name: "Portion change: half the chicken", run: () => { const M = build(tiny()); const R = analyze(M, {}, { recipes: { bowl: [{ cid: "chicken", portions: 0.5 }, { cid: "hummus", portions: 0.5 }, { cid: "feta", portions: 2 }] } }); return r2(R.items.get("bowl").food); }, expect: r2(0.425 + 0.15 + 0.40) },
+    { name: "Decomposition sums to the total change", run: () => { const M = build(tiny()); const d = decompose(M, null, "2026-07", "2026-07", 30); return d.ok ? r2(d.costEffect + d.mixEffect - d.total) : null; }, expect: 0 },
   ];
   function tiny() {
     const mk = (type, rows) => applyMap(type, rows.map(r => Object.fromEntries(Object.entries(r).map(([k, v]) => [k, String(v)]))), Object.fromEntries(TEMPLATES[type].cols.map(c => [c.k, c.k]))).rows;
@@ -801,5 +831,5 @@
   }
   function selfTest() { return SELFTEST.map(t => { let got, ok = false, err = null; try { got = t.run(); const close = (a, b) => a == null || b == null ? a === b : Math.abs(a - b) < 1e-6; ok = Array.isArray(t.expect) ? Array.isArray(got) && t.expect.length === got.length && t.expect.every((e, i) => typeof e === "number" ? close(got[i], e) : got[i] === e) : close(got, t.expect); } catch (e) { err = e; } return { name: t.name, ok, got, expect: t.expect, note: t.note, err }; }); }
 
-  return { __tiny: tiny, TEMPLATES, TYPES, CORE, CHANNELS, RECON, SELFTEST, parseCSV, toCSV, templateCSV, detectType, autoMap, applyMap, validate, portionCost, build, costOf, analyze, normScenario, selfTest, priceFor, slug, norm, toISODate, toMonth, toTime, unitOf, STATION_FAM, ADDON_LINE, sum, by };
+  return { __tiny: tiny, TEMPLATES, TYPES, CORE, CHANNELS, RECON, SELFTEST, parseCSV, toCSV, templateCSV, detectType, autoMap, applyMap, validate, portionCost, build, costOf, analyze, decompose, suggest, normScenario, selfTest, priceFor, slug, norm, toISODate, toMonth, toTime, unitOf, STATION_FAM, ADDON_LINE, sum, by };
 });

@@ -135,6 +135,31 @@ A scenario re-runs the whole engine with changes applied; every table is recompu
 
 **Price ladder**: for each curated meal on a line that has a build-your-own item, `formula = build-your-own base price + Σ up-charges of its up-charged components`; gap = price − formula. Items with the same formula and different prices are flagged as overlaps.
 
+## 11b. Month-to-month decomposition (Monthly review, step 2)
+
+Why food cost % moved from month A to month B, in two parts that add up exactly:
+
+```
+cost effect  = FC(A's sales costed at B's component costs) − FC(A)
+mix & price  = FC(B) − FC(A's sales costed at B's component costs)
+```
+
+"Costed at B's costs" re-runs the engine with every line costed as of B's last day (`scope.costAsOf`). Per item, its contribution to the change in points is `(item food cost ÷ total sales)_B − (item food cost ÷ total sales)_A`; these sum to the total change. Per component, the table lists the cost before and after, the dollar impact at B's usage and the points of food cost that represents. Mix indicators shown alongside: build-your-own share of meals, share of builds with a premium main, add-on share of units, average paid per unit, average order.
+
+## 11c. New-item candidates (Suggest new menu items)
+
+From the "combinations not on the menu" list (section 8):
+
+```
+score = contribution per order × orders per store-week × (0.5 + 0.5 × share of components at volume) × min(1, target ÷ food cost %)
+```
+
+where contribution per order = average paid − build cost, and the suggested price is the average paid rounded to 5¢. The "why" for each candidate states the orders, the components already at volume (and any new prep), the food cost at the paid price against the target, and the closest curated item with its similarity. "Evaluate as a new item" carries the recipe, price and observed volume into the menu-change flow.
+
+## 11d. Portion changes
+
+A scenario may replace an item's recipe (`scn.recipes[item] = [{component, portions}]`). Every sales line of that item is re-costed with the new portions; nothing else changes. The nutrition check recomputes with the new portions when per-portion calories are loaded.
+
 ## 12. Reconciliation test
 
 Per store-month with an `actuals` row (channel filter ignored):
@@ -168,6 +193,7 @@ Why a positive gap is the expected result: the books carry waste, over-portionin
 - A portion is the same size everywhere unless the recipe or modifier says otherwise; the tool does not know about scoop-size drift between stores (the theoretical vs actual table is where that shows).
 - Demand responses (elasticity, retention, cannibalization) are user-set assumptions applied linearly. They are for comparing options, not forecasting.
 - Up-charge economics assume a premium main replaces an included one; if guests add a second main, the modifier row's quantity carries that.
-- Scope filters apply to sales; cost versions apply by date regardless of scope. Costed-at date for the Costs tab is the last sales day in scope (or the latest cost date without sales).
+- Scope filters apply to sales; cost versions apply by date regardless of scope. Costed-at date for the Costs view is the last sales day in scope (or the latest cost date without sales). The Price change flow defaults its base period to the latest month; Menu change uses all loaded months.
+- Every figure in the guided flows can be hovered for its formula, the values plugged in and the source file; figures that depend on a user-set assumption (elasticity, retention, share pulled from the line, forecast units) are shown in amber and say so.
 - Orders without `order_id` are treated as single-line orders, which disables attach rates, order lift and cannibalization.
 - No labor, occupancy or discounts beyond what `net_price` already reflects.

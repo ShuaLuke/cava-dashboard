@@ -11,7 +11,7 @@
   const nf = v => v == null || Number.isNaN(v) ? "—" : Math.round(v).toLocaleString();
   const n1 = v => v == null || Number.isNaN(v) ? "—" : (Math.round(v * 10) / 10).toLocaleString();
   const sgn = (v, f) => v == null ? "—" : (v > 0 ? "+" : v < 0 ? "−" : "") + f(Math.abs(v)).replace(/^[−-]/, "");
-  const pts = v => v == null ? "—" : (v > 0 ? "+" : v < 0 ? "−" : "") + Math.abs(v).toFixed(1) + " pts";
+  const pts = v => v == null ? "—" : Math.abs(v) < 0.05 ? "0.0 pts" : (v > 0 ? "+" : "−") + Math.abs(v).toFixed(1) + " pts";
   const monthName = m => { const [y, mo] = m.split("-"); return ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"][+mo - 1] + " " + y; };
   const CH_LABEL = { in_store: "In store", app: "App", web: "Web", delivery: "Delivery", catering: "Catering", other: "Other" };
   const cap = s => s ? s[0].toUpperCase() + s.slice(1) : s;
@@ -19,8 +19,9 @@
   const VERDICT = { Pass: "ok", Review: "warn", Fail: "bad", "Not assessable": "quiet", "No sales": "quiet" };
 
   const blankScn = () => ({ name: "", costPct: {}, costAbs: {}, prices: {}, upcharges: {}, remove: [], swaps: [], newItems: [], unavailable: [], elasticity: -0.8, retention: 0.8 });
-  const CT = { tab: "data", src: "sample", sample: null, own: null, files: [], scope: { stores: null, months: null, channel: "all", target: 30 }, scn: blankScn(), saved: [], compare: new Set(), persist: false, cache: new Map(), exports: new Map(), ready: false, busy: false,
-    ui: { itemSort: "fc", itemQ: "", buildQ: "", newItem: { name: "", line: "Bowls", price: 14.25, recipe: [], units: 60, cannibal: 70, weeks: "" }, byoCalc: [], crossItem: "", salesSort: "units", opsStore: null, costTab: "items" } };
+  const CT = { tab: "costs", src: "sample", sample: null, own: null, files: [], scope: { stores: null, months: null, channel: "all", target: 30 }, scn: blankScn(), saved: [], compare: new Set(), persist: false, cache: new Map(), exports: new Map(), ready: false, busy: false,
+    ui: { itemSort: "fc", itemQ: "", buildQ: "", newItem: { name: "", line: "Bowls", price: 14.25, recipe: [], units: 60, cannibal: 70, weeks: "" }, byoCalc: [], crossItem: "", salesSort: "units", opsStore: null, costTab: "items" },
+    job: "home", flow: { review: { month: null, stores: null, step: 1 }, price: { step: 1, ups: {}, prices: {}, elasticity: -0.8, base: "last", q: "", name: "", options: [] }, menu: { step: 1, type: null, def: null, name: "", options: [] }, ideas: { open: null } } };
   try { CT.persist = localStorage.getItem("cv-ct-persist") === "1"; } catch (e) {}
 
   /* ---------- storage (opt-in) ---------- */
@@ -42,7 +43,7 @@
     if (files && files.length) { CT.files = files.map(f => { const p = CM.parseCSV(f.text); return { name: f.name, type: f.type, headers: p.headers, rows: p.rows, map: f.map || CM.autoMap(f.type, p.headers), text: f.text }; }); useOwnData(true); }
   }
   async function clearAll() {
-    CT.files = []; CT.own = null; CT.src = "sample"; CT.saved = []; CT.compare.clear(); CT.scn = blankScn(); CT.cache.clear(); CT.scope = { stores: null, months: null, channel: "all", target: 30 };
+    CT.files = []; CT.own = null; CT.src = "sample"; CT.saved = []; CT.compare.clear(); CT.scn = blankScn(); CT.cache.clear(); CT.scope = { stores: null, months: null, channel: "all", target: 30 }; resetFlows();
     await idb.clear(); try { localStorage.removeItem("cv-ct-saved"); } catch (e) {}
     render();
   }
@@ -66,6 +67,16 @@
     CT.cache.set(key, R); return R;
   }
   const liveScn = () => { const s = CM.normScenario(CT.scn); return s && !s.empty ? CT.scn : null; };
+  // results for any scope (months/stores arrays), independent of the Explore scope bar
+  function resultsFor(sc, scn) {
+    const M = data().M; const months = sc.months ? sc.months.filter(m => M.months.includes(m)) : null; const stores = sc.stores ? [...sc.stores].filter(x => M.stores.has(x)) : null;
+    const key = "F|" + CT.src + "|" + JSON.stringify({ months, stores, ch: sc.channel || "all", t: CT.scope.target, asOf: sc.costAsOf || null }) + "|" + (scn ? JSON.stringify(scn) : "");
+    let R = CT.cache.get(key); if (R) return R;
+    R = CM.analyze(M, { stores: stores && stores.length ? new Set(stores) : null, months: months && months.length ? new Set(months) : null, channel: sc.channel || "all", target: CT.scope.target, costAsOf: sc.costAsOf }, scn || null);
+    if (CT.cache.size > 24) CT.cache.delete(CT.cache.keys().next().value);
+    CT.cache.set(key, R); return R;
+  }
+  function decomposeFor(stores, a, b) { const key = "D|" + CT.src + "|" + JSON.stringify({ stores: stores ? [...stores] : null, a, b, t: CT.scope.target }); let d = CT.cache.get(key); if (d) return d; d = CM.decompose(data().M, stores && stores.size ? stores : null, a, b, CT.scope.target); CT.cache.set(key, d); return d; }
 
   /* ---------- files ---------- */
   async function onFiles(list) {
@@ -83,7 +94,7 @@
         }
       } catch (e) { CT.files.push({ name: f.name, type: null, headers: [], rows: [], error: e.message || String(e), map: {} }); }
     }
-    CT.busy = false; CT.tab = "data"; render();
+    CT.busy = false; CT.job = "data"; render();
   }
   function addFile(f) { f.map = f.type ? CM.autoMap(f.type, f.headers) : {}; const i = CT.files.findIndex(x => x.name === f.name); if (i >= 0) CT.files[i] = f; else CT.files.push(f); }
   const fileReady = f => f.type && !f.error && CM.TEMPLATES[f.type].cols.filter(c => c.req).every(c => f.map[c.k]);
@@ -93,7 +104,7 @@
     const validation = CM.validate(ds); validation.bad = bad;
     if (bad.length) validation.warnings.unshift({ file: "files", msg: `${bad.length} row(s) could not be parsed and were left out (first: ${bad[0].file} row ${bad[0].row}: ${bad[0].problem}).`, rows: bad.length });
     CT.own = { ds, validation, M: validation.ok ? CM.build(ds) : null, loadedAt: new Date() };
-    if (validation.ok) { const M = CT.own.M; CT.own.label = `Your data · ${M.stores.size} store${M.stores.size === 1 ? "" : "s"}${M.months.length ? " · " + monthName(M.months[0]) + (M.months.length > 1 ? " to " + monthName(M.months[M.months.length - 1]) : "") : ""} · ${nf(M.orders.size)} orders`; CT.src = "own"; CT.cache.clear(); CT.scope = { stores: null, months: null, channel: "all", target: CT.scope.target }; if (!quiet) CT.tab = "costs"; persistNow(); }
+    if (validation.ok) { const M = CT.own.M; CT.own.label = `Your data · ${M.stores.size} store${M.stores.size === 1 ? "" : "s"}${M.months.length ? " · " + monthName(M.months[0]) + (M.months.length > 1 ? " to " + monthName(M.months[M.months.length - 1]) : "") : ""} · ${nf(M.orders.size)} orders`; CT.src = "own"; CT.cache.clear(); CT.scope = { stores: null, months: null, channel: "all", target: CT.scope.target }; resetFlows(); if (!quiet) CT.job = "home"; persistNow(); }
     else CT.src = "sample";
     if (!quiet) render();
   }
@@ -125,7 +136,9 @@
   const partsTip = (x, M) => `<b>${esc(x.name)}</b> <span class="tt-k">${esc(x.line)}</span>` + ttRows(x.parts.map(p => [`<i class="dot" style="background:var(--f-${p.fam === "packaging" || p.fam === "other" ? "sweet" : p.fam});margin-right:5px"></i>${esc(p.name)}${p.portions !== 1 ? ` <span class="tt-k">×${p.portions}</span>` : ""}`, $(p.cost)])) + ttRows([["<b>Food cost</b>", `<b>${$(x.food)}</b>`], ["Packaging dine-in / digital", `${$(x.pkgIn)} / ${$(x.pkgDig)}`], ["Price", $(x.price)], ["Food cost %", pf(x.fc)], ["Contribution", $(x.cm)]]);
   const srcTag = () => CT.src === "own" ? '<div class="tt-hint">Your data</div>' : '<div class="tt-hint">Sample data (synthetic)</div>';
 
-  /* ---------- shell ---------- */
+  /* ---------- shell: jobs first, Explore keeps every view ---------- */
+  const JOBS = [["home", "Home"], ["review", "Monthly review"], ["menu", "Menu change"], ["price", "Price change"], ["ideas", "New item ideas"], ["explore", "Explore"], ["data", "Data"]];
+  function resetFlows() { CT.flow = { review: { month: null, stores: null, step: 1 }, price: { step: 1, ups: {}, prices: {}, elasticity: -0.8, base: "last", q: "", name: "", options: [] }, menu: { step: 1, type: null, def: null, name: "", options: [] }, ideas: { open: null } }; }
   function render() {
     const box = dEl("cost-out"); if (!box) return;
     if (!CT.ready) { box.innerHTML = `<p class="hint">Preparing the sample dataset…</p>`; return; }
@@ -137,15 +150,13 @@
         <b>${CT.src === "own" ? "YOUR DATA" : "SAMPLE DATA"}</b>
         <span>${esc(D.label)}${CT.src === "sample" ? ". Every number is synthetic." : ""}${window.__offline ? " · Offline build: no external requests." : ""}</span>
         <span class="ct-banner-tools">
-          ${CT.src === "own" ? `<button class="linkbtn" data-act="src:sample">Switch to sample</button>` : own ? `<button class="linkbtn" data-act="src:own">Switch to my data</button>` : `<button class="linkbtn" data-act="tab:data">Load my data</button>`}
+          ${CT.src === "own" ? `<button class="linkbtn" data-act="src:sample">Switch to sample</button>` : own ? `<button class="linkbtn" data-act="src:own">Switch to my data</button>` : `<button class="linkbtn" data-act="job:data">Load my data</button>`}
           ${CT.files.length || own ? `<button class="linkbtn" data-act="clear">Clear all data</button>` : ""}
         </span>
       </div>
-      <div class="ct-bar">
-        <div class="controls seg" role="tablist" aria-label="Cost & sales tool">${[["data", "Data"], ["costs", "Costs"], ["sales", "Sales & mix"], ["scenarios", "Scenarios"], ["ops", "Operations"], ["recon", "Reconcile"]].map(([k, l]) => `<button class="chip" role="tab" data-act="tab:${k}" aria-pressed="${CT.tab === k}">${l}</button>`).join("")}</div>
-        ${CT.tab !== "data" ? scopeBar(M) : ""}
-      </div>
-      <div id="ct-tab">${CT.busy ? `<p class="hint">${esc(CT.busy)}</p>` : tabBody(M)}</div>`;
+      <nav class="ct-jobs" aria-label="Cost & sales jobs">${JOBS.map(([k, l]) => `<button class="ct-job ${CT.job === k ? "on" : ""}" data-act="job:${k}" aria-current="${CT.job === k ? "page" : "false"}">${l}</button>`).join("")}</nav>
+      ${CT.job === "explore" ? `<div class="ct-bar"><div class="controls seg" role="tablist" aria-label="Explore views">${[["costs", "Costs"], ["sales", "Sales & mix"], ["scenarios", "Scenarios"], ["ops", "Operations"], ["recon", "Reconcile"]].map(([k, l]) => `<button class="chip" role="tab" data-act="tab:${k}" aria-pressed="${CT.tab === k}">${l}</button>`).join("")}</div>${scopeBar(M)}</div>` : ""}
+      <div id="ct-tab">${CT.busy ? `<p class="hint">${esc(CT.busy)}</p>` : jobBody(M)}</div>`;
     wireInputs(box);
   }
   function scopeBar(M) {
@@ -157,16 +168,21 @@
       <span class="label">Target food cost</span><input type="number" data-set="target" value="${s.target}" min="10" max="60" step="0.5" style="width:62px"><span class="label">%</span>
     </div>`;
   }
-  function tabBody(M) {
+  function jobBody(M) {
     try {
-      if (CT.tab === "data") return tabData();
-      const R = results(CT.tab === "scenarios" ? null : null);
+      if (CT.job === "data") return tabData();
+      if (CT.job === "home") return jobHome(M);
+      if (CT.job === "review") return jobReview(M);
+      if (CT.job === "price") return jobPrice(M);
+      if (CT.job === "menu") return jobMenu(M);
+      if (CT.job === "ideas") return jobIdeas(M);
+      const R = results(null);
       if (CT.tab === "costs") return tabCosts(R, M);
       if (CT.tab === "sales") return tabSales(R, M);
       if (CT.tab === "scenarios") return tabScenarios(R, M);
       if (CT.tab === "ops") return tabOps(R, M);
       if (CT.tab === "recon") return tabRecon(R, M);
-    } catch (e) { console.error(e); return `<p class="empty">Something went wrong rendering this tab: ${esc(e.message)}</p>`; }
+    } catch (e) { console.error(e); return `<p class="empty">Something went wrong rendering this view: ${esc(e.message)}</p>`; }
     return "";
   }
 
@@ -436,14 +452,367 @@
       </div>`;
   }
 
+  /* ---------- JOBS ---------- */
+  /* --- explanation layer: every figure can say where it comes from, and assumptions are flagged --- */
+  const SRC = { cost: "components.csv (case cost ÷ usable per case × portion) + recipes.csv / modifiers.csv", sales: "sales.csv", mods: "modifiers.csv", items: "items.csv", act: "actuals.csv", waste: "waste.csv", inv: "inventory.csv" };
+  // X(value, {l: label, f: formula, v: [[name, value]], src, asm}) → a hoverable figure
+  const X = (val, o) => `<span class="x${o.asm ? " x-asm" : ""}" tabindex="0" ${tipAttr(`<b>${esc(o.l || "")}</b>${o.f ? `<div class="x-f">${esc(o.f)}</div>` : ""}${o.v ? ttRows(o.v.map(([k, v]) => [esc(k), v])) : ""}${o.src ? `<div class="tt-k" style="margin-top:4px">From: ${esc(o.src)}</div>` : ""}${o.asm ? `<div class="x-note">Assumption: ${esc(o.asm)}</div>` : `<div class="tt-hint">Data, not an assumption</div>`}`)}>${val}</span>`;
+  const reading = (html, kind) => `<p class="reading ${kind || ""}">${html}</p>`;
+  const asmBadge = what => `<span class="asm-badge" tabindex="0" ${tipAttr(`<b>Assumption</b><div class="tt-k">${esc(what)}</div>`)}>assumption</span>`;
+  const stepper = (steps, cur, prefix) => `<ol class="steps">${steps.map((st, i) => `<li class="${i + 1 === cur ? "cur" : i + 1 < cur ? "done" : ""}"><button data-act="${prefix}:step:${i + 1}"><span>${i + 1}</span>${esc(st)}</button></li>`).join("")}</ol>`;
+  const stepNav = (prefix, cur, n, next) => `<div class="step-nav">${cur > 1 ? `<button class="linkbtn" data-act="${prefix}:step:${cur - 1}">← Back</button>` : ""}${cur < n ? `<button class="tour-next" data-act="${prefix}:step:${cur + 1}">${next || "Next"} →</button>` : ""}</div>`;
+  const jobHead = (title, lede) => `<div class="job-head"><h2>${title}</h2><p class="hint">${lede}</p></div>`;
+  const delta = (v, f, inv) => v == null || Math.abs(v) < 1e-9 ? `<span class="hint">no change</span>` : `<span class="${(inv ? v < 0 : v > 0) ? "ct-up" : "ct-down"}">${f === pf ? pts(v) : sgn(v, f)}</span>`;
+  const lastMonths = (M, n) => M.months.slice(-n);
+  const storeName = (M, id) => (M.stores.get(id) || { name: id }).name;
+  const monthsLabel = ms => ms.length === 1 ? monthName(ms[0]) : ms.length ? `${monthName(ms[0])} to ${monthName(ms[ms.length - 1])}` : "all data";
+  const fmtList = (arr, max) => arr.length <= max ? arr.join(", ") : arr.slice(0, max).join(", ") + ` and ${arr.length - max} more`;
+  // one-page summary: shown in the drawer, printed (or saved as PDF) from there
+  function printSummary() { const el = dEl("ct-print"); if (!el || !el.innerHTML) return; window.print(); }
+  function showSummary(title, html) {
+    let el = dEl("ct-print"); if (!el) { el = document.createElement("div"); el.id = "ct-print"; document.body.appendChild(el); }
+    const stamp = `${D_LABEL()} · ${new Date().toISOString().slice(0, 10)}`;
+    el.innerHTML = `<div class="sum"><h1>${esc(title)}</h1><div class="sum-meta">${esc(stamp)}</div>${html}</div>`;
+    openDrawer({ type: "ct", title, html: `<div class="sum-tools"><button class="tour-next" data-act="print:sum">Print / save as PDF</button><span class="hint">${esc(stamp)}</span></div><div class="sum">${html}</div>` });
+  }
+  const D_LABEL = () => CT.src === "own" ? "Your data" : "Sample data (synthetic)";
+  const sumTable = (cols, rows) => `<table class="sum-t"><thead><tr>${cols.map(c => `<th>${c}</th>`).join("")}</tr></thead><tbody>${rows.map(r => `<tr>${r.map(v => `<td>${v}</td>`).join("")}</tr>`).join("")}</tbody></table>`;
+  function go(arg) {
+    const [job, ...rest] = arg.split(":"); const a = rest.join(":");
+    if (job === "price") { const f = CT.flow.price; if (rest[0] === "up" && rest[1]) { const c = data().M.comps.get(rest[1]); if (c) { f.ups[rest[1]] = c.upcharge; f.step = 2; } } else if (rest[0] === "item" && rest[1]) { const p = data().M.itemPrice(rest[1], null); if (p != null) { f.prices[rest[1]] = p; f.step = 2; } } else f.step = 1; CT.job = "price"; }
+    else if (job === "review") { CT.flow.review.step = +rest[0] || 1; CT.job = "review"; }
+    else if (job === "menu") { CT.job = "menu"; if (rest[0]) { CT.flow.menu.type = rest[0]; CT.flow.menu.def = mcBlank(rest[0]); CT.flow.menu.step = 2; } }
+    else if (job === "ideas") CT.job = "ideas";
+    else if (job === "explore") { CT.job = "explore"; CT.tab = rest[0] || "costs"; if (rest[1]) { if (CT.tab === "costs") CT.ui.costTab = rest[1]; if (CT.tab === "sales") CT.ui.salesTab = rest[1]; if (CT.tab === "ops") CT.ui.opsTab = rest[1]; } }
+    else CT.job = job;
+    render(); const main = dEl("main"); if (main) main.scrollTop = 0;
+  }
+
+  /* ---------- Home: what needs attention ---------- */
+  function jobHome(M) {
+    const t = CT.scope.target; const last = M.months[M.months.length - 1], prev = M.months[M.months.length - 2];
+    if (!M.sales.length) return jobHead("Home", "No sales loaded yet, so there is nothing to flag.") + `<div class="job-cards">${jobCards(M)}</div>` + reading(`Load sales (and modifiers) on the <button class="linkbtn" data-act="job:data">Data</button> tab, or switch to the sample to see every job working.`);
+    const Rl = resultsFor({ months: [last] }), Rp = prev ? resultsFor({ months: [prev] }) : null, Ra = resultsFor({});
+    const over = Rl.byStore.filter(s => s.fc > t), stores = Rl.byStore.slice().sort((a, b) => b.fc - a.fc);
+    const thin = Rl.upcharges.filter(u => u.margin < 0 || u.margin < 0.25 * u.upcharge).sort((a, b) => a.margin - b.margin);
+    const slip = Ra.ops.trend.items.filter(x => x.slipping);
+    const rec = Rl.reconcile.rows.filter(r => r.month === last); const recBad = rec.filter(r => r.verdict === "Fail" || r.verdict === "Review");
+    const sug = CM.suggest(M, Ra, t).slice(0, 1)[0];
+    const fcX = X(pf(Rl.totals.fc), { l: `Theoretical food cost · ${monthName(last)}`, f: "food cost of everything sold ÷ net sales", v: [["Food cost", $0(Rl.totals.cogs)], ["Net sales", $0(Rl.totals.rev)], ["Target", pf(t, 0)]], src: SRC.cost + " + " + SRC.sales });
+    const card = (cls, title, big, text, link, label) => `<div class="flag-card ${cls}"><div class="fc-head">${title}</div><div class="fc-big">${big}</div><div class="fc-text">${text}</div><button class="card-link" data-act="${link}">${label} →</button></div>`;
+    const cards = [
+      card(over.length ? "warn" : "ok", `Food cost vs ${pf(t, 0)} target · ${monthName(last)}`, fcX, over.length ? `${over.length} of ${Rl.byStore.length} stores over target: ${esc(fmtList(over.map(s => `${s.name} ${pf(s.fc)}`), 3))}.` : `Every store under target${Rp ? `; ${pts(Rl.totals.fc - Rp.totals.fc)} vs ${monthName(prev)}` : ""}.`, "go:review:1", "Monthly review"),
+      card(thin.length ? "warn" : "ok", "Up-charges covering their cost", thin.length ? esc(thin[0].name) : "All covered", thin.length ? `${esc(thin[0].name)} earns ${X($(thin[0].margin), { l: "Margin per add", f: "up-charge − incremental cost", v: [["Up-charge", $(thin[0].upcharge)], ["Portion cost", $(thin[0].cost)], [thin[0].baseMain != null ? "Included main it replaces" : "Pure add", thin[0].baseMain != null ? $(thin[0].baseMain) : "—"]], src: SRC.cost })} on a ${$(thin[0].upcharge)} up-charge${thin.length > 1 ? `; ${thin.length - 1} more under 25% margin` : ""}.` : `Every up-charge keeps at least 25% of what the guest pays.`, thin.length ? `go:price:up:${esc(thin[0].cid)}` : "go:price", thin.length ? "Test a new up-charge" : "Price change"),
+      card(slip.length ? "warn" : "ok", "Items whose margin slipped", slip.length, Ra.ops.trend.months.length < 2 ? "Needs two months of sales." : slip.length ? `Contribution per unit down since ${monthName(Ra.ops.trend.months[0])}: ${esc(fmtList(slip.map(x => x.name), 3))}.` : "No item lost more than 10¢ of contribution.", "go:review:3", "See where to look"),
+      card(!rec.length ? "quiet" : recBad.length ? "bad" : "ok", `Reconciliation · ${monthName(last)}`, !rec.length ? "No books" : recBad.length ? recBad[0].verdict : "Pass", !rec.length ? "Load actuals.csv to check theoretical food cost against the books." : recBad.length ? `${esc(fmtList(recBad.map(r => `${r.name} (${r.verdict}, ${pts(r.gap)})`), 2))}; ${rec.length - recBad.length} of ${rec.length} pass.` : `All ${rec.length} store-months pass: the books sit ${pts(d3.mean(rec, r => r.gap))} above theoretical, inside the 0–3 point band.`, "go:explore:recon", "Reconcile"),
+      card("idea", "Best new-item candidate", sug ? `${sug.perStoreWeek.toFixed(0)}/store-week` : "—", sug ? `${esc(sug.mains.join(" + ") || "A build")} guests already order ${sug.perStoreWeek.toFixed(0)} times per store-week, ${pf(sug.fc)} food cost at ${$(sug.avgPrice)}; nothing on the menu is more than ${Math.round(sug.sim * 100)}% alike.` : "Needs build-your-own modifiers to find builds guests make themselves.", "go:ideas", "New item ideas"),
+    ];
+    return jobHead("Home", `What needs attention in ${monthName(last)}, and where to go next. Hover any figure for the formula, the values and the source file; amber means an assumption.`) + `<div class="flag-cards">${cards.join("")}</div>
+      <div class="sub">Start a job</div><div class="job-cards">${jobCards(M)}</div>
+      ${reading(`<b>In a hurry?</b> To answer “should we raise the salmon up-charge?”: Home → the up-charge card → set a new up-charge and a demand assumption → check the ladder → compare. About three minutes.`)}`;
+  }
+  const jobCards = M => [["review", "Monthly review", "Where food cost landed, what moved it, which stores and items to look at, one-page summary."], ["menu", "Evaluate a menu change", "New item, LTO, portion change, swap or removal: cost, margin, ripple across the menu and prep."], ["price", "Price change simulation", "New prices or up-charges, volume impact under a stated demand assumption, ladder check, compare options."], ["ideas", "Suggest new menu items", "Builds guests already order, components you already stock, margin at a target price."]].map(([k, l, d]) => `<button class="job-card" data-act="go:${k}"><b>${l}</b><span>${d}</span></button>`).join("");
+
+  /* ---------- Monthly review ---------- */
+  function rvAct(arg) { const [k, v] = arg.split(":"); const f = CT.flow.review; if (k === "step") f.step = +v; if (k === "store") { const all = [...data().M.stores.keys()]; const s = f.stores ? new Set(f.stores) : new Set(all); if (s.has(v)) { if (s.size > 1) s.delete(v); } else s.add(v); f.stores = s.size === all.length ? null : s; } if (k === "summary") rvSummary(); render(); }
+  function rvSet(k, v) { if (k === "month") { CT.flow.review.month = v; render(); } }
+  function rvScope(M) { const f = CT.flow.review; const month = f.month && M.months.includes(f.month) ? f.month : M.months[M.months.length - 1]; const i = M.months.indexOf(month); return { month, prev: i > 0 ? M.months[i - 1] : null, stores: f.stores, R: resultsFor({ months: [month], stores: f.stores ? [...f.stores] : null }), Rp: i > 0 ? resultsFor({ months: [M.months[i - 1]], stores: f.stores ? [...f.stores] : null }) : null, Ra: resultsFor({ stores: f.stores ? [...f.stores] : null }) };
+  }
+  function jobReview(M) {
+    if (!M.sales.length) return jobHead("Monthly review", "Needs sales.") + reading("Load a sales file on the Data tab.");
+    const f = CT.flow.review; const S = rvScope(M); const { month, prev, R, Rp, Ra } = S; const t = CT.scope.target;
+    const head = jobHead("Monthly review", "Where food cost landed, what moved it, and where to look. Four steps; export a one-page summary at the end.") + `<div class="ct-scope">${sel("rv:month", M.months.map(m => [m, monthName(m)]), month)}${[...M.stores.values()].length > 1 ? `<span class="label">Stores</span>${[...M.stores.values()].map(st => `<button class="chip" data-act="rv:store:${esc(st.id)}" aria-pressed="${!f.stores || f.stores.has(st.id)}">${esc(st.name)}</button>`).join("")}` : ""}</div>` + stepper(["Where food cost landed", "What moved it", "Where to look", "Summary"], f.step, "rv");
+    let body = "";
+    if (f.step === 1) {
+      const rec = R.reconcile.rows.filter(r => r.month === month); const verdicts = rec.map(r => r.verdict);
+      const vsT = R.totals.fc - t, vsP = Rp ? R.totals.fc - Rp.totals.fc : null;
+      body = `<div class="ops-tiles">
+        ${tile(X(pf(R.totals.fc), { l: "Theoretical food cost", f: "food cost of everything sold ÷ net sales", v: [["Food cost", $0(R.totals.cogs)], ["Net sales", $0(R.totals.rev)]], src: SRC.cost + " + " + SRC.sales }), `food cost, ${monthName(month)} ${delta(vsT, pf, true)} vs target`)}
+        ${tile(Rp ? delta(vsP, pf, true) : "—", `vs ${prev ? monthName(prev) : "previous month"}`)}
+        ${tile(X(pf(R.totals.fcAll), { l: "Food + paper", f: "(food cost + packaging) ÷ net sales", v: [["Packaging", $0(R.totals.pkg)]], src: "packaging.csv" }), "with packaging")}
+        ${tile(X($k(R.totals.gp), { l: "Gross profit", f: "net sales − food cost − packaging", v: [["Net sales", $0(R.totals.rev)], ["Food", $0(R.totals.cogs)], ["Paper", $0(R.totals.pkg)]], src: SRC.sales }), "gross profit after food & paper")}
+        ${tile(rec.length ? (verdicts.every(v => v === "Pass") ? "Pass" : verdicts.includes("Fail") ? "Fail" : "Review") : "—", rec.length ? `books vs theoretical, ${rec.length} store${rec.length === 1 ? "" : "s"}` : "no actuals for this month", null, rec.length && verdicts.includes("Fail") ? "pc-hi" : "")}
+      </div>
+      ${reading(`Food cost landed at <b>${pf(R.totals.fc)}</b> in ${monthName(month)}, ${Math.abs(vsT) < 0.05 ? "on" : vsT > 0 ? `<b>${pts(vsT)}</b> above` : `${pts(-vsT).replace("+", "")} below`} the ${pf(t, 0)} target${Rp ? ` and ${Math.abs(vsP) < 0.05 ? "level with" : (vsP > 0 ? "up " : "down ") + Math.abs(vsP).toFixed(1) + " points from"} ${monthName(prev)}` : ""}.${rec.length ? ` The books ${verdicts.every(v => v === "Pass") ? "agree" : "do not fully agree"}: ${esc(fmtList(rec.map(r => `${r.name} ${r.verdict.toLowerCase()} (${pts(r.gap)})`), 3))}.` : ""}`, vsT > 0 ? "warn" : "ok")}
+      ${table("rv-stores", [{ k: "name", l: "Store", f: v => `<b style="font-weight:600">${esc(v)}</b>` }, { k: "fc", l: `Food cost ${monthName(month)}`, n: 1, f: (v, r) => X(pf(v), { l: r.name, f: "food cost ÷ net sales", v: [["Food cost", $0(r.cogs)], ["Net sales", $0(r.rev)]], src: SRC.cost }), cls: r => r.fc > t ? "pc-hi" : "" }, { k: "prevFc", l: prev ? monthName(prev) : "Previous", n: 1, f: pf }, { k: "d", l: "Change", n: 1, f: v => delta(v, pf, true) }, { k: "vsT", l: "vs target", n: 1, f: v => delta(v, pf, true) }, { k: "gp", l: "Gross profit", n: 1, f: $k }, { k: "verdict", l: "Books", f: v => v ? flag(v, VERDICT[v]) : "—" }],
+        R.byStore.map(s => { const p = Rp && Rp.byStore.find(x => x.store === s.store); const r = rec.find(x => x.store === s.store); return { name: s.name, fc: s.fc, cogs: s.cogs, rev: s.rev, prevFc: p ? p.fc : null, d: p ? s.fc - p.fc : null, vsT: s.fc - t, gp: s.gp, verdict: r ? r.verdict : null }; }).sort((a, b) => b.fc - a.fc), { title: "By store", name: "review-stores" })}
+      ${stepNav("rv", 1, 4, "What moved it")}`;
+    } else if (f.step === 2) {
+      if (!prev) body = reading(`${monthName(month)} is the first month in the data, so there is nothing to compare it with. Pick a later month above.`) + stepNav("rv", 2, 4, "Where to look");
+      else {
+        const d = decomposeFor(f.stores, prev, month);
+        const ce = d.costEffect, me = d.mixEffect;
+        body = `<div class="ops-tiles">
+          ${tile(delta(d.total, pf, true), `change, ${monthName(prev)} → ${monthName(month)}`)}
+          ${tile(X(pts(ce), { l: "Cost changes", f: `${monthName(prev)}'s sales re-costed at ${monthName(month)}'s component costs, minus ${monthName(prev)}'s food cost`, v: [[`${monthName(prev)} at its own costs`, pf(d.fcA)], [`${monthName(prev)} at ${monthName(month)} costs`, pf(d.fcA2)]], src: "components.csv effective dates" }), "from component cost changes", null, ce > 0.05 ? "pc-hi" : "")}
+          ${tile(X(pts(me), { l: "Mix and prices", f: `${monthName(month)}'s food cost minus ${monthName(prev)}'s sales at ${monthName(month)} costs`, v: [[`${monthName(month)}`, pf(d.fcB)], [`${monthName(prev)} at ${monthName(month)} costs`, pf(d.fcA2)]], src: SRC.sales }), "from what sold and what it sold for", null, me > 0.05 ? "pc-hi" : "")}
+        </div>
+        ${reading(`Food cost moved <b>${pts(d.total)}</b>: <b>${pts(ce)}</b> from component costs${d.components.length ? ` (${esc(fmtList(d.components.slice(0, 3).map(c => `${c.name} ${sgn(c.pct, v => v.toFixed(0) + "%")}`), 3))})` : " (no cost changed)"} and <b>${pts(me)}</b> from the mix and prices${Math.abs(d.mixB.premiumShare - d.mixA.premiumShare) > 0.005 ? ` (premium mains on ${pf(d.mixB.premiumShare * 100, 0)} of builds, was ${pf(d.mixA.premiumShare * 100, 0)})` : ""}. The two parts add up to the total exactly.`, d.total > 0.05 ? "warn" : "ok")}
+        <div class="ops-two">
+          ${table("rv-comps", [{ k: "name", l: "Component" }, { k: "before", l: monthName(prev), n: 1, f: $ }, { k: "after", l: monthName(month), n: 1, f: $ }, { k: "pct", l: "Change", n: 1, f: v => sgn(v, x => x.toFixed(1) + "%") }, { k: "dollars", l: `$ at ${monthName(month)} usage`, n: 1, f: v => sgn(v, $0) }, { k: "pts", l: "Points of food cost", n: 1, f: v => pts(v), cls: r => r.pts > 0.05 ? "pc-hi" : "" }], d.components, { title: "Component costs that changed", name: "review-cost-changes", empty: "No component cost changed between the two months." })}
+          <div>${table("rv-mix", [{ k: "m", l: "Mix indicator" }, { k: "a", l: monthName(prev), n: 1 }, { k: "b", l: monthName(month), n: 1 }], [["Build-your-own share of meals", pf(d.mixA.byoShare * 100, 0), pf(d.mixB.byoShare * 100, 0)], ["Builds with a premium main", pf(d.mixA.premiumShare * 100, 0), pf(d.mixB.premiumShare * 100, 0)], ["Add-ons, share of units", pf(d.mixA.addonShare * 100, 0), pf(d.mixB.addonShare * 100, 0)], ["Average paid per unit", $(d.mixA.avgPaid), $(d.mixB.avgPaid)], ["Average order", $(d.mixA.aov), $(d.mixB.aov)]].map(([m, a, b]) => ({ m, a, b })), { title: "What sold", name: "review-mix" })}</div>
+        </div>
+        ${table("rv-items", [{ k: "name", l: "Item" }, { k: "line", l: "Line" }, { k: "pts", l: "Points of the change", n: 1, f: (v, r) => X(pts(v), { l: r.name, f: "its food cost ÷ all sales, this month minus last", v: [[`Share of sales ${monthName(prev)} → ${monthName(month)}`, `${pf(r.shareA * 100)} → ${pf(r.shareB * 100)}`], ["Food cost %", `${pf(r.fcA)} → ${pf(r.fcB)}`]], src: SRC.cost + " + " + SRC.sales }), cls: r => r.pts > 0.05 ? "pc-hi" : "" }, { k: "fcB", l: "Food cost %", n: 1, f: (v, r) => `${pf(r.fcA)} → ${pf(v)}` }, { k: "unitsB", l: "Units", n: 1, f: (v, r) => `${nf(r.unitsA)} → ${nf(v)}` }], d.items.slice(0, 12), { title: "Items that moved it most · their points add up to the total change", name: "review-item-movers" })}
+        ${stepNav("rv", 2, 4, "Where to look")}`;
+      }
+    } else if (f.step === 3) {
+      const overItems = R.itemList.filter(x => !x.addon && !x.byo && x.units > 0 && x.fcSold > t).sort((a, b) => b.rev - a.rev);
+      const slip = Ra.ops.trend.items.filter(x => x.slipping);
+      const thin = R.upcharges.filter(u => u.margin < 0.25 * u.upcharge).sort((a, b) => a.margin - b.margin);
+      const waste = R.ops.hasWaste ? R.ops.waste.filter(w => w.wasteCost > 0).sort((a, b) => b.wasteCost - a.wasteCost).slice(0, 5) : [];
+      const tva = R.ops.hasInventory ? R.ops.tva.filter(x => x.variancePct > 10).slice(0, 5) : [];
+      const li = (h, link, label) => `<div class="look"><div>${h}</div><button class="card-link" data-act="${link}">${label} →</button></div>`;
+      body = reading(`The lists below are ranked by money at stake. Each opens the view that explains it.`) + `<div class="looks">
+        ${li(`<b>Stores</b> · ${esc(fmtList(R.byStore.slice().sort((a, b) => b.fc - a.fc).map(s => `${s.name} ${pf(s.fc)}${s.fc > t ? " (over)" : ""}`), 3))}`, "go:explore:ops:stores", "Stores side by side")}
+        ${li(`<b>${overItems.length} meal${overItems.length === 1 ? "" : "s"} over the ${pf(t, 0)} target</b>${overItems.length ? ` · ${esc(fmtList(overItems.map(x => `${x.name} ${pf(x.fcSold)}`), 3))}` : ""}`, "go:explore:costs:items", "Item costs")}
+        ${li(`<b>${slip.length} item${slip.length === 1 ? "" : "s"} losing margin</b>${slip.length ? ` · ${esc(fmtList(slip.map(x => `${x.name} ${sgn(x.cmDelta, $)}`), 3))}` : Ra.ops.trend.months.length < 2 ? " · needs two months" : ""}`, "go:explore:ops:trend", "Trend")}
+        ${li(`<b>${thin.length} thin up-charge${thin.length === 1 ? "" : "s"}</b>${thin.length ? ` · ${esc(fmtList(thin.map(u => `${u.name} ${$(u.margin)} on ${$(u.upcharge)}`), 3))}` : " · all keep at least 25% of the up-charge"}`, thin.length ? `go:price:up:${esc(thin[0].cid)}` : "go:price", "Test a price change")}
+        ${R.ops.hasWaste ? li(`<b>Waste</b> · ${$0(R.ops.wasteTotal)} logged (${pf(R.ops.wastePctCogs)} of food cost) · ${esc(fmtList(waste.map(w => `${w.name} ${$0(w.wasteCost)}`), 3))}`, "go:explore:ops:waste", "Waste & low movers") : li(`<b>Waste</b> · no waste log loaded`, "job:data", "Load waste.csv")}
+        ${R.ops.hasInventory ? li(`<b>Usage above theoretical</b> · ${esc(fmtList(tva.map(x => `${x.name} ${sgn(x.variancePct, v => v.toFixed(0) + "%")}`), 3)) || "nothing over 10%"}`, "go:explore:ops:tva", "Theoretical vs actual") : ""}
+      </div>` + stepNav("rv", 3, 4, "Summary");
+    } else {
+      body = reading(`One page: the headline, the stores, what moved food cost and the list to look at. Print it or save it as a PDF from the panel.`) + `<div class="ct-row"><button class="tour-next" data-act="rv:summary">Open the summary</button><button class="linkbtn" data-act="csv:rv-stores">⤓ Stores CSV</button></div>` + stepNav("rv", 4, 4);
+    }
+    return head + body;
+  }
+  function rvSummary() {
+    const M = data().M; const S = rvScope(M); const { month, prev, R, Rp } = S; const t = CT.scope.target; const rec = R.reconcile.rows.filter(r => r.month === month);
+    const d = prev ? decomposeFor(CT.flow.review.stores, prev, month) : null;
+    const overItems = R.itemList.filter(x => !x.addon && !x.byo && x.units > 0 && x.fcSold > t).sort((a, b) => b.rev - a.rev);
+    const html = `<p class="sum-lead">Theoretical food cost <b>${pf(R.totals.fc)}</b> (${pf(R.totals.fcAll)} with paper) against a ${pf(t, 0)} target${Rp ? `, ${sgn(R.totals.fc - Rp.totals.fc, v => v.toFixed(1) + " pts")} vs ${monthName(prev)}` : ""}. Net sales ${$0(R.totals.rev)}, gross profit ${$0(R.totals.gp)}.${rec.length ? ` Books: ${rec.map(r => `${r.name} ${r.verdict} (${pts(r.gap)})`).join("; ")}.` : ""}</p>
+      <h3>By store</h3>${sumTable(["Store", "Food cost", prev ? monthName(prev) : "Prev", "vs target", "Gross profit", "Books"], R.byStore.map(s => { const p = Rp && Rp.byStore.find(x => x.store === s.store); const r = rec.find(x => x.store === s.store); return [esc(s.name), pf(s.fc), p ? pf(p.fc) : "—", pts(s.fc - t), $0(s.gp), r ? r.verdict : "—"]; }))}
+      ${d && d.ok ? `<h3>What moved it</h3><p>${pts(d.total)} in total: ${pts(d.costEffect)} from component costs, ${pts(d.mixEffect)} from mix and prices.</p>${d.components.length ? sumTable(["Component", monthName(prev), monthName(month), "Change", "Points"], d.components.slice(0, 8).map(c => [esc(c.name), $(c.before), $(c.after), sgn(c.pct, v => v.toFixed(1) + "%"), pts(c.pts)])) : ""}${sumTable(["Item", "Points", "Food cost %", "Units"], d.items.slice(0, 8).map(i => [esc(i.name), pts(i.pts), `${pf(i.fcA)} → ${pf(i.fcB)}`, `${nf(i.unitsA)} → ${nf(i.unitsB)}`]))}` : ""}
+      <h3>Where to look</h3><ul>${overItems.length ? `<li>${overItems.length} meals over target: ${esc(fmtList(overItems.map(x => `${x.name} ${pf(x.fcSold)}`), 5))}</li>` : "<li>No meal over target.</li>"}${R.upcharges.filter(u => u.margin < 0.25 * u.upcharge).map(u => `<li>${esc(u.name)} up-charge earns ${$(u.margin)} on ${$(u.upcharge)}</li>`).join("")}${R.ops.hasWaste ? `<li>Waste logged ${$0(R.ops.wasteTotal)} (${pf(R.ops.wastePctCogs)} of food cost)</li>` : ""}</ul>
+      <p class="sum-foot">Theoretical food cost = cost of every unit sold (recipes for curated items, modifiers for build-your-own, at the cost in force on the day) ÷ net sales. Method: docs/methodology.md.</p>`;
+    showSummary(`Monthly review · ${monthName(month)}`, html);
+  }
+
+  /* ---------- Price change simulation ---------- */
+  function pcScope(M) { const f = CT.flow.price; return f.base === "all" ? {} : { months: lastMonths(M, 1) }; }
+  function pcScn() { const f = CT.flow.price; return { name: f.name || "Price change", prices: Object.assign({}, f.prices), upcharges: Object.assign({}, f.ups), elasticity: f.elasticity }; }
+  const pcHas = () => Object.keys(CT.flow.price.prices).length + Object.keys(CT.flow.price.ups).length > 0;
+  function pcAct(arg) {
+    const [k, ...r] = arg.split(":"); const v = r.join(":"); const f = CT.flow.price; const M = data().M;
+    if (k === "step") f.step = +v;
+    else if (k === "addUp") { const c = M.comps.get(v); if (c) { f.ups[v] = c.upcharge; f.step = 2; } }
+    else if (k === "addItem") { const p = M.itemPrice(v, null); if (p != null) { f.prices[v] = p; f.step = 2; } }
+    else if (k === "rmUp") delete f.ups[v];
+    else if (k === "rmItem") delete f.prices[v];
+    else if (k === "bump") { const [kind, id, amt] = r; const d = +amt; if (kind === "up") f.ups[id] = Math.max(0, Math.round((f.ups[id] + d) * 20) / 20); else f.prices[id] = Math.max(0, Math.round((f.prices[id] + d) * 20) / 20); }
+    else if (k === "ladderFix") { const R = resultsFor(pcScope(M), pcScn()); R.ladder.filter(l => l.gap < -0.05).forEach(l => { f.prices[l.id] = Math.round((l.price - l.gap) * 20) / 20; }); }
+    else if (k === "save") { const name = f.name.trim() || `Option ${f.options.length + 1}`; const i = f.options.findIndex(o => o.name === name); const rec = { name, scn: pcScn() }; if (i >= 0) f.options[i] = rec; else f.options.push(rec); f.name = ""; }
+    else if (k === "load") { const o = f.options[+v]; if (o) { f.prices = Object.assign({}, o.scn.prices); f.ups = Object.assign({}, o.scn.upcharges); f.elasticity = o.scn.elasticity; f.name = o.name; } }
+    else if (k === "del") f.options.splice(+v, 1);
+    else if (k === "clear") { f.prices = {}; f.ups = {}; }
+    else if (k === "summary") pcSummary();
+    else if (k === "explore") { CT.scn = Object.assign(blankScn(), pcScn()); go("explore:scenarios"); return; }
+    render();
+  }
+  function pcSet(a, b, value, el) {
+    const f = CT.flow.price;
+    if (a === "q") { f.q = value; return render(); } if (a === "base") { f.base = value; return render(); } if (a === "name") { f.name = value; return; }
+    if (a === "el") { f.elasticity = +value; el.nextElementSibling && (el.nextElementSibling.textContent = value); return rerenderSoon(); }
+    if (a === "up") { const v = +value; if (v >= 0) f.ups[b] = v; return rerenderSoon(); } if (a === "price") { const v = +value; if (v > 0) f.prices[b] = v; return rerenderSoon(); }
+  }
+  function jobPrice(M) {
+    const f = CT.flow.price; const t = CT.scope.target; const sc = pcScope(M); const R0 = resultsFor(sc); const scn = pcHas() ? pcScn() : null; const R = scn ? resultsFor(sc, scn) : R0;
+    const period = sc.months ? monthsLabel(sc.months) : monthsLabel(M.months);
+    const head = jobHead("Price change simulation", "Set new prices or up-charges, see margin, food cost and volume under a stated demand assumption, check the ladder still holds, compare options.") + `<div class="ct-scope"><span class="label">Base period</span>${sel("pc:base", [["last", `Latest month (${monthName(M.months[M.months.length - 1] || "")})`], ["all", `All months (${monthsLabel(M.months)})`]], f.base)}<span class="hint">Costs as of ${R0.refDate}.</span></div>` + stepper(["Pick what to change", "Set the new price", "Check the ladder", "Compare & export"], f.step, "pc");
+    let body = "";
+    if (f.step === 1) {
+      const q = f.q.toLowerCase(); const items = R0.itemList.filter(x => !x.byo && (!q || x.name.toLowerCase().includes(q) || x.line.toLowerCase().includes(q))).sort((a, b) => b.units - a.units).slice(0, q ? 40 : 15);
+      body = reading(`Up-charges first: they are where most premium components are sold. ${R0.upcharges.length ? `The thinnest margin is <b>${esc(R0.upcharges.slice().sort((a, b) => a.margin - b.margin)[0].name)}</b> at ${$(R0.upcharges.slice().sort((a, b) => a.margin - b.margin)[0].margin)} per add.` : ""} Pick anything to change; you can add more later.`) +
+        table("pc-ups", [{ k: "name", l: "Up-charged component", f: (v, r) => `<b style="font-weight:600">${esc(v)}</b> <span class="hint">${esc(r.station)}</span>` }, { k: "upcharge", l: "Up-charge", n: 1, f: $ }, { k: "cost", l: "Portion cost", n: 1, f: $ }, { k: "margin", l: "Margin per add", n: 1, f: (v, r) => X($(v), { l: r.name, f: r.baseMain != null ? "up-charge − (portion cost − included main)" : "up-charge − portion cost", v: [["Up-charge", $(r.upcharge)], ["Portion cost", $(r.cost)], ...(r.baseMain != null ? [["Included main", $(r.baseMain)]] : [])], src: SRC.cost }), cls: r => r.margin < 0.25 * r.upcharge ? "pc-hi" : "" }, { k: "perStoreWeek", l: "Picks per store-week", n: 1, f: n1 }, { k: "cid", l: "", f: (v, r) => f.ups[v] != null ? flag("selected", "ok") : `<button class="linkbtn" data-act="pc:addUp:${esc(v)}">Change</button>`, raw: () => "" }], R0.upcharges.slice().sort((a, b) => a.margin - b.margin), { title: "Up-charges", name: "price-upcharges" }) +
+        table("pc-items", [{ k: "name", l: "Item", f: (v, r) => `<b style="font-weight:600">${esc(v)}</b>` }, { k: "line", l: "Line" }, { k: "price", l: "Price", n: 1, f: $ }, { k: "fcSold", l: "Food cost %", n: 1, f: pf, cls: r => r.fcSold > t ? "pc-hi" : "" }, { k: "cmUnit", l: "Contribution", n: 1, f: $ }, { k: "units", l: `Units, ${period}`, n: 1, f: nf }, { k: "quadrant", l: "Quadrant", f: v => v || "—" }, { k: "id", l: "", f: v => f.prices[v] != null ? flag("selected", "ok") : `<button class="linkbtn" data-act="pc:addItem:${esc(v)}">Change</button>`, raw: () => "" }], items, { title: "Items · most sold first", name: "price-items", maxh: 360, tools: `<input type="search" data-set="pc:q" value="${esc(f.q)}" placeholder="Find an item" style="width:150px">` }) +
+        (pcHas() ? stepNav("pc", 1, 4, "Set the new price") : "");
+    } else if (f.step === 2) {
+      if (!pcHas()) body = reading("Nothing selected yet.") + stepNav("pc", 2, 4);
+      else {
+        const T0 = R0.totals, T1 = R.totals;
+        const rows = [];
+        for (const [cid, nv] of Object.entries(f.ups)) { const b = R0.upcharges.find(u => u.cid === cid), a = R.upcharges.find(u => u.cid === cid); if (!b || !a) continue; const c = M.comps.get(cid); const pf_ = c.upcharge ? Math.max(0, Math.min(1.5, 1 + f.elasticity * (nv - c.upcharge) / c.upcharge)) : 1;
+          rows.push(`<div class="pc-row"><div class="pc-what"><b>${esc(c.name)}</b> up-charge <span class="hint">now ${$(c.upcharge)}</span><button class="linkbtn" data-act="pc:rmUp:${esc(cid)}" aria-label="Remove">✕</button></div>
+            <div class="ct-row"><input type="number" data-set="pc:up:${esc(cid)}" value="${nv}" step="0.05" min="0" style="width:84px" aria-label="New up-charge">${[0.25, 0.5, 1].map(d => `<button class="linkbtn" data-act="pc:bump:up:${esc(cid)}:${d}">+$${d.toFixed(2)}</button>`).join("")}<button class="linkbtn" data-act="pc:bump:up:${esc(cid)}:-0.25">−$0.25</button></div>
+            <div class="ct-mini">${tile(`${$(b.margin)} → ${X($(a.margin), { l: "Margin per add", f: "new up-charge − incremental cost", v: [["New up-charge", $(nv)], ["Incremental cost", $(a.incremental)]], src: SRC.cost })}`, "margin per add")}${tile(`${nf(b.picks)} → ${X(nf(a.picks), { l: "Picks kept", f: "picks × (1 + elasticity × Δ ÷ old up-charge)", v: [["Picks before", nf(b.picks)], ["Change", sgn(nv - c.upcharge, $)], ["Elasticity", String(f.elasticity)], ["Share kept", pf(pf_ * 100, 0)]], src: SRC.mods, asm: `elasticity ${f.elasticity} (your setting)` })}`, "picks")}${tile(X(sgn(a.marginTotal - b.marginTotal, $0), { l: "Margin on this up-charge", f: "margin per add × picks kept", v: [["Before", $0(b.marginTotal)], ["After", $0(a.marginTotal)]], src: SRC.mods, asm: `elasticity ${f.elasticity}` }), "margin in the period")}</div>
+            ${reading(Math.abs(nv - c.upcharge) < 0.001 ? `${esc(c.name)} is still at ${$(c.upcharge)}: type a new up-charge or use the buttons. Margin per add is <b>${$(b.margin)}</b> today.` : `${nv > c.upcharge ? "Raising" : "Lowering"} ${esc(c.name)} to ${$(nv)} ${a.margin >= b.margin ? "lifts" : "cuts"} margin per add to <b>${$(a.margin)}</b>${pf_ < 1 ? ` and, with ${pf((1 - pf_) * 100, 0)} fewer picks assumed, ` : pf_ > 1 ? ` and, with ${pf((pf_ - 1) * 100, 0)} more picks assumed, ` : "; "}margin on the up-charge ${a.marginTotal >= b.marginTotal ? "rises" : "falls"} ${sgn(a.marginTotal - b.marginTotal, $0)} in ${period}.`, Math.abs(nv - c.upcharge) < 0.001 ? "" : a.marginTotal >= b.marginTotal ? "ok" : "warn")}</div>`); }
+        for (const [iid, nv] of Object.entries(f.prices)) { const b = R0.items.get(iid), a = R.items.get(iid); if (!b || !a) continue; const old = b.price; const fct = old ? Math.max(0, 1 + f.elasticity * (nv - old) / old) : 1;
+          rows.push(`<div class="pc-row"><div class="pc-what"><b>${esc(b.name)}</b> <span class="hint">${esc(b.line)} · now ${$(old)}</span><button class="linkbtn" data-act="pc:rmItem:${esc(iid)}" aria-label="Remove">✕</button></div>
+            <div class="ct-row"><input type="number" data-set="pc:price:${esc(iid)}" value="${nv}" step="0.05" min="0" style="width:84px" aria-label="New price">${[0.25, 0.5, 1].map(d => `<button class="linkbtn" data-act="pc:bump:item:${esc(iid)}:${d}">+$${d.toFixed(2)}</button>`).join("")}<button class="linkbtn" data-act="pc:bump:item:${esc(iid)}:-0.25">−$0.25</button></div>
+            <div class="ct-mini">${tile(`${pf(b.fc)} → ${X(pf(a.fc), { l: "Food cost % at the new price", f: "food cost ÷ new price", v: [["Food cost", $(a.food)], ["New price", $(nv)]], src: SRC.cost })}`, "food cost %")}${tile(`${nf(b.units)} → ${X(nf(a.units), { l: "Units kept", f: "units × (1 + elasticity × Δprice ÷ old price)", v: [["Units before", nf(b.units)], ["Price change", sgn(nv - old, $)], ["Elasticity", String(f.elasticity)], ["Share kept", pf(fct * 100, 0)]], src: SRC.sales, asm: `elasticity ${f.elasticity} (your setting)` })}`, "units")}${tile(X(sgn(a.rev - a.cogs - (b.rev - b.cogs), $0), { l: "Contribution from this item", f: "(price − food cost) × units kept", v: [["Before", $0(b.rev - b.cogs)], ["After", $0(a.rev - a.cogs)]], src: SRC.sales, asm: `elasticity ${f.elasticity}` }), "contribution in the period")}</div>
+            ${reading(Math.abs(nv - old) < 0.001 ? `${esc(b.name)} is still at ${$(old)}: type a new price or use the buttons.` : `${esc(b.name)} at ${$(nv)}: contribution per unit ${$(b.cmUnit)} → <b>${$(a.price - a.food)}</b>, ${pf((1 - fct) * 100, 0)} fewer units assumed, ${a.rev - a.cogs >= b.rev - b.cogs ? "a gain" : "a loss"} of ${sgn(a.rev - a.cogs - (b.rev - b.cogs), $0)} in ${period}.`, Math.abs(nv - old) < 0.001 ? "" : a.rev - a.cogs >= b.rev - b.cogs ? "ok" : "warn")}</div>`); }
+        body = `<div class="pc-asm"><b>Demand assumption</b> ${asmBadge("How much volume changes when a price changes. −0.8 means a 10% price rise loses 8% of units or picks; fast-casual estimates run −0.5 to −1.5. Set 0 to see the price effect with no volume loss.")}<input type="range" data-set="pc:el" min="-2" max="0" step="0.1" value="${f.elasticity}" style="width:160px"><output>${f.elasticity}</output><span class="hint">${f.elasticity === 0 ? "no demand response" : `a 10% price rise loses ${Math.round(-f.elasticity * 10)}% of volume`}</span></div>
+          ${rows.join("")}
+          <div class="ops-tiles">${tile(X(sgn(T1.rev - T0.rev, $k), { l: "Net sales", f: "Σ units kept × new prices", v: [["Before", $0(T0.rev)], ["After", $0(T1.rev)]], src: SRC.sales, asm: `elasticity ${f.elasticity}` }), "net sales")}${tile(`${pf(T0.fc)} → ${X(pf(T1.fc), { l: "Food cost %", f: "food cost ÷ net sales", v: [["Before", pf(T0.fc)], ["After", pf(T1.fc)]], src: SRC.cost })}`, "mix-weighted food cost")}${tile(X(sgn(T1.gp - T0.gp, $k), { l: "Gross profit", f: "net sales − food cost − packaging", v: [["Before", $0(T0.gp)], ["After", $0(T1.gp)]], src: SRC.sales, asm: `elasticity ${f.elasticity}` }), `gross profit, ${period}`)}</div>
+          ${stepNav("pc", 2, 4, "Check the ladder")}`;
+      }
+    } else if (f.step === 3) {
+      const base = new Map(R0.ladder.map(l => [l.id, l])); const changed = R.ladder.filter(l => { const b = base.get(l.id); return !b || Math.abs(b.gap - l.gap) > 0.001 || Math.abs(l.gap) >= 0.05; });
+      const below = R.ladder.filter(l => l.gap < -0.05); const over = R.itemList.filter(x => !x.addon && !x.byo && x.fc > t && (!R0.items.get(x.id) || R0.items.get(x.id).fc <= t));
+      body = reading(below.length ? `<b>${below.length} curated item${below.length === 1 ? "" : "s"} now sit${below.length === 1 ? "s" : ""} below build-your-own</b>: ${esc(fmtList(below.map(l => `${l.name} (${$(l.price)} vs ${$(l.formula)} to build it)`), 3))}. Guests would get the same bowl cheaper by ordering the curated item. Reprice them by the same amount, or accept the gap on purpose.` : changed.length ? `Every curated item still sits on or above its build-your-own formula.` : `This change does not touch the ladder.`, below.length ? "warn" : "ok") +
+        (below.length ? `<div class="ct-row"><button class="tour-next" data-act="pc:ladderFix">Reprice them to the ladder</button><span class="hint">adds a price change for each, to base + up-charges</span></div>` : "") +
+        table("pc-ladder", [{ k: "name", l: "Item" }, { k: "line", l: "Line" }, { k: "price", l: "Price", n: 1, f: (v, r) => { const b = base.get(r.id); return b && Math.abs(b.price - v) > 0.001 ? `${$(b.price)} → ${$(v)}` : $(v); } }, { k: "formula", l: "Build-your-own formula", n: 1, f: (v, r) => X($(v), { l: "Base + up-charges", f: "build-your-own base price + Σ up-charges of its components", v: [["Base", $(r.base)], ...r.ups.map(u => [u.name, "+" + $(u.up)])], src: SRC.items + " + components.csv upcharge" }) }, { k: "gap", l: "Gap", n: 1, f: v => sgn(v, $), cls: r => r.gap < -0.05 ? "pc-hi" : "" }, { k: "flag", l: "Reading", f: v => flag(v, v === "On the ladder" ? "ok" : v === "Below build-your-own" ? "bad" : "quiet") }], changed.length ? changed : R.ladder, { title: changed.length ? "Items whose place on the ladder changed" : "Price ladder", name: "price-ladder-check" }) +
+        (over.length ? reading(`Also: ${esc(fmtList(over.map(x => x.name), 3))} ${over.length === 1 ? "goes" : "go"} over the ${pf(t, 0)} target after this change.`, "warn") : "") + stepNav("pc", 3, 4, "Compare & export");
+    } else {
+      body = `<div class="ct-row"><input type="text" data-set="pc:name" value="${esc(f.name)}" placeholder="Name this option (e.g. Salmon +$0.50)" style="flex:1"><button class="linkbtn" data-act="pc:save" ${pcHas() ? "" : "disabled"}>Save as option</button><button class="linkbtn" data-act="pc:clear">Start another</button></div>
+        ${pcCompare(M, sc, R0)}
+        <div class="ct-row"><button class="tour-next" data-act="pc:summary">Open the summary</button><button class="linkbtn" data-act="csv:pc-compare">⤓ Comparison CSV</button><button class="linkbtn" data-act="pc:explore">Open in Explore → Scenarios</button></div>
+        ${reading(`Pick the option with the best gross profit whose volume loss you believe, and whose ladder you can live with. Every volume figure rests on the demand assumption; margin per add and food cost % at the new price do not.`)}` + stepNav("pc", 4, 4);
+    }
+    return head + body;
+  }
+  function pcCompare(M, sc, R0) {
+    const f = CT.flow.price; const t = CT.scope.target;
+    const cols = [{ name: "Base", R: R0, scn: null }].concat(pcHas() ? [{ name: f.name.trim() || "Current", R: resultsFor(sc, pcScn()), scn: pcScn() }] : []).concat(f.options.map(o => ({ name: o.name, R: resultsFor(sc, o.scn), scn: o.scn })));
+    const upIds = [...new Set(cols.flatMap(c => c.scn ? Object.keys(c.scn.upcharges) : []))];
+    const rows = [["Net sales", r => $k(r.totals.rev)], ["Gross profit", r => $k(r.totals.gp)], ["Food cost %", r => pf(r.totals.fc)], ["Units", r => nf(r.totals.units)], ["Items below the ladder", r => r.ladder.filter(l => l.gap < -0.05).length], ["Meals over target", r => r.itemList.filter(x => !x.addon && !x.byo && x.fc > t).length]].concat(upIds.map(cid => [`${M.comps.get(cid).name}: margin per add`, r => { const u = r.upcharges.find(x => x.cid === cid); return u ? $(u.margin) : "—"; }])).concat(upIds.map(cid => [`${M.comps.get(cid).name}: picks`, r => { const u = r.upcharges.find(x => x.cid === cid); return u ? nf(u.picks) : "—"; }]));
+    CT.exports.set("pc-compare", { name: "price-options", cols: [{ k: "metric", l: "Metric" }].concat(cols.map((c, i) => ({ k: "c" + i, l: c.name }))), rows: rows.map(([l, fn]) => Object.assign({ metric: l }, Object.fromEntries(cols.map((c, i) => ["c" + i, fn(c.R)])))) });
+    return `<div class="ct-block"><div class="sub">Options side by side · ${f.options.length ? `${f.options.length} saved` : "save the current change to keep it here"}</div><div class="scroll"><table class="mini gtable"><thead><tr><th></th>${cols.map((c, i) => `<th class="n">${esc(c.name)}${i > 0 && f.options.some(o => o.name === c.name) ? ` <button class="linkbtn" data-act="pc:load:${f.options.findIndex(o => o.name === c.name)}">open</button><button class="linkbtn" data-act="pc:del:${f.options.findIndex(o => o.name === c.name)}" aria-label="Delete">✕</button>` : ""}</th>`).join("")}</tr></thead><tbody>${rows.map(([l, fn]) => `<tr><td>${esc(l)}</td>${cols.map(c => `<td class="n">${fn(c.R)}</td>`).join("")}</tr>`).join("")}</tbody></table></div><p class="hint">Volume-dependent rows (sales, gross profit, units, picks) assume elasticity ${f.elasticity}; the others are arithmetic on the data.</p></div>`;
+  }
+  function pcSummary() {
+    const M = data().M; const f = CT.flow.price; const sc = pcScope(M); const R0 = resultsFor(sc); const scn = pcHas() ? pcScn() : null; const R = scn ? resultsFor(sc, scn) : R0; const period = sc.months ? monthsLabel(sc.months) : monthsLabel(M.months);
+    const changes = Object.entries(f.ups).map(([c, v]) => `${esc(M.comps.get(c).name)} up-charge ${$(M.comps.get(c).upcharge)} → ${$(v)}`).concat(Object.entries(f.prices).map(([i, v]) => `${esc(M.items.get(i).name)} ${$(M.itemPrice(i, null))} → ${$(v)}`));
+    const html = `<p class="sum-lead">${changes.length ? changes.join("; ") : "No change"}. Base period ${esc(period)}, demand assumption elasticity ${f.elasticity}.</p>
+      ${sumTable(["", "Base", "Scenario"], [["Net sales", $0(R0.totals.rev), $0(R.totals.rev)], ["Gross profit", $0(R0.totals.gp), $0(R.totals.gp)], ["Food cost %", pf(R0.totals.fc), pf(R.totals.fc)], ["Units", nf(R0.totals.units), nf(R.totals.units)]])}
+      ${Object.keys(f.ups).length ? `<h3>Up-charges</h3>${sumTable(["Component", "Up-charge", "Margin per add", "Picks", "Margin in period"], Object.keys(f.ups).map(c => { const b = R0.upcharges.find(u => u.cid === c), a = R.upcharges.find(u => u.cid === c); return [esc(M.comps.get(c).name), `${$(b.upcharge)} → ${$(a.upcharge)}`, `${$(b.margin)} → ${$(a.margin)}`, `${nf(b.picks)} → ${nf(a.picks)}`, `${$0(b.marginTotal)} → ${$0(a.marginTotal)}`]; }))}` : ""}
+      ${R.ladder.filter(l => l.gap < -0.05).length ? `<h3>Ladder</h3><p>Below build-your-own after the change: ${esc(R.ladder.filter(l => l.gap < -0.05).map(l => `${l.name} (${$(l.price)} vs ${$(l.formula)})`).join("; "))}.</p>` : "<p>Every curated item stays on or above its build-your-own formula.</p>"}
+      ${f.options.length ? `<h3>Options</h3>${sumTable(["Option", "Gross profit", "Food cost %", "Units"], f.options.map(o => { const r = resultsFor(sc, o.scn); return [esc(o.name), $0(r.totals.gp), pf(r.totals.fc), nf(r.totals.units)]; }))}` : ""}
+      <p class="sum-foot">Units and picks after a change = before × (1 + elasticity × price change ÷ old price). Margin per add = up-charge − (portion cost − included main). Method: docs/methodology.md.</p>`;
+    showSummary("Price change · " + (f.name || changes[0] || "summary").replace(/<[^>]+>/g, ""), html);
+  }
+
+  /* ---------- Evaluate a menu change ---------- */
+  const MC_TYPES = [["new", "New item", "Assemble a candidate from components; cost, margin, prep and what it pulls from the menu."], ["lto", "Limited-time offer", "A new item for a set number of weeks, with its pull from existing items."], ["portion", "Portion change", "Change the portions in an existing item; see cost, margin and nutrition move."], ["swap", "Swap a component", "Replace one component with another everywhere it is used."], ["remove", "Remove an item", "Cut an item; see where its volume goes and what prep disappears."]];
+  function mcBlank(type) { return { name: "", line: "Bowls", price: 14.25, recipe: [], units: 60, cannibal: 70, weeks: type === "lto" ? 6 : "", item: "", swapFrom: "", swapTo: "", retention: 80 }; }
+  function mcScn() { const f = CT.flow.menu; const d = f.def; if (!d) return null; const t = f.type; const s = { name: f.name || MC_TYPES.find(x => x[0] === t)[1], elasticity: -0.8 };
+    if (t === "new" || t === "lto") { if (!d.recipe.length) return null; s.newItems = [{ id: "new-" + (CM.slug(d.name) || "item"), name: d.name || "New item", line: d.line, price: +d.price || 0, recipe: d.recipe.map(p => ({ ...p })), unitsPerStoreWeek: +d.units || 0, cannibal: Math.min(1, Math.max(0, (+d.cannibal || 0) / 100)), weeks: t === "lto" && d.weeks ? +d.weeks : null }]; }
+    else if (t === "portion") { if (!d.item || !d.recipe.length) return null; s.recipes = { [d.item]: d.recipe.filter(p => p.portions > 0).map(p => ({ ...p })) }; }
+    else if (t === "swap") { if (!d.swapFrom || !d.swapTo || d.swapFrom === d.swapTo) return null; s.swaps = [{ from: d.swapFrom, to: d.swapTo }]; }
+    else if (t === "remove") { if (!d.item) return null; s.remove = [d.item]; s.retention = Math.min(1, Math.max(0, (+d.retention || 0) / 100)); }
+    return s; }
+  function mcAct(arg) {
+    const [k, ...r] = arg.split(":"); const v = r.join(":"); const f = CT.flow.menu; const M = data().M;
+    if (k === "step") f.step = +v;
+    else if (k === "type") { f.type = v; f.def = mcBlank(v); f.step = 2; }
+    else if (k === "add") { const c = CT.ui.mcPick; if (c && M.comps.has(c)) f.def.recipe.push({ cid: c, portions: +CT.ui.mcQty || 1 }); CT.ui.mcPick = ""; }
+    else if (k === "rm") f.def.recipe.splice(+v, 1);
+    else if (k === "pickItem") { const it = M.items.get(v); if (it) { f.def.item = v; f.def.recipe = it.recipe.map(p => ({ ...p })); f.def.name = it.name; } }
+    else if (k === "save") { const s = mcScn(); if (!s) return; const name = f.name.trim() || `Option ${f.options.length + 1}`; const i = f.options.findIndex(o => o.name === name); const rec = { name, scn: Object.assign(s, { name }), type: f.type, def: JSON.parse(JSON.stringify(f.def)) }; if (i >= 0) f.options[i] = rec; else f.options.push(rec); f.name = ""; }
+    else if (k === "load") { const o = f.options[+v]; if (o) { f.type = o.type; f.def = JSON.parse(JSON.stringify(o.def)); f.name = o.name; f.step = 3; } }
+    else if (k === "del") f.options.splice(+v, 1);
+    else if (k === "summary") mcSummary();
+    else if (k === "explore") { const s = mcScn(); if (s) { CT.scn = Object.assign(blankScn(), s); go("explore:scenarios"); } return; }
+    render();
+  }
+  function mcSet(a, b, value, el) {
+    const f = CT.flow.menu; const d = f.def || {};
+    if (a === "name") { f.name = value; return; } if (a === "pick") { CT.ui.mcPick = value; return; } if (a === "qty") { CT.ui.mcQty = value; return; }
+    if (a === "portions") { const p = d.recipe[+b]; if (p) p.portions = +value; return rerenderSoon(); }
+    if (a === "item") { mcAct("pickItem:" + value); return; }
+    if (["units", "cannibal", "weeks", "price", "retention", "iname"].includes(a)) { d[a === "iname" ? "name" : a] = value; return rerenderSoon(); }
+    if (a === "line" || a === "swapFrom" || a === "swapTo") { d[a] = value; return render(); }
+  }
+  function jobMenu(M) {
+    const f = CT.flow.menu; const t = CT.scope.target; const sc = {}; const R0 = resultsFor(sc); const scn = mcScn(); const R = scn ? resultsFor(sc, scn) : R0; const d = f.def; const period = monthsLabel(M.months);
+    const typeLabel = f.type ? MC_TYPES.find(x => x[0] === f.type)[1] : "";
+    const head = jobHead("Evaluate a menu change", "Pick the change, define it, see its cost and margin, then the ripple across the menu and the prep line. Compare options and export.") + stepper(["Pick the change", "Define it", "Cost & margin", "Ripple", "Compare & export"], f.step, "mc");
+    let body = "";
+    if (f.step === 1 || !d) {
+      body = `<div class="job-cards">${MC_TYPES.map(([k, l, dsc]) => `<button class="job-card ${f.type === k ? "on" : ""}" data-act="mc:type:${k}"><b>${l}</b><span>${dsc}</span></button>`).join("")}</div>` + reading(`Or start from a build guests already order: <button class="linkbtn" data-act="go:ideas">New item ideas →</button>`);
+    } else if (f.step === 2) {
+      const compsOpt = compOptions(M); const curated = itemOptions(M, i => !i.byo && i.recipe.length);
+      const cost = (f.type === "new" || f.type === "lto" || f.type === "portion") ? CM.costOf(M, d.recipe, R0.refStore, R0.refDate, null) : null;
+      if (f.type === "new" || f.type === "lto") body = `<div class="ct-editor">
+          <div class="ct-row"><input type="text" data-set="mc:iname" value="${esc(d.name)}" placeholder="Item name" style="flex:1">${sel("mc:line", M.lines.filter(l => !M.addonLines.has(l)).map(l => [l, l]), d.line)}<label class="hint">Price</label><input type="number" data-set="mc:price" value="${d.price}" step="0.05" style="width:80px"></div>
+          <div class="ct-row">${sel("mc:pick", [["", "— add a component —"]].concat(compsOpt), CT.ui.mcPick || "")}<input type="number" data-set="mc:qty" value="${CT.ui.mcQty || 1}" step="0.25" min="0.25" style="width:64px" aria-label="Portions"><button class="linkbtn" data-act="mc:add">Add</button></div>
+          <div class="ct-list">${d.recipe.map((p, i) => `<div><span>${esc(M.comps.get(p.cid).name)} <span class="hint">×${p.portions} · ${$(cost.parts[i] ? cost.parts[i].cost : 0)}</span></span><button class="linkbtn" data-act="mc:rm:${i}" aria-label="Remove">✕</button></div>`).join("") || `<p class="hint">Add the components. Half a scoop is 0.5, a double is 2.</p>`}</div>
+          <div class="ct-row"><label class="hint">Expected units per store-week ${asmBadge("Your forecast. Everything in step 4 that depends on volume scales with it.")}</label><input type="number" data-set="mc:units" value="${d.units}" min="0" style="width:70px"><label class="hint">share pulled from items on the same line ${asmBadge("How much of the new item's volume replaces existing items on its line rather than adding demand. 70% is a common planning figure for a like-for-like item.")}</label><input type="number" data-set="mc:cannibal" value="${d.cannibal}" min="0" max="100" style="width:60px"><span class="hint">%</span>${f.type === "lto" ? `<label class="hint">Weeks on the menu</label><input type="number" data-set="mc:weeks" value="${d.weeks}" min="1" style="width:60px">` : ""}</div>
+        </div>` + (d.recipe.length ? stepNav("mc", 2, 5, "Cost & margin") : "");
+      else if (f.type === "portion") body = `<div class="ct-editor"><div class="ct-row">${sel("mc:item", [["", "— pick an item —"]].concat(curated), d.item)}</div>
+          ${d.item ? `<div class="ct-list">${d.recipe.map((p, i) => { const it = M.items.get(d.item); const orig = it.recipe.find(x => x.cid === p.cid); return `<div><span>${esc(M.comps.get(p.cid).name)} <span class="hint">${esc(M.comps.get(p.cid).station)} · was ×${orig ? orig.portions : "—"} · ${$(cost.parts[i] ? cost.parts[i].cost : 0)}</span></span><input type="number" data-set="mc:portions:${i}" value="${p.portions}" step="0.25" min="0" style="width:64px" aria-label="Portions"></div>`; }).join("")}</div><div class="ct-row">${sel("mc:pick", [["", "— add a component —"]].concat(compsOpt), CT.ui.mcPick || "")}<input type="number" data-set="mc:qty" value="${CT.ui.mcQty || 1}" step="0.25" min="0.25" style="width:64px" aria-label="Portions"><button class="linkbtn" data-act="mc:add">Add</button></div><p class="hint">Set a portion to 0 to drop a component.</p>` : `<p class="hint">Pick a curated item; its recipe appears here with editable portions.</p>`}
+        </div>` + (d.item ? stepNav("mc", 2, 5, "Cost & margin") : "");
+      else if (f.type === "swap") body = `<div class="ct-editor"><div class="ct-row">${sel("mc:swapFrom", [["", "— replace —"]].concat(compsOpt), d.swapFrom)}<span class="hint">with</span>${sel("mc:swapTo", [["", "— component —"]].concat(compsOpt), d.swapTo)}</div><p class="hint">Every recipe and every build-your-own order that used the first component is costed and counted with the second, portions unchanged.</p></div>` + (d.swapFrom && d.swapTo && d.swapFrom !== d.swapTo ? stepNav("mc", 2, 5, "Cost & margin") : "");
+      else body = `<div class="ct-editor"><div class="ct-row">${sel("mc:item", [["", "— pick an item —"]].concat(itemOptions(M, i => !i.byo)), d.item)}</div><div class="ct-row"><label class="hint">Share of its volume that moves to other items on the line ${asmBadge("80% means four in five of its orders become another item on the same line, in proportion to what already sells; the rest is lost.")}</label><input type="number" data-set="mc:retention" value="${d.retention}" min="0" max="100" style="width:60px"><span class="hint">%</span></div></div>` + (d.item ? stepNav("mc", 2, 5, "Cost & margin") : "");
+    } else if (f.step === 3) {
+      if (!scn) body = reading("The change is not complete yet.") + stepNav("mc", 3, 5);
+      else if (f.type === "new" || f.type === "lto") { const n = R.items.get(scn.newItems[0].id); const cu = R0.crossUtil(d.recipe);
+        body = `<div class="ops-tiles">${tile(X($(n.food), { l: "Food cost", f: "Σ portions × portion cost (after yield)", v: n.parts.map(p => [`${p.name} ×${p.portions}`, $(p.cost)]), src: SRC.cost }), "food cost per unit")}${tile(X(pf(n.fc), { l: "Food cost %", f: "food cost ÷ price", v: [["Food cost", $(n.food)], ["Price", $(n.price)]], src: SRC.cost }), `food cost % at ${$(n.price)}`, null, n.fc > t ? "pc-hi" : "")}${tile(X($(n.priceFor), { l: `Price for ${pf(t, 0)}`, f: "food cost ÷ target", v: [["Food cost", $(n.food)], ["Target", pf(t, 0)]], src: SRC.cost }), `price for ${pf(t, 0)} food cost`)}${tile($(n.cm), "contribution per unit")}${tile(cu.score == null ? "—" : pf(cu.score * 100, 0), "components already at volume")}</div>
+          ${reading(`<b>${esc(n.name)}</b> costs <b>${$(n.food)}</b> to make and sells at ${$(n.price)}: <b>${pf(n.fc)}</b> food cost, ${n.fc <= t ? "under" : "over"} the ${pf(t, 0)} target${n.fc > t ? ` (${$(n.priceFor)} would hit it)` : ""}. ${cu.newLoad.length ? `It needs new prep for ${esc(cu.newLoad.join(", "))}.` : "Every component is already prepped at volume."}`, n.fc <= t ? "ok" : "warn")}
+          ${table("mc-parts", [{ k: "name", l: "Component" }, { k: "station", l: "Station" }, { k: "portions", l: "Portions", n: 1 }, { k: "unit", l: "Portion cost", n: 1, f: $ }, { k: "cost", l: "Cost", n: 1, f: $ }, { k: "cost", l: "Share", n: 1, f: v => pf(n.food ? v / n.food * 100 : null, 0) }], n.parts, { name: "new-item-cost" })}` + stepNav("mc", 3, 5, "Ripple"); }
+      else if (f.type === "portion") { const a = R.items.get(d.item), b = R0.items.get(d.item); const nut = R.nutrition.find(x => x.id === d.item), nut0 = R0.nutrition.find(x => x.id === d.item);
+        body = `<div class="ops-tiles">${tile(`${$(b.food)} → ${X($(a.food), { l: "Food cost after", f: "Σ new portions × portion cost", v: a.parts.map(p => [`${p.name} ×${p.portions}`, $(p.cost)]), src: SRC.cost })}`, "food cost per unit")}${tile(`${pf(b.fc)} → ${pf(a.fc)}`, `food cost % at ${$(a.price)}`, null, a.fc > t ? "pc-hi" : "")}${tile(`${$(b.cm)} → ${$(a.cm)}`, "contribution per unit")}${nut && nut0 && R.hasNutrition ? tile(`${nf(nut0.calc)} → ${nf(nut.calc)}`, `calories from portions (menu says ${nf(nut.menu)})`) : ""}</div>
+          ${reading(`${esc(a.name)}: food cost ${$(b.food)} → <b>${$(a.food)}</b> (${sgn(a.food - b.food, $)}), contribution ${$(b.cm)} → <b>${$(a.cm)}</b> per unit${b.units ? `, ${sgn((a.cm - b.cm) * b.units, $0)} on ${nf(b.units)} units in ${period}` : ""}.`, a.food <= b.food ? "ok" : "warn")}
+          ${table("mc-portion", [{ k: "name", l: "Component" }, { k: "was", l: "Portions before", n: 1 }, { k: "portions", l: "After", n: 1 }, { k: "cost", l: "Cost after", n: 1, f: $ }], a.parts.map(p => ({ name: p.name, was: (b.parts.find(x => x.cid === p.cid) || { portions: 0 }).portions, portions: p.portions, cost: p.cost })).concat(b.parts.filter(p => !a.parts.some(x => x.cid === p.cid)).map(p => ({ name: p.name, was: p.portions, portions: 0, cost: 0 }))), { name: "portion-change" })}` + stepNav("mc", 3, 5, "Ripple"); }
+      else if (f.type === "swap") { const from = M.comps.get(d.swapFrom), to = M.comps.get(d.swapTo); const c0 = M.compCost(d.swapFrom, R0.refStore, R0.refDate), c1 = M.compCost(d.swapTo, R0.refStore, R0.refDate); const hit = [...R0.items.values()].filter(x => x.parts.some(p => p.cid === d.swapFrom)); const pk = R0.byo.picks.find(p => p.cid === d.swapFrom);
+        body = `<div class="ops-tiles">${tile(`${$(c0)} → ${$(c1)}`, "portion cost, before → after")}${tile(hit.length, "curated items affected")}${tile(pk ? nf(pk.byoPicks) : 0, `build-your-own orders picking ${esc(from.name)}`)}</div>
+          ${reading(`Swapping <b>${esc(from.name)}</b> for <b>${esc(to.name)}</b> changes the portion cost by ${sgn(c1 - c0, $)} everywhere it appears: ${hit.length} curated item${hit.length === 1 ? "" : "s"} and ${pk ? nf(pk.byoPicks) : 0} build-your-own orders in ${period}.`, c1 <= c0 ? "ok" : "warn")}
+          ${table("mc-swap", [{ k: "name", l: "Item" }, { k: "line", l: "Line" }, { k: "food0", l: "Food cost before", n: 1, f: $ }, { k: "food1", l: "After", n: 1, f: $ }, { k: "fc1", l: "Food cost %", n: 1, f: (v, r) => `${pf(r.fc0)} → ${pf(v)}`, cls: r => r.fc1 > t ? "pc-hi" : "" }], hit.map(x => { const a = R.items.get(x.id); return { name: x.name, line: x.line, food0: x.food, food1: a.food, fc0: x.fc, fc1: a.fc }; }), { name: "swap-items" })}` + stepNav("mc", 3, 5, "Ripple"); }
+      else { const b = R0.items.get(d.item); const pr = R0.ops.prep.find(p => p.id === d.item);
+        body = `<div class="ops-tiles">${tile(nf(b.units), `units in ${period}`)}${tile($k(b.rev), "net sales")}${tile($k(b.rev - b.cogs), "contribution")}${tile(b.quadrant || "—", b.read || "")}${tile(pr ? pr.exclusive.length : 0, "components only this item needs")}</div>
+          ${reading(`Removing <b>${esc(b.name)}</b> takes out ${$0(b.rev - b.cogs)} of contribution in ${period}; with ${d.retention}% of its volume assumed to move to other ${esc(b.line)} ${asmBadge("retention " + d.retention + "% (your setting)")}, the next step shows what comes back.${pr && pr.exclusive.length ? ` Prep that disappears with it: ${esc(pr.exclusive.join(", "))}.` : ""}`, "warn")}` + stepNav("mc", 3, 5, "Ripple"); }
+    } else if (f.step === 4) {
+      if (!scn) body = reading("The change is not complete yet.") + stepNav("mc", 4, 5);
+      else { const T0 = R0.totals, T1 = R.totals; const rows = [...R.items.values()].map(x => { const b = R0.items.get(x.id); const gp0 = b ? b.rev - b.cogs : 0, gp1 = x.removed ? 0 : x.rev - x.cogs; return { id: x.id, name: x.name + (x.isNew ? " (new)" : "") + (x.removed ? " (removed)" : ""), line: x.line, units0: b ? b.units : 0, units1: x.removed ? 0 : x.units, fc0: b ? b.fc : null, fc1: x.fc, dgp: gp1 - gp0 }; }).filter(r => Math.abs(r.dgp) > 0.5 || Math.abs(r.units1 - r.units0) > 0.5 || (r.fc0 != null && r.fc1 != null && Math.abs(r.fc1 - r.fc0) > 0.05)).sort((a, b) => Math.abs(b.dgp) - Math.abs(a.dgp));
+        const asmText = f.type === "new" || f.type === "lto" ? `${d.units} units per store-week, ${d.cannibal}% pulled from the line${f.type === "lto" ? `, ${d.weeks} weeks` : ""}` : f.type === "remove" ? `${d.retention}% of its volume moves to the line` : null;
+        const prep = (f.type === "new" || f.type === "lto") ? R.ops.prep.find(p => p.id === scn.newItems[0].id) : null; const cu = prep ? R0.crossUtil(d.recipe) : null;
+        body = `<div class="ops-tiles">${tile(X(delta(T1.rev - T0.rev, $k), { l: "Net sales", f: "scenario − base", v: [["Base", $0(T0.rev)], ["Scenario", $0(T1.rev)]], src: SRC.sales, asm: asmText || undefined }), "net sales")}${tile(`${pf(T0.fc)} → ${X(pf(T1.fc), { l: "Mix-weighted food cost", f: "food cost ÷ net sales", v: [["Base", pf(T0.fc)], ["Scenario", pf(T1.fc)]], src: SRC.cost, asm: asmText || undefined })}`, "food cost %")}${tile(X(delta(T1.gp - T0.gp, $k), { l: "Gross profit", f: "scenario − base", v: [["Base", $0(T0.gp)], ["Scenario", $0(T1.gp)]], src: SRC.sales, asm: asmText || undefined }), `gross profit, ${period}`)}${prep ? tile(`${prep.components} · ${prep.stations}`, "components · stations") : ""}${prep ? tile(X(nf(prep.steps), { l: "Prep steps", f: "Σ prep_steps of its components (default 1)", src: "components.csv prep_steps" }), "prep steps") : ""}${cu ? tile(cu.newLoad.length, "new prep items", cu.newLoad.length ? `<b>New prep</b>` + ttList(cu.newLoad.map(esc)) : "") : ""}</div>
+          ${reading(`Across the menu, ${T1.gp - T0.gp >= 0 ? "gross profit rises" : "gross profit falls"} <b>${sgn(T1.gp - T0.gp, $0)}</b> in ${period} and food cost moves ${pts(T1.fc - T0.fc)}${asmText ? ` ${asmBadge(asmText)}` : ""}. ${rows.length} item${rows.length === 1 ? "" : "s"} change.${prep ? ` Prep: ${prep.components} components on ${prep.stations} stations${cu.newLoad.length ? `, new load for ${esc(cu.newLoad.join(", "))}` : ", nothing new to prep"}.` : ""}`, T1.gp - T0.gp >= 0 ? "ok" : "warn")}
+          ${table("mc-ripple", [{ k: "name", l: "Item" }, { k: "line", l: "Line" }, { k: "units1", l: "Units", n: 1, f: (v, r) => `${nf(r.units0)} → ${nf(v)}` }, { k: "fc1", l: "Food cost %", n: 1, f: (v, r) => r.fc0 != null && Math.abs(r.fc0 - v) > 0.05 ? `${pf(r.fc0)} → ${pf(v)}` : pf(v), cls: r => r.fc1 > t ? "pc-hi" : "" }, { k: "dgp", l: "Gross profit change", n: 1, f: v => sgn(v, $0), cls: r => r.dgp < 0 ? "pc-hi" : "" }], rows, { title: "Affected items", name: "menu-change-ripple", maxh: 360, empty: "No item changes." })}` + stepNav("mc", 4, 5, "Compare & export"); }
+    } else {
+      const cols = [{ name: "Base", R: R0 }].concat(scn ? [{ name: f.name.trim() || "Current", R }] : []).concat(f.options.map(o => ({ name: o.name, R: resultsFor(sc, o.scn), i: f.options.indexOf(o) })));
+      const rows = [["Net sales", r => $k(r.totals.rev)], ["Gross profit", r => $k(r.totals.gp)], ["Food cost %", r => pf(r.totals.fc)], ["Units", r => nf(r.totals.units)], ["Meals over target", r => r.itemList.filter(x => !x.addon && !x.byo && x.fc > t).length], ["Distinct components in use", r => r.ops.prep.reduce((s, p) => s + p.components, 0)]];
+      CT.exports.set("mc-compare", { name: "menu-change-options", cols: [{ k: "metric", l: "Metric" }].concat(cols.map((c, i) => ({ k: "c" + i, l: c.name }))), rows: rows.map(([l, fn]) => Object.assign({ metric: l }, Object.fromEntries(cols.map((c, i) => ["c" + i, fn(c.R)])))) });
+      body = `<div class="ct-row"><input type="text" data-set="mc:name" value="${esc(f.name)}" placeholder="Name this option" style="flex:1"><button class="linkbtn" data-act="mc:save" ${scn ? "" : "disabled"}>Save as option</button><button class="linkbtn" data-act="mc:step:1">Start another</button></div>
+        <div class="ct-block"><div class="sub">Options side by side</div><div class="scroll"><table class="mini gtable"><thead><tr><th></th>${cols.map(c => `<th class="n">${esc(c.name)}${c.i != null ? ` <button class="linkbtn" data-act="mc:load:${c.i}">open</button><button class="linkbtn" data-act="mc:del:${c.i}" aria-label="Delete">✕</button>` : ""}</th>`).join("")}</tr></thead><tbody>${rows.map(([l, fn]) => `<tr><td>${esc(l)}</td>${cols.map(c => `<td class="n">${fn(c.R)}</td>`).join("")}</tr>`).join("")}</tbody></table></div></div>
+        <div class="ct-row"><button class="tour-next" data-act="mc:summary" ${scn ? "" : "disabled"}>Open the summary</button><button class="linkbtn" data-act="csv:mc-compare">⤓ Comparison CSV</button><button class="linkbtn" data-act="mc:explore" ${scn ? "" : "disabled"}>Open in Explore → Scenarios</button></div>` + stepNav("mc", 5, 5);
+    }
+    return head + (f.type && f.step > 1 ? `<p class="hint" style="margin:-6px 0 4px">${esc(typeLabel)}${d && d.name ? ` · ${esc(d.name)}` : ""}</p>` : "") + body;
+  }
+  function mcSummary() {
+    const M = data().M; const f = CT.flow.menu; const scn = mcScn(); if (!scn) return; const R0 = resultsFor({}), R = resultsFor({}, scn); const t = CT.scope.target; const d = f.def; const period = monthsLabel(M.months);
+    const what = f.type === "new" || f.type === "lto" ? `${MC_TYPES.find(x => x[0] === f.type)[1]}: ${esc(d.name)} at ${$(+d.price)} (${d.recipe.map(p => esc(M.comps.get(p.cid).name) + (p.portions !== 1 ? " ×" + p.portions : "")).join(", ")}); ${d.units} units per store-week, ${d.cannibal}% pulled from the line${f.type === "lto" ? `, ${d.weeks} weeks` : ""}` : f.type === "portion" ? `Portion change: ${esc(d.name)} → ${d.recipe.map(p => esc(M.comps.get(p.cid).name) + " ×" + p.portions).join(", ")}` : f.type === "swap" ? `Swap ${esc(M.comps.get(d.swapFrom).name)} for ${esc(M.comps.get(d.swapTo).name)}` : `Remove ${esc(M.items.get(d.item).name)}, ${d.retention}% of its volume moving to the line`;
+    const n = scn.newItems ? R.items.get(scn.newItems[0].id) : null;
+    const html = `<p class="sum-lead">${what}. Base: ${esc(period)}, costs as of ${R0.refDate}.</p>
+      ${n ? sumTable(["Food cost", "Price", "Food cost %", `Price for ${pf(t, 0)}`, "Contribution"], [[$(n.food), $(n.price), pf(n.fc), $(n.priceFor), $(n.cm)]]) : ""}
+      ${sumTable(["", "Base", "With the change"], [["Net sales", $0(R0.totals.rev), $0(R.totals.rev)], ["Gross profit", $0(R0.totals.gp), $0(R.totals.gp)], ["Food cost %", pf(R0.totals.fc), pf(R.totals.fc)], ["Units", nf(R0.totals.units), nf(R.totals.units)]])}
+      ${f.options.length ? `<h3>Options</h3>${sumTable(["Option", "Gross profit", "Food cost %"], f.options.map(o => { const r = resultsFor({}, o.scn); return [esc(o.name), $0(r.totals.gp), pf(r.totals.fc)]; }))}` : ""}
+      <p class="sum-foot">Volume figures rest on the stated assumptions (units per store-week, share pulled from the line, retention). Costs and margins per unit are arithmetic on the data. Method: docs/methodology.md.</p>`;
+    showSummary("Menu change · " + (d.name || MC_TYPES.find(x => x[0] === f.type)[1]), html);
+  }
+
+  /* ---------- Suggest new menu items ---------- */
+  function idAct(arg) { const [k, v] = arg.split(":"); const f = CT.flow.ideas; const M = data().M; const list = CM.suggest(M, resultsFor({}), CT.scope.target);
+    if (k === "open") f.open = f.open === v ? null : v;
+    if (k === "eval") { const s = list.find(x => x.key === v); if (s) { CT.flow.menu.type = "new"; CT.flow.menu.def = Object.assign(mcBlank("new"), { name: (s.mains.length ? s.mains.join(" + ") : "Guest build") + " bowl", line: s.line, price: s.suggestedPrice, recipe: s.recipe.map(p => ({ ...p })), units: Math.max(1, Math.round(s.perStoreWeek)), cannibal: 70 }); CT.flow.menu.step = 3; CT.job = "menu"; } }
+    render(); }
+  function jobIdeas(M) {
+    const R = resultsFor({}); const t = CT.scope.target; const list = CM.suggest(M, R, t).slice(0, 10); const f = CT.flow.ideas;
+    if (!R.byo.orders) return jobHead("Suggest new menu items", "Needs build-your-own orders with modifiers.") + reading("Load modifiers.csv so the tool can see the builds guests make themselves.");
+    const puzzles = R.itemList.filter(x => x.quadrant === "Puzzle").sort((a, b) => b.cmUnit - a.cmUnit).slice(0, 5);
+    return jobHead("Suggest new menu items", "Builds guests already order that no curated item offers, ranked by what they would earn: demand × contribution, favouring components already stocked at volume and builds under the target food cost.") +
+      reading(`Scored on ${monthsLabel(M.months)}: ${X("score", { l: "Candidate score", f: "contribution per order × orders per store-week × (0.5 + 0.5 × share of components at volume) × min(1, target ÷ food cost %)", src: SRC.mods + " + " + SRC.cost })} rewards builds that sell often, earn well at the price guests already pay, need no new prep, and sit under the ${pf(t, 0)} target.`) +
+      `<div class="ideas">${list.map((s, i) => `<div class="idea ${f.open === s.key ? "open" : ""}"><div class="idea-head"><span class="idea-rank">${i + 1}</span><div class="idea-title"><b>${esc(s.mains.join(" + ") || "Build")}</b> <span class="hint">${esc(s.line)}</span><div class="idea-build">${esc(s.label)}</div></div>
+          <div class="idea-nums">${tile(X(s.perStoreWeek.toFixed(0), { l: "Orders per store-week", f: "orders of this exact build ÷ stores ÷ weeks", v: [["Orders", nf(s.n)]], src: SRC.mods }), "per store-week")}${tile(X($(s.suggestedPrice), { l: "Suggested price", f: "average paid for this build, rounded to 5¢", v: [["Average paid", $(s.avgPrice)], ["Price for " + pf(t, 0), $(s.priceFor)]], src: SRC.sales }), "price")}${tile(X(pf(s.fcAtPrice), { l: "Food cost % at that price", f: "build cost ÷ suggested price", v: [["Build cost", $(s.unitCost)]], src: SRC.cost }), "food cost", null, s.fcAtPrice > t ? "pc-hi" : "")}${tile(X($0(s.gpPerStoreWeek), { l: "Contribution per store-week", f: "(price paid − cost) × orders per store-week", src: SRC.sales }), "contribution / store-week")}</div></div>
+          <div class="idea-why"><div class="sub" style="margin:0 0 4px">Why</div><ul class="ct-notes">${s.why.map(w => `<li>${esc(w)}</li>`).join("")}</ul></div>
+          <div class="ct-row"><button class="tour-next" data-act="id:eval:${esc(s.key)}">Evaluate as a new item →</button><button class="linkbtn" data-act="go:explore:sales:byo">See the builds</button></div></div>`).join("")}</div>
+      ${puzzles.length ? `<div class="ct-block"><div class="sub">Also worth a look · profitable items few guests order (Puzzles)</div>${table("ideas-puzzles", [{ k: "name", l: "Item" }, { k: "line", l: "Line" }, { k: "units", l: "Units", n: 1, f: nf }, { k: "cmUnit", l: "Contribution", n: 1, f: $ }, { k: "fcSold", l: "Food cost %", n: 1, f: pf }, { k: "read", l: "Reading" }], puzzles, { name: "puzzles" })}</div>` : ""}`;
+  }
+
+
   /* ---------- wiring ---------- */
   function setUI(k, v) { CT.ui[k] = v; }
   function act(a, el) {
     const [cmd, ...rest] = a.split(":"); const arg = rest.join(":"); const M = data().M;
     const rerender = () => render();
     switch (cmd) {
-      case "tab": CT.tab = arg; return rerender();
-      case "src": CT.src = arg; CT.cache.clear(); CT.scope = { stores: null, months: null, channel: "all", target: CT.scope.target }; return rerender();
+      case "tab": CT.job = "explore"; CT.tab = arg; return rerender();
+      case "job": CT.job = arg; if (arg === "explore" && !["costs", "sales", "scenarios", "ops", "recon"].includes(CT.tab)) CT.tab = "costs"; return rerender();
+      case "go": return go(arg);
+      case "rv": return rvAct(arg);
+      case "pc": return pcAct(arg);
+      case "mc": return mcAct(arg);
+      case "id": return idAct(arg);
+      case "print": return printSummary(arg);
+      case "src": CT.src = arg; CT.cache.clear(); CT.scope = { stores: null, months: null, channel: "all", target: CT.scope.target }; resetFlows(); return rerender();
       case "clear": if (confirm("Remove every loaded file, saved scenario and column mapping from this browser and go back to the sample data?")) clearAll(); return;
       case "store": { const all = [...M.stores.keys()]; const s = CT.scope.stores ? new Set(CT.scope.stores) : new Set(all); if (s.has(arg)) { if (s.size > 1) s.delete(arg); } else s.add(arg); CT.scope.stores = s.size === all.length ? null : s; return rerender(); }
       case "month": { const all = M.months; const s = CT.scope.months ? new Set(CT.scope.months) : new Set(all); if (s.has(arg)) { if (s.size > 1) s.delete(arg); } else s.add(arg); CT.scope.months = s.size === all.length ? null : s; return rerender(); }
@@ -513,6 +882,9 @@
       case "niWeeks": CT.ui.newItem.weeks = value; return;
       case "byoLine": CT.ui.byoLine = value; return rerender();
       case "crossItem": CT.ui.crossItem = value; return rerender();
+      case "pc": return pcSet(a, b, value, el);
+      case "mc": return mcSet(a, b, value, el);
+      case "rv": return rvSet(a, value);
       default: CT.ui[k] = value; return;
     }
   }

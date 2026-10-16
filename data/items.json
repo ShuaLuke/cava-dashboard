@@ -11,7 +11,7 @@
 "ings": [
 {
 "name": "Grilled steak",
-"cat": "Steak & lamb",
+"cat": "Beef, pork & lamb",
 "raw": "Grilled steak"
 },
 {
@@ -31,7 +31,7 @@
 },
 {
 "name": "Pita crisps",
-"cat": "Pita & chips",
+"cat": "Breads & chips",
 "raw": "pita crisps"
 },
 {
@@ -46,7 +46,7 @@
 },
 {
 "name": "Crumbled feta",
-"cat": "Feta & avocado",
+"cat": "Cheese, dairy & avocado",
 "raw": "feta"
 },
 {
@@ -234,7 +234,7 @@
 },
 {
 "name": "Avocado",
-"cat": "Feta & avocado",
+"cat": "Cheese, dairy & avocado",
 "raw": "avocado"
 },
 {
@@ -439,7 +439,7 @@
 },
 {
 "name": "Crumbled feta",
-"cat": "Feta & avocado",
+"cat": "Cheese, dairy & avocado",
 "raw": "feta"
 },
 {
@@ -528,7 +528,7 @@
 },
 {
 "name": "Avocado",
-"cat": "Feta & avocado",
+"cat": "Cheese, dairy & avocado",
 "raw": "avocado"
 },
 {
@@ -543,7 +543,7 @@
 },
 {
 "name": "Crumbled feta",
-"cat": "Feta & avocado",
+"cat": "Cheese, dairy & avocado",
 "raw": "feta"
 },
 {
@@ -626,7 +626,7 @@
 "ings": [
 {
 "name": "Grilled steak",
-"cat": "Steak & lamb",
+"cat": "Beef, pork & lamb",
 "raw": "Grilled steak"
 },
 {
@@ -651,7 +651,7 @@
 },
 {
 "name": "Crumbled feta",
-"cat": "Feta & avocado",
+"cat": "Cheese, dairy & avocado",
 "raw": "feta"
 },
 {
@@ -745,7 +745,7 @@
 },
 {
 "name": "Crumbled feta",
-"cat": "Feta & avocado",
+"cat": "Cheese, dairy & avocado",
 "raw": "feta"
 },
 {
@@ -879,7 +879,7 @@
 },
 {
 "name": "Pita crisps",
-"cat": "Pita & chips",
+"cat": "Breads & chips",
 "raw": "pita crisps"
 },
 {
@@ -965,12 +965,12 @@
 "ings": [
 {
 "name": "Spicy lamb meatballs",
-"cat": "Steak & lamb",
+"cat": "Beef, pork & lamb",
 "raw": "Spicy lamb meatballs"
 },
 {
 "name": "Avocado",
-"cat": "Feta & avocado",
+"cat": "Cheese, dairy & avocado",
 "raw": "avocado"
 },
 {
@@ -1069,7 +1069,7 @@
 "ings": [
 {
 "name": "Grilled steak",
-"cat": "Steak & lamb",
+"cat": "Beef, pork & lamb",
 "raw": "Grilled steak"
 },
 {
@@ -1089,11 +1089,11 @@
 },
 {
 "name": "Crumbled feta",
-"cat": "Feta & avocado",
+"cat": "Cheese, dairy & avocado",
 "raw": "feta"
 },
 {
-"name": "Salt-brined pickles",
+"name": "Pickles",
 "cat": "Pickled & brined",
 "raw": "pickles"
 },
@@ -1114,7 +1114,7 @@
 },
 {
 "name": "Pita",
-"cat": "Pita & chips",
+"cat": "Breads & chips",
 "raw": "pita"
 }
 ],
@@ -1141,7 +1141,7 @@
 ],
 [
 "pickles",
-"Salt-brined pickles"
+"Pickles"
 ],
 [
 "romaine",
@@ -1193,7 +1193,7 @@
 },
 {
 "name": "Crumbled feta",
-"cat": "Feta & avocado",
+"cat": "Cheese, dairy & avocado",
 "raw": "feta"
 },
 {
@@ -1208,7 +1208,7 @@
 },
 {
 "name": "Pita",
-"cat": "Pita & chips",
+"cat": "Breads & chips",
 "raw": "pita"
 }
 ],
@@ -1269,11 +1269,11 @@
 },
 {
 "name": "Avocado",
-"cat": "Feta & avocado",
+"cat": "Cheese, dairy & avocado",
 "raw": "avocado"
 },
 {
-"name": "Salt-brined pickles",
+"name": "Pickles",
 "cat": "Pickled & brined",
 "raw": "pickles"
 },
@@ -1284,7 +1284,7 @@
 },
 {
 "name": "Crumbled feta",
-"cat": "Feta & avocado",
+"cat": "Cheese, dairy & avocado",
 "raw": "feta"
 },
 {
@@ -1299,7 +1299,7 @@
 },
 {
 "name": "Pita",
-"cat": "Pita & chips",
+"cat": "Breads & chips",
 "raw": "pita"
 }
 ],
@@ -1318,7 +1318,7 @@
 ],
 [
 "pickles",
-"Salt-brined pickles"
+"Pickles"
 ],
 [
 "corn",
@@ -1354,7 +1354,7 @@
 "ings": [
 {
 "name": "Pita chips",
-"cat": "Pita & chips",
+"cat": "Breads & chips",
 "raw": "classic pita chips"
 },
 {
@@ -1395,7 +1395,7 @@
 "ings": [
 {
 "name": "Pita chips",
-"cat": "Pita & chips",
+"cat": "Breads & chips",
 "raw": "classic pita chips"
 }
 ],
@@ -1418,7 +1418,7 @@
 "ings": [
 {
 "name": "Pita",
-"cat": "Pita & chips",
+"cat": "Breads & chips",
 "raw": "pita (sprouted grains)"
 }
 ],
@@ -2095,6 +2095,4704 @@
 [
 "dried apricot",
 "Dried apricot"
+]
+]
+},
+{
+"group": "Sweetgreen",
+"line": "Bowls & plates",
+"section": "Featured",
+"item": "Autumn Harvest Bowl",
+"price": 15.45,
+"cal": 900,
+"small": false,
+"veg": false,
+"ings": [
+{
+"name": "Blackened chicken",
+"cat": "Chicken",
+"raw": "blackened chicken"
+},
+{
+"name": "Maple glazed brussels",
+"cat": "Fresh vegetables",
+"raw": "maple glazed brussels"
+},
+{
+"name": "Roasted sweet potatoes",
+"cat": "Fresh vegetables",
+"raw": "roasted sweet potatoes"
+},
+{
+"name": "Apples",
+"cat": "Fresh vegetables",
+"raw": "apples"
+},
+{
+"name": "Goat cheese",
+"cat": "Cheese, dairy & avocado",
+"raw": "goat cheese"
+},
+{
+"name": "Roasted almonds",
+"cat": "Crunch & nuts",
+"raw": "roasted almonds"
+},
+{
+"name": "Wild rice",
+"cat": "Grains & legumes",
+"raw": "wild rice"
+},
+{
+"name": "Shredded kale",
+"cat": "Greens",
+"raw": "organic shredded kale"
+},
+{
+"name": "Balsamic vinaigrette",
+"cat": "Dressings",
+"raw": "balsamic vinaigrette"
+}
+],
+"parts": [
+[
+"blackened chicken",
+"Blackened chicken"
+],
+[
+"maple glazed brussels",
+"Maple glazed brussels"
+],
+[
+"roasted sweet potatoes",
+"Roasted sweet potatoes"
+],
+[
+"apples",
+"Apples"
+],
+[
+"goat cheese",
+"Goat cheese"
+],
+[
+"roasted almonds",
+"Roasted almonds"
+],
+[
+"wild rice",
+"Wild rice"
+],
+[
+"organic shredded kale",
+"Shredded kale"
+],
+[
+"balsamic vinaigrette",
+"Balsamic vinaigrette"
+]
+]
+},
+{
+"group": "Sweetgreen",
+"line": "Bowls & plates",
+"section": "Featured",
+"item": "Maple Glazed Salmon Plate",
+"price": 17.95,
+"cal": 945,
+"small": false,
+"veg": false,
+"ings": [
+{
+"name": "Glazed salmon",
+"cat": "Seafood",
+"raw": "miso glazed salmon"
+},
+{
+"name": "Maple glazed brussels",
+"cat": "Fresh vegetables",
+"raw": "maple glazed brussels"
+},
+{
+"name": "Roasted sweet potatoes",
+"cat": "Fresh vegetables",
+"raw": "warm roasted sweet potatoes"
+},
+{
+"name": "Napa cabbage slaw",
+"cat": "Fresh vegetables",
+"raw": "napa cabbage slaw"
+},
+{
+"name": "White rice",
+"cat": "Grains & legumes",
+"raw": "umami rice"
+},
+{
+"name": "Garlic aioli",
+"cat": "Dressings",
+"raw": "garlic aioli"
+}
+],
+"parts": [
+[
+"miso glazed salmon",
+"Glazed salmon"
+],
+[
+"maple glazed brussels",
+"Maple glazed brussels"
+],
+[
+"warm roasted sweet potatoes",
+"Roasted sweet potatoes"
+],
+[
+"napa cabbage slaw",
+"Napa cabbage slaw"
+],
+[
+"umami rice",
+"White rice"
+],
+[
+"garlic aioli",
+"Garlic aioli"
+]
+]
+},
+{
+"group": "Sweetgreen",
+"line": "Bowls & plates",
+"section": "Bowls",
+"item": "Crispy Rice Bowl",
+"price": 14.95,
+"cal": 680,
+"small": false,
+"veg": false,
+"ings": [
+{
+"name": "Blackened chicken",
+"cat": "Chicken",
+"raw": "blackened chicken"
+},
+{
+"name": "Carrots",
+"cat": "Fresh vegetables",
+"raw": "raw carrots"
+},
+{
+"name": "Shredded cabbage",
+"cat": "Fresh vegetables",
+"raw": "shredded cabbage"
+},
+{
+"name": "Cucumber",
+"cat": "Fresh vegetables",
+"raw": "cucumbers"
+},
+{
+"name": "Cilantro",
+"cat": "Fresh vegetables",
+"raw": "cilantro"
+},
+{
+"name": "Roasted almonds",
+"cat": "Crunch & nuts",
+"raw": "roasted almonds"
+},
+{
+"name": "Crispy rice",
+"cat": "Crunch & nuts",
+"raw": "crispy rice"
+},
+{
+"name": "Wild rice",
+"cat": "Grains & legumes",
+"raw": "wild rice"
+},
+{
+"name": "Arugula",
+"cat": "Greens",
+"raw": "organic arugula"
+},
+{
+"name": "Lime",
+"cat": "Fruit & botanicals",
+"raw": "lime squeeze"
+},
+{
+"name": "Spicy cashew dressing",
+"cat": "Dressings",
+"raw": "spicy cashew"
+}
+],
+"parts": [
+[
+"blackened chicken",
+"Blackened chicken"
+],
+[
+"raw carrots",
+"Carrots"
+],
+[
+"shredded cabbage",
+"Shredded cabbage"
+],
+[
+"cucumbers",
+"Cucumber"
+],
+[
+"cilantro",
+"Cilantro"
+],
+[
+"roasted almonds",
+"Roasted almonds"
+],
+[
+"crispy rice",
+"Crispy rice"
+],
+[
+"wild rice",
+"Wild rice"
+],
+[
+"organic arugula",
+"Arugula"
+],
+[
+"lime squeeze",
+"Lime"
+],
+[
+"spicy cashew",
+"Spicy cashew dressing"
+]
+]
+},
+{
+"group": "Sweetgreen",
+"line": "Bowls & plates",
+"section": "Bowls",
+"item": "Harvest Bowl",
+"price": 14.45,
+"cal": 760,
+"small": false,
+"veg": false,
+"ings": [
+{
+"name": "Roasted chicken",
+"cat": "Chicken",
+"raw": "roasted chicken"
+},
+{
+"name": "Roasted sweet potatoes",
+"cat": "Fresh vegetables",
+"raw": "roasted sweet potatoes"
+},
+{
+"name": "Apples",
+"cat": "Fresh vegetables",
+"raw": "apples"
+},
+{
+"name": "Goat cheese",
+"cat": "Cheese, dairy & avocado",
+"raw": "goat cheese"
+},
+{
+"name": "Roasted almonds",
+"cat": "Crunch & nuts",
+"raw": "roasted almonds"
+},
+{
+"name": "Wild rice",
+"cat": "Grains & legumes",
+"raw": "wild rice"
+},
+{
+"name": "Shredded kale",
+"cat": "Greens",
+"raw": "organic shredded kale"
+},
+{
+"name": "Balsamic vinaigrette",
+"cat": "Dressings",
+"raw": "balsamic vinaigrette"
+}
+],
+"parts": [
+[
+"roasted chicken",
+"Roasted chicken"
+],
+[
+"roasted sweet potatoes",
+"Roasted sweet potatoes"
+],
+[
+"apples",
+"Apples"
+],
+[
+"goat cheese",
+"Goat cheese"
+],
+[
+"roasted almonds",
+"Roasted almonds"
+],
+[
+"wild rice",
+"Wild rice"
+],
+[
+"organic shredded kale",
+"Shredded kale"
+],
+[
+"balsamic vinaigrette",
+"Balsamic vinaigrette"
+]
+]
+},
+{
+"group": "Sweetgreen",
+"line": "Bowls & plates",
+"section": "Bowls",
+"item": "Chicken Pesto Parm",
+"price": 14.25,
+"cal": 510,
+"small": false,
+"veg": false,
+"ings": [
+{
+"name": "Roasted chicken",
+"cat": "Chicken",
+"raw": "roasted chicken"
+},
+{
+"name": "Spicy broccoli",
+"cat": "Fresh vegetables",
+"raw": "spicy broccoli"
+},
+{
+"name": "Tomatoes",
+"cat": "Fresh vegetables",
+"raw": "tomatoes"
+},
+{
+"name": "Parmesan",
+"cat": "Cheese, dairy & avocado",
+"raw": "shaved parmesan"
+},
+{
+"name": "Garlic breadcrumbs",
+"cat": "Crunch & nuts",
+"raw": "garlic breadcrumbs"
+},
+{
+"name": "Golden quinoa",
+"cat": "Grains & legumes",
+"raw": "golden quinoa"
+},
+{
+"name": "Baby spinach",
+"cat": "Greens",
+"raw": "organic baby spinach"
+},
+{
+"name": "Hot sauce",
+"cat": "Dressings",
+"raw": "sweetgreen hot sauce"
+},
+{
+"name": "Pesto vinaigrette",
+"cat": "Dressings",
+"raw": "pesto vinaigrette"
+}
+],
+"parts": [
+[
+"roasted chicken",
+"Roasted chicken"
+],
+[
+"spicy broccoli",
+"Spicy broccoli"
+],
+[
+"tomatoes",
+"Tomatoes"
+],
+[
+"shaved parmesan",
+"Parmesan"
+],
+[
+"garlic breadcrumbs",
+"Garlic breadcrumbs"
+],
+[
+"golden quinoa",
+"Golden quinoa"
+],
+[
+"organic baby spinach",
+"Baby spinach"
+],
+[
+"sweetgreen hot sauce",
+"Hot sauce"
+],
+[
+"pesto vinaigrette",
+"Pesto vinaigrette"
+]
+]
+},
+{
+"group": "Sweetgreen",
+"line": "Bowls & plates",
+"section": "Bowls",
+"item": "Steak Honey Crunch",
+"price": 16.95,
+"cal": 605,
+"small": false,
+"veg": false,
+"ings": [
+{
+"name": "Garlic steak",
+"cat": "Beef, pork & lamb",
+"raw": "caramelized garlic steak"
+},
+{
+"name": "Tomatoes",
+"cat": "Fresh vegetables",
+"raw": "tomatoes"
+},
+{
+"name": "Garlic breadcrumbs",
+"cat": "Crunch & nuts",
+"raw": "garlic breadcrumbs"
+},
+{
+"name": "Pickled onions",
+"cat": "Pickled & brined",
+"raw": "pickled onions"
+},
+{
+"name": "Golden quinoa",
+"cat": "Grains & legumes",
+"raw": "golden quinoa"
+},
+{
+"name": "Romaine",
+"cat": "Greens",
+"raw": "chopped romaine"
+},
+{
+"name": "Hot honey mustard",
+"cat": "Dressings",
+"raw": "hot honey mustard sauce"
+}
+],
+"parts": [
+[
+"caramelized garlic steak",
+"Garlic steak"
+],
+[
+"tomatoes",
+"Tomatoes"
+],
+[
+"garlic breadcrumbs",
+"Garlic breadcrumbs"
+],
+[
+"pickled onions",
+"Pickled onions"
+],
+[
+"golden quinoa",
+"Golden quinoa"
+],
+[
+"chopped romaine",
+"Romaine"
+],
+[
+"hot honey mustard sauce",
+"Hot honey mustard"
+]
+]
+},
+{
+"group": "Sweetgreen",
+"line": "Bowls & plates",
+"section": "Bowls",
+"item": "Shroomami",
+"price": 13.95,
+"cal": 665,
+"small": false,
+"veg": true,
+"ings": [
+{
+"name": "Roasted tofu",
+"cat": "Plant-based mains",
+"raw": "roasted tofu"
+},
+{
+"name": "Portobello mix",
+"cat": "Plant-based mains",
+"raw": "warm portobello mix"
+},
+{
+"name": "Cucumber",
+"cat": "Fresh vegetables",
+"raw": "cucumbers"
+},
+{
+"name": "Basil",
+"cat": "Fresh vegetables",
+"raw": "basil"
+},
+{
+"name": "Shredded cabbage",
+"cat": "Fresh vegetables",
+"raw": "shredded cabbage"
+},
+{
+"name": "Roasted almonds",
+"cat": "Crunch & nuts",
+"raw": "roasted almonds"
+},
+{
+"name": "Wild rice",
+"cat": "Grains & legumes",
+"raw": "wild rice"
+},
+{
+"name": "Shredded kale",
+"cat": "Greens",
+"raw": "organic shredded kale"
+},
+{
+"name": "Miso sesame ginger",
+"cat": "Dressings",
+"raw": "miso sesame ginger"
+}
+],
+"parts": [
+[
+"roasted tofu",
+"Roasted tofu"
+],
+[
+"warm portobello mix",
+"Portobello mix"
+],
+[
+"cucumbers",
+"Cucumber"
+],
+[
+"basil",
+"Basil"
+],
+[
+"shredded cabbage",
+"Shredded cabbage"
+],
+[
+"roasted almonds",
+"Roasted almonds"
+],
+[
+"wild rice",
+"Wild rice"
+],
+[
+"organic shredded kale",
+"Shredded kale"
+],
+[
+"miso sesame ginger",
+"Miso sesame ginger"
+]
+]
+},
+{
+"group": "Sweetgreen",
+"line": "Bowls & plates",
+"section": "Bowls",
+"item": "Chicken Avocado Ranch",
+"price": 15.25,
+"cal": 765,
+"small": false,
+"veg": false,
+"ings": [
+{
+"name": "Blackened chicken",
+"cat": "Chicken",
+"raw": "blackened chicken"
+},
+{
+"name": "Avocado",
+"cat": "Cheese, dairy & avocado",
+"raw": "avocado"
+},
+{
+"name": "Pickled onions",
+"cat": "Pickled & brined",
+"raw": "pickled onions"
+},
+{
+"name": "Apples",
+"cat": "Fresh vegetables",
+"raw": "apples"
+},
+{
+"name": "Garlic breadcrumbs",
+"cat": "Crunch & nuts",
+"raw": "garlic breadcrumbs"
+},
+{
+"name": "White rice",
+"cat": "Grains & legumes",
+"raw": "umami rice"
+},
+{
+"name": "Romaine",
+"cat": "Greens",
+"raw": "chopped romaine"
+},
+{
+"name": "Green goddess ranch",
+"cat": "Dressings",
+"raw": "green goddess ranch"
+}
+],
+"parts": [
+[
+"blackened chicken",
+"Blackened chicken"
+],
+[
+"avocado",
+"Avocado"
+],
+[
+"pickled onions",
+"Pickled onions"
+],
+[
+"apples",
+"Apples"
+],
+[
+"garlic breadcrumbs",
+"Garlic breadcrumbs"
+],
+[
+"umami rice",
+"White rice"
+],
+[
+"chopped romaine",
+"Romaine"
+],
+[
+"green goddess ranch",
+"Green goddess ranch"
+]
+]
+},
+{
+"group": "Sweetgreen",
+"line": "Bowls & plates",
+"section": "Bowls",
+"item": "Omega Glow",
+"price": 16.75,
+"cal": 750,
+"small": false,
+"veg": false,
+"ings": [
+{
+"name": "Glazed salmon",
+"cat": "Seafood",
+"raw": "miso glazed salmon"
+},
+{
+"name": "Romaine",
+"cat": "Greens",
+"raw": "chopped romaine"
+},
+{
+"name": "White rice",
+"cat": "Grains & legumes",
+"raw": "umami rice"
+},
+{
+"name": "Corn salsa",
+"cat": "Salsas",
+"raw": "corn salsa"
+},
+{
+"name": "Carrots",
+"cat": "Fresh vegetables",
+"raw": "raw carrots"
+},
+{
+"name": "Shredded cabbage",
+"cat": "Fresh vegetables",
+"raw": "shredded cabbage"
+},
+{
+"name": "Cilantro",
+"cat": "Fresh vegetables",
+"raw": "cilantro"
+},
+{
+"name": "Roasted almonds",
+"cat": "Crunch & nuts",
+"raw": "roasted almonds"
+},
+{
+"name": "Miso sesame ginger",
+"cat": "Dressings",
+"raw": "miso sesame ginger dressing"
+}
+],
+"parts": [
+[
+"miso glazed salmon",
+"Glazed salmon"
+],
+[
+"chopped romaine",
+"Romaine"
+],
+[
+"umami rice",
+"White rice"
+],
+[
+"corn salsa",
+"Corn salsa"
+],
+[
+"raw carrots",
+"Carrots"
+],
+[
+"shredded cabbage",
+"Shredded cabbage"
+],
+[
+"cilantro",
+"Cilantro"
+],
+[
+"roasted almonds",
+"Roasted almonds"
+],
+[
+"miso sesame ginger dressing",
+"Miso sesame ginger"
+]
+]
+},
+{
+"group": "Sweetgreen",
+"line": "Bowls & plates",
+"section": "Warm plates",
+"item": "Caramelized Garlic Steak",
+"price": 17.45,
+"cal": 770,
+"small": false,
+"veg": false,
+"ings": [
+{
+"name": "Garlic steak",
+"cat": "Beef, pork & lamb",
+"raw": "caramelized garlic steak"
+},
+{
+"name": "Roasted sweet potatoes",
+"cat": "Fresh vegetables",
+"raw": "warm roasted sweet potatoes"
+},
+{
+"name": "Spicy broccoli",
+"cat": "Fresh vegetables",
+"raw": "spicy broccoli"
+},
+{
+"name": "Tomatoes",
+"cat": "Fresh vegetables",
+"raw": "tomatoes"
+},
+{
+"name": "Wild rice",
+"cat": "Grains & legumes",
+"raw": "wild rice"
+},
+{
+"name": "Pesto vinaigrette",
+"cat": "Dressings",
+"raw": "pesto vinaigrette"
+}
+],
+"parts": [
+[
+"caramelized garlic steak",
+"Garlic steak"
+],
+[
+"warm roasted sweet potatoes",
+"Roasted sweet potatoes"
+],
+[
+"spicy broccoli",
+"Spicy broccoli"
+],
+[
+"tomatoes",
+"Tomatoes"
+],
+[
+"wild rice",
+"Wild rice"
+],
+[
+"pesto vinaigrette",
+"Pesto vinaigrette"
+]
+]
+},
+{
+"group": "Sweetgreen",
+"line": "Bowls & plates",
+"section": "Warm plates",
+"item": "Miso Glazed Salmon",
+"price": 16.75,
+"cal": 960,
+"small": false,
+"veg": false,
+"ings": [
+{
+"name": "Glazed salmon",
+"cat": "Seafood",
+"raw": "miso glazed salmon"
+},
+{
+"name": "Avocado",
+"cat": "Cheese, dairy & avocado",
+"raw": "avocado"
+},
+{
+"name": "Cucumber",
+"cat": "Fresh vegetables",
+"raw": "cucumbers"
+},
+{
+"name": "Pickled onions",
+"cat": "Pickled & brined",
+"raw": "pickled onions"
+},
+{
+"name": "Crispy onions",
+"cat": "Crunch & nuts",
+"raw": "crispy onions"
+},
+{
+"name": "White rice",
+"cat": "Grains & legumes",
+"raw": "umami rice"
+},
+{
+"name": "Sesame crunch",
+"cat": "Crunch & nuts",
+"raw": "nori sesame seasoning"
+},
+{
+"name": "Spicy cashew dressing",
+"cat": "Dressings",
+"raw": "spicy cashew"
+}
+],
+"parts": [
+[
+"miso glazed salmon",
+"Glazed salmon"
+],
+[
+"avocado",
+"Avocado"
+],
+[
+"cucumbers",
+"Cucumber"
+],
+[
+"pickled onions",
+"Pickled onions"
+],
+[
+"crispy onions",
+"Crispy onions"
+],
+[
+"umami rice",
+"White rice"
+],
+[
+"nori sesame seasoning",
+"Sesame crunch"
+],
+[
+"spicy cashew",
+"Spicy cashew dressing"
+]
+]
+},
+{
+"group": "Sweetgreen",
+"line": "Bowls & plates",
+"section": "Warm plates",
+"item": "Hot Honey Chicken",
+"price": 15.45,
+"cal": 845,
+"small": false,
+"veg": false,
+"ings": [
+{
+"name": "Blackened chicken",
+"cat": "Chicken",
+"raw": "blackened chicken"
+},
+{
+"name": "Roasted sweet potatoes",
+"cat": "Fresh vegetables",
+"raw": "warm roasted sweet potatoes"
+},
+{
+"name": "Napa cabbage slaw",
+"cat": "Fresh vegetables",
+"raw": "napa cabbage slaw"
+},
+{
+"name": "Crispy onions",
+"cat": "Crunch & nuts",
+"raw": "crispy onions"
+},
+{
+"name": "Golden quinoa",
+"cat": "Grains & legumes",
+"raw": "golden quinoa"
+},
+{
+"name": "Hot honey mustard",
+"cat": "Dressings",
+"raw": "hot honey mustard sauce"
+}
+],
+"parts": [
+[
+"blackened chicken",
+"Blackened chicken"
+],
+[
+"warm roasted sweet potatoes",
+"Roasted sweet potatoes"
+],
+[
+"napa cabbage slaw",
+"Napa cabbage slaw"
+],
+[
+"crispy onions",
+"Crispy onions"
+],
+[
+"golden quinoa",
+"Golden quinoa"
+],
+[
+"hot honey mustard sauce",
+"Hot honey mustard"
+]
+]
+},
+{
+"group": "Sweetgreen",
+"line": "Bowls & plates",
+"section": "Warm plates",
+"item": "Steak Mezze",
+"price": 17.25,
+"cal": 835,
+"small": false,
+"veg": false,
+"ings": [
+{
+"name": "Garlic steak",
+"cat": "Beef, pork & lamb",
+"raw": "caramelized garlic steak"
+},
+{
+"name": "Hummus",
+"cat": "Dips & spreads",
+"raw": "hummus"
+},
+{
+"name": "Tomatoes",
+"cat": "Fresh vegetables",
+"raw": "tomatoes"
+},
+{
+"name": "Cucumber",
+"cat": "Fresh vegetables",
+"raw": "cucumbers"
+},
+{
+"name": "Crispy onions",
+"cat": "Crunch & nuts",
+"raw": "crispy onions"
+},
+{
+"name": "Pickled onions",
+"cat": "Pickled & brined",
+"raw": "pickled onions"
+},
+{
+"name": "White rice",
+"cat": "Grains & legumes",
+"raw": "umami rice"
+},
+{
+"name": "Lime cilantro jalapeño",
+"cat": "Dressings",
+"raw": "lime cilantro jalapeño vinaigrette"
+}
+],
+"parts": [
+[
+"caramelized garlic steak",
+"Garlic steak"
+],
+[
+"hummus",
+"Hummus"
+],
+[
+"tomatoes",
+"Tomatoes"
+],
+[
+"cucumbers",
+"Cucumber"
+],
+[
+"crispy onions",
+"Crispy onions"
+],
+[
+"pickled onions",
+"Pickled onions"
+],
+[
+"umami rice",
+"White rice"
+],
+[
+"lime cilantro jalapeño vinaigrette",
+"Lime cilantro jalapeño"
+]
+]
+},
+{
+"group": "Sweetgreen",
+"line": "Salads",
+"section": "Featured",
+"item": "Molly's Pickle Caesar Sal",
+"price": 14.95,
+"cal": 665,
+"small": false,
+"veg": false,
+"ings": [
+{
+"name": "Chicken salad",
+"cat": "Chicken",
+"raw": "Molly's chicken salad"
+},
+{
+"name": "Spicy broccoli",
+"cat": "Fresh vegetables",
+"raw": "spicy broccoli"
+},
+{
+"name": "Chickpeas",
+"cat": "Grains & legumes",
+"raw": "seasoned chickpeas"
+},
+{
+"name": "Pickled onions",
+"cat": "Pickled & brined",
+"raw": "pickled onions"
+},
+{
+"name": "Parmesan",
+"cat": "Cheese, dairy & avocado",
+"raw": "parmesan cheese"
+},
+{
+"name": "Garlic breadcrumbs",
+"cat": "Crunch & nuts",
+"raw": "garlic breadcrumbs"
+},
+{
+"name": "Caraway seeds",
+"cat": "Spices & seasonings",
+"raw": "ground caraway seeds"
+},
+{
+"name": "Romaine",
+"cat": "Greens",
+"raw": "chopped romaine"
+},
+{
+"name": "Shredded kale",
+"cat": "Greens",
+"raw": "organic shredded kale"
+},
+{
+"name": "Pickles",
+"cat": "Pickled & brined",
+"raw": "pickle spear"
+},
+{
+"name": "Lemon",
+"cat": "Fruit & botanicals",
+"raw": "lemon squeeze"
+},
+{
+"name": "Caesar dressing",
+"cat": "Dressings",
+"raw": "caesar dressing"
+}
+],
+"parts": [
+[
+"Molly's chicken salad",
+"Chicken salad"
+],
+[
+"spicy broccoli",
+"Spicy broccoli"
+],
+[
+"seasoned chickpeas",
+"Chickpeas"
+],
+[
+"pickled onions",
+"Pickled onions"
+],
+[
+"parmesan cheese",
+"Parmesan"
+],
+[
+"garlic breadcrumbs",
+"Garlic breadcrumbs"
+],
+[
+"ground caraway seeds",
+"Caraway seeds"
+],
+[
+"chopped romaine",
+"Romaine"
+],
+[
+"organic shredded kale",
+"Shredded kale"
+],
+[
+"pickle spear",
+"Pickles"
+],
+[
+"lemon squeeze",
+"Lemon"
+],
+[
+"caesar dressing",
+"Caesar dressing"
+]
+]
+},
+{
+"group": "Sweetgreen",
+"line": "Salads",
+"section": "Salads",
+"item": "Chicken Sesame Crunch Salad",
+"price": 14.75,
+"cal": 615,
+"small": false,
+"veg": false,
+"ings": [
+{
+"name": "Roasted chicken",
+"cat": "Chicken",
+"raw": "roasted chicken"
+},
+{
+"name": "Napa cabbage slaw",
+"cat": "Fresh vegetables",
+"raw": "napa cabbage slaw"
+},
+{
+"name": "Sesame crunch",
+"cat": "Crunch & nuts",
+"raw": "sesame crunch"
+},
+{
+"name": "Crispy noodles",
+"cat": "Crunch & nuts",
+"raw": "crispy noodles"
+},
+{
+"name": "Shredded cabbage",
+"cat": "Fresh vegetables",
+"raw": "shredded cabbage"
+},
+{
+"name": "Carrots",
+"cat": "Fresh vegetables",
+"raw": "raw carrots"
+},
+{
+"name": "Shredded kale",
+"cat": "Greens",
+"raw": "organic shredded kale"
+},
+{
+"name": "Romaine",
+"cat": "Greens",
+"raw": "chopped romaine"
+},
+{
+"name": "Citrus sesame vinaigrette",
+"cat": "Dressings",
+"raw": "citrus sesame vinaigrette"
+}
+],
+"parts": [
+[
+"roasted chicken",
+"Roasted chicken"
+],
+[
+"napa cabbage slaw",
+"Napa cabbage slaw"
+],
+[
+"sesame crunch",
+"Sesame crunch"
+],
+[
+"crispy noodles",
+"Crispy noodles"
+],
+[
+"shredded cabbage",
+"Shredded cabbage"
+],
+[
+"raw carrots",
+"Carrots"
+],
+[
+"organic shredded kale",
+"Shredded kale"
+],
+[
+"chopped romaine",
+"Romaine"
+],
+[
+"citrus sesame vinaigrette",
+"Citrus sesame vinaigrette"
+]
+]
+},
+{
+"group": "Sweetgreen",
+"line": "Salads",
+"section": "Salads",
+"item": "Buffalo Chicken",
+"price": 14.75,
+"cal": 580,
+"small": false,
+"veg": false,
+"ings": [
+{
+"name": "Blackened chicken",
+"cat": "Chicken",
+"raw": "blackened chicken"
+},
+{
+"name": "Tomatoes",
+"cat": "Fresh vegetables",
+"raw": "tomatoes"
+},
+{
+"name": "Crumbled feta",
+"cat": "Cheese, dairy & avocado",
+"raw": "feta cheese"
+},
+{
+"name": "Carrots",
+"cat": "Fresh vegetables",
+"raw": "raw carrots"
+},
+{
+"name": "Pickled onions",
+"cat": "Pickled & brined",
+"raw": "pickled onions"
+},
+{
+"name": "Garlic breadcrumbs",
+"cat": "Crunch & nuts",
+"raw": "garlic breadcrumbs"
+},
+{
+"name": "Cilantro",
+"cat": "Fresh vegetables",
+"raw": "cilantro"
+},
+{
+"name": "Romaine",
+"cat": "Greens",
+"raw": "chopped romaine"
+},
+{
+"name": "Shredded kale",
+"cat": "Greens",
+"raw": "organic shredded kale"
+},
+{
+"name": "Caesar dressing",
+"cat": "Dressings",
+"raw": "caesar"
+},
+{
+"name": "Hot sauce",
+"cat": "Dressings",
+"raw": "sweetgreen hot sauce"
+}
+],
+"parts": [
+[
+"blackened chicken",
+"Blackened chicken"
+],
+[
+"tomatoes",
+"Tomatoes"
+],
+[
+"feta cheese",
+"Crumbled feta"
+],
+[
+"raw carrots",
+"Carrots"
+],
+[
+"pickled onions",
+"Pickled onions"
+],
+[
+"garlic breadcrumbs",
+"Garlic breadcrumbs"
+],
+[
+"cilantro",
+"Cilantro"
+],
+[
+"chopped romaine",
+"Romaine"
+],
+[
+"organic shredded kale",
+"Shredded kale"
+],
+[
+"caesar",
+"Caesar dressing"
+],
+[
+"sweetgreen hot sauce",
+"Hot sauce"
+]
+]
+},
+{
+"group": "Sweetgreen",
+"line": "Salads",
+"section": "Salads",
+"item": "Super Green Goddess",
+"price": 11.35,
+"cal": 465,
+"small": false,
+"veg": true,
+"ings": [
+{
+"name": "Shredded kale",
+"cat": "Greens",
+"raw": "organic shredded kale"
+},
+{
+"name": "Baby spinach",
+"cat": "Greens",
+"raw": "organic baby spinach"
+},
+{
+"name": "Roasted sweet potatoes",
+"cat": "Fresh vegetables",
+"raw": "roasted sweet potatoes"
+},
+{
+"name": "Shredded cabbage",
+"cat": "Fresh vegetables",
+"raw": "shredded cabbage"
+},
+{
+"name": "Spicy broccoli",
+"cat": "Fresh vegetables",
+"raw": "spicy broccoli"
+},
+{
+"name": "Roasted almonds",
+"cat": "Crunch & nuts",
+"raw": "roasted almonds"
+},
+{
+"name": "Chickpeas",
+"cat": "Grains & legumes",
+"raw": "seasoned chickpeas"
+},
+{
+"name": "Carrots",
+"cat": "Fresh vegetables",
+"raw": "raw carrots"
+},
+{
+"name": "Green goddess ranch",
+"cat": "Dressings",
+"raw": "green goddess ranch"
+}
+],
+"parts": [
+[
+"organic shredded kale",
+"Shredded kale"
+],
+[
+"organic baby spinach",
+"Baby spinach"
+],
+[
+"roasted sweet potatoes",
+"Roasted sweet potatoes"
+],
+[
+"shredded cabbage",
+"Shredded cabbage"
+],
+[
+"spicy broccoli",
+"Spicy broccoli"
+],
+[
+"roasted almonds",
+"Roasted almonds"
+],
+[
+"seasoned chickpeas",
+"Chickpeas"
+],
+[
+"raw carrots",
+"Carrots"
+],
+[
+"green goddess ranch",
+"Green goddess ranch"
+]
+]
+},
+{
+"group": "Sweetgreen",
+"line": "Salads",
+"section": "Salads",
+"item": "Kale Caesar",
+"price": 12.45,
+"cal": 545,
+"small": false,
+"veg": false,
+"ings": [
+{
+"name": "Roasted chicken",
+"cat": "Chicken",
+"raw": "roasted chicken"
+},
+{
+"name": "Parmesan crisps",
+"cat": "Crunch & nuts",
+"raw": "parmesan crisps"
+},
+{
+"name": "Parmesan",
+"cat": "Cheese, dairy & avocado",
+"raw": "shaved parmesan"
+},
+{
+"name": "Garlic breadcrumbs",
+"cat": "Crunch & nuts",
+"raw": "garlic breadcrumbs"
+},
+{
+"name": "Shredded kale",
+"cat": "Greens",
+"raw": "organic shredded kale"
+},
+{
+"name": "Romaine",
+"cat": "Greens",
+"raw": "chopped romaine"
+},
+{
+"name": "Lemon",
+"cat": "Fruit & botanicals",
+"raw": "lemon squeeze"
+},
+{
+"name": "Caesar dressing",
+"cat": "Dressings",
+"raw": "caesar dressing"
+}
+],
+"parts": [
+[
+"roasted chicken",
+"Roasted chicken"
+],
+[
+"parmesan crisps",
+"Parmesan crisps"
+],
+[
+"shaved parmesan",
+"Parmesan"
+],
+[
+"garlic breadcrumbs",
+"Garlic breadcrumbs"
+],
+[
+"organic shredded kale",
+"Shredded kale"
+],
+[
+"chopped romaine",
+"Romaine"
+],
+[
+"lemon squeeze",
+"Lemon"
+],
+[
+"caesar dressing",
+"Caesar dressing"
+]
+]
+},
+{
+"group": "Sweetgreen",
+"line": "Salads",
+"section": "Salads",
+"item": "Hummus Crunch",
+"price": 13.45,
+"cal": 505,
+"small": false,
+"veg": true,
+"ings": [
+{
+"name": "Hummus",
+"cat": "Dips & spreads",
+"raw": "hummus"
+},
+{
+"name": "Crumbled feta",
+"cat": "Cheese, dairy & avocado",
+"raw": "feta crumble"
+},
+{
+"name": "Napa cabbage slaw",
+"cat": "Fresh vegetables",
+"raw": "napa cabbage slaw"
+},
+{
+"name": "Chickpeas",
+"cat": "Grains & legumes",
+"raw": "seasoned chickpeas"
+},
+{
+"name": "Tomatoes",
+"cat": "Fresh vegetables",
+"raw": "tomatoes"
+},
+{
+"name": "Cucumber",
+"cat": "Fresh vegetables",
+"raw": "cucumbers"
+},
+{
+"name": "Shredded cabbage",
+"cat": "Fresh vegetables",
+"raw": "shredded cabbage"
+},
+{
+"name": "Garlic breadcrumbs",
+"cat": "Crunch & nuts",
+"raw": "garlic breadcrumbs"
+},
+{
+"name": "Basil",
+"cat": "Fresh vegetables",
+"raw": "basil"
+},
+{
+"name": "Shredded kale",
+"cat": "Greens",
+"raw": "organic shredded kale"
+},
+{
+"name": "Romaine",
+"cat": "Greens",
+"raw": "chopped romaine"
+},
+{
+"name": "Pesto vinaigrette",
+"cat": "Dressings",
+"raw": "pesto vinaigrette"
+}
+],
+"parts": [
+[
+"hummus",
+"Hummus"
+],
+[
+"feta crumble",
+"Crumbled feta"
+],
+[
+"napa cabbage slaw",
+"Napa cabbage slaw"
+],
+[
+"seasoned chickpeas",
+"Chickpeas"
+],
+[
+"tomatoes",
+"Tomatoes"
+],
+[
+"cucumbers",
+"Cucumber"
+],
+[
+"shredded cabbage",
+"Shredded cabbage"
+],
+[
+"garlic breadcrumbs",
+"Garlic breadcrumbs"
+],
+[
+"basil",
+"Basil"
+],
+[
+"organic shredded kale",
+"Shredded kale"
+],
+[
+"chopped romaine",
+"Romaine"
+],
+[
+"pesto vinaigrette",
+"Pesto vinaigrette"
+]
+]
+},
+{
+"group": "Sweetgreen",
+"line": "Salads",
+"section": "Salads",
+"item": "Guacamole Greens",
+"price": 15.25,
+"cal": 555,
+"small": false,
+"veg": false,
+"ings": [
+{
+"name": "Roasted chicken",
+"cat": "Chicken",
+"raw": "roasted chicken"
+},
+{
+"name": "Avocado",
+"cat": "Cheese, dairy & avocado",
+"raw": "avocado"
+},
+{
+"name": "Pickled onions",
+"cat": "Pickled & brined",
+"raw": "pickled onions"
+},
+{
+"name": "Shredded cabbage",
+"cat": "Fresh vegetables",
+"raw": "shredded cabbage"
+},
+{
+"name": "Corn salsa",
+"cat": "Salsas",
+"raw": "corn salsa"
+},
+{
+"name": "Spring mix",
+"cat": "Greens",
+"raw": "organic spring mix"
+},
+{
+"name": "Romaine",
+"cat": "Greens",
+"raw": "chopped romaine"
+},
+{
+"name": "Lime",
+"cat": "Fruit & botanicals",
+"raw": "lime squeeze"
+},
+{
+"name": "Lime cilantro jalapeño",
+"cat": "Dressings",
+"raw": "lime cilantro jalapeno sauce"
+}
+],
+"parts": [
+[
+"roasted chicken",
+"Roasted chicken"
+],
+[
+"avocado",
+"Avocado"
+],
+[
+"pickled onions",
+"Pickled onions"
+],
+[
+"shredded cabbage",
+"Shredded cabbage"
+],
+[
+"corn salsa",
+"Corn salsa"
+],
+[
+"organic spring mix",
+"Spring mix"
+],
+[
+"chopped romaine",
+"Romaine"
+],
+[
+"lime squeeze",
+"Lime"
+],
+[
+"lime cilantro jalapeno sauce",
+"Lime cilantro jalapeño"
+]
+]
+},
+{
+"group": "Sweetgreen",
+"line": "Wraps",
+"section": "Wraps",
+"item": "Classic Chicken Caesar",
+"price": 11.95,
+"cal": 830,
+"small": false,
+"veg": false,
+"ings": [
+{
+"name": "Roasted chicken",
+"cat": "Chicken",
+"raw": "roasted chicken"
+},
+{
+"name": "Romaine",
+"cat": "Greens",
+"raw": "chopped romaine"
+},
+{
+"name": "Garlic breadcrumbs",
+"cat": "Crunch & nuts",
+"raw": "garlic breadcrumbs"
+},
+{
+"name": "Parmesan crisps",
+"cat": "Crunch & nuts",
+"raw": "parmesan crisps"
+},
+{
+"name": "Parmesan",
+"cat": "Cheese, dairy & avocado",
+"raw": "shaved parmesan"
+},
+{
+"name": "Caesar dressing",
+"cat": "Dressings",
+"raw": "caesar dressing"
+},
+{
+"name": "Lemon",
+"cat": "Fruit & botanicals",
+"raw": "lemon squeeze"
+},
+{
+"name": "Flour tortilla",
+"cat": "Breads & chips",
+"raw": "olive oil tortilla"
+}
+],
+"parts": [
+[
+"roasted chicken",
+"Roasted chicken"
+],
+[
+"chopped romaine",
+"Romaine"
+],
+[
+"garlic breadcrumbs",
+"Garlic breadcrumbs"
+],
+[
+"parmesan crisps",
+"Parmesan crisps"
+],
+[
+"shaved parmesan",
+"Parmesan"
+],
+[
+"caesar dressing",
+"Caesar dressing"
+],
+[
+"lemon squeeze",
+"Lemon"
+],
+[
+"olive oil tortilla",
+"Flour tortilla"
+]
+]
+},
+{
+"group": "Sweetgreen",
+"line": "Wraps",
+"section": "Wraps",
+"item": "Cali Chicken Club",
+"price": 13.95,
+"cal": 1085,
+"small": false,
+"veg": false,
+"ings": [
+{
+"name": "Roasted chicken",
+"cat": "Chicken",
+"raw": "roasted chicken"
+},
+{
+"name": "Romaine",
+"cat": "Greens",
+"raw": "chopped romaine"
+},
+{
+"name": "Bacon",
+"cat": "Beef, pork & lamb",
+"raw": "crumbled bacon"
+},
+{
+"name": "Garlic breadcrumbs",
+"cat": "Crunch & nuts",
+"raw": "garlic breadcrumbs"
+},
+{
+"name": "Tomatoes",
+"cat": "Fresh vegetables",
+"raw": "tomatoes"
+},
+{
+"name": "Avocado",
+"cat": "Cheese, dairy & avocado",
+"raw": "avocado"
+},
+{
+"name": "Garlic aioli",
+"cat": "Dressings",
+"raw": "garlic aioli"
+},
+{
+"name": "Flour tortilla",
+"cat": "Breads & chips",
+"raw": "olive oil tortilla"
+}
+],
+"parts": [
+[
+"roasted chicken",
+"Roasted chicken"
+],
+[
+"chopped romaine",
+"Romaine"
+],
+[
+"crumbled bacon",
+"Bacon"
+],
+[
+"garlic breadcrumbs",
+"Garlic breadcrumbs"
+],
+[
+"tomatoes",
+"Tomatoes"
+],
+[
+"avocado",
+"Avocado"
+],
+[
+"garlic aioli",
+"Garlic aioli"
+],
+[
+"olive oil tortilla",
+"Flour tortilla"
+]
+]
+},
+{
+"group": "Sweetgreen",
+"line": "Wraps",
+"section": "Wraps",
+"item": "Chicken Jalapeño Ranch",
+"price": 12.95,
+"cal": 1190,
+"small": false,
+"veg": false,
+"ings": [
+{
+"name": "Blackened chicken",
+"cat": "Chicken",
+"raw": "blackened chicken"
+},
+{
+"name": "White rice",
+"cat": "Grains & legumes",
+"raw": "umami rice"
+},
+{
+"name": "White cheddar",
+"cat": "Cheese, dairy & avocado",
+"raw": "white cheddar"
+},
+{
+"name": "Corn salsa",
+"cat": "Salsas",
+"raw": "corn salsa"
+},
+{
+"name": "Pickled onions",
+"cat": "Pickled & brined",
+"raw": "pickled onions"
+},
+{
+"name": "Shredded cabbage",
+"cat": "Fresh vegetables",
+"raw": "shredded cabbage"
+},
+{
+"name": "Charred jalapeño ranch",
+"cat": "Dressings",
+"raw": "charred jalapeño ranch"
+},
+{
+"name": "Flour tortilla",
+"cat": "Breads & chips",
+"raw": "olive oil tortilla"
+}
+],
+"parts": [
+[
+"blackened chicken",
+"Blackened chicken"
+],
+[
+"umami rice",
+"White rice"
+],
+[
+"white cheddar",
+"White cheddar"
+],
+[
+"corn salsa",
+"Corn salsa"
+],
+[
+"pickled onions",
+"Pickled onions"
+],
+[
+"shredded cabbage",
+"Shredded cabbage"
+],
+[
+"charred jalapeño ranch",
+"Charred jalapeño ranch"
+],
+[
+"olive oil tortilla",
+"Flour tortilla"
+]
+]
+},
+{
+"group": "Sweetgreen",
+"line": "Wraps",
+"section": "Featured",
+"item": "Molly's Big Dill Caesar Wrap",
+"price": 14.45,
+"cal": 905,
+"small": false,
+"veg": false,
+"ings": [
+{
+"name": "Chicken salad",
+"cat": "Chicken",
+"raw": "Molly's chicken salad"
+},
+{
+"name": "Pickled onions",
+"cat": "Pickled & brined",
+"raw": "pickled onions"
+},
+{
+"name": "Spicy broccoli",
+"cat": "Fresh vegetables",
+"raw": "spicy broccoli"
+},
+{
+"name": "Parmesan",
+"cat": "Cheese, dairy & avocado",
+"raw": "parmesan cheese"
+},
+{
+"name": "Garlic breadcrumbs",
+"cat": "Crunch & nuts",
+"raw": "garlic breadcrumbs"
+},
+{
+"name": "Caraway seeds",
+"cat": "Spices & seasonings",
+"raw": "ground caraway seeds"
+},
+{
+"name": "Romaine",
+"cat": "Greens",
+"raw": "chopped romaine"
+},
+{
+"name": "Pickles",
+"cat": "Pickled & brined",
+"raw": "pickle spear"
+},
+{
+"name": "Lemon",
+"cat": "Fruit & botanicals",
+"raw": "lemon squeeze"
+},
+{
+"name": "Caesar dressing",
+"cat": "Dressings",
+"raw": "caesar dressing"
+},
+{
+"name": "Flour tortilla",
+"cat": "Breads & chips",
+"raw": "olive oil tortilla"
+}
+],
+"parts": [
+[
+"Molly's chicken salad",
+"Chicken salad"
+],
+[
+"pickled onions",
+"Pickled onions"
+],
+[
+"spicy broccoli",
+"Spicy broccoli"
+],
+[
+"parmesan cheese",
+"Parmesan"
+],
+[
+"garlic breadcrumbs",
+"Garlic breadcrumbs"
+],
+[
+"ground caraway seeds",
+"Caraway seeds"
+],
+[
+"chopped romaine",
+"Romaine"
+],
+[
+"pickle spear",
+"Pickles"
+],
+[
+"lemon squeeze",
+"Lemon"
+],
+[
+"caesar dressing",
+"Caesar dressing"
+],
+[
+"olive oil tortilla",
+"Flour tortilla"
+]
+]
+},
+{
+"group": "Sweetgreen",
+"line": "Kids meals",
+"section": "Kids meals",
+"item": "Ranchy Chicken + Rice",
+"price": 8.55,
+"cal": 550,
+"small": false,
+"veg": false,
+"ings": [
+{
+"name": "Wild rice",
+"cat": "Grains & legumes",
+"raw": "wild rice"
+},
+{
+"name": "Cucumber",
+"cat": "Fresh vegetables",
+"raw": "cucumbers"
+},
+{
+"name": "Parmesan crisps",
+"cat": "Crunch & nuts",
+"raw": "parmesan crisps"
+},
+{
+"name": "Roasted chicken",
+"cat": "Chicken",
+"raw": "roasted chicken"
+},
+{
+"name": "Green goddess ranch",
+"cat": "Dressings",
+"raw": "green goddess ranch"
+}
+],
+"parts": [
+[
+"wild rice",
+"Wild rice"
+],
+[
+"cucumbers",
+"Cucumber"
+],
+[
+"parmesan crisps",
+"Parmesan crisps"
+],
+[
+"roasted chicken",
+"Roasted chicken"
+],
+[
+"green goddess ranch",
+"Green goddess ranch"
+]
+]
+},
+{
+"group": "Sweetgreen",
+"line": "Kids meals",
+"section": "Kids meals",
+"item": "Little Harvest",
+"price": 8.55,
+"cal": 430,
+"small": false,
+"veg": false,
+"ings": [
+{
+"name": "Apples",
+"cat": "Fresh vegetables",
+"raw": "apples"
+},
+{
+"name": "Roasted sweet potatoes",
+"cat": "Fresh vegetables",
+"raw": "warm roasted sweet potatoes"
+},
+{
+"name": "Roasted chicken",
+"cat": "Chicken",
+"raw": "roasted chicken"
+},
+{
+"name": "Balsamic vinaigrette",
+"cat": "Dressings",
+"raw": "balsamic vinaigrette"
+}
+],
+"parts": [
+[
+"apples",
+"Apples"
+],
+[
+"warm roasted sweet potatoes",
+"Roasted sweet potatoes"
+],
+[
+"roasted chicken",
+"Roasted chicken"
+],
+[
+"balsamic vinaigrette",
+"Balsamic vinaigrette"
+]
+]
+},
+{
+"group": "Sweetgreen",
+"line": "Kids meals",
+"section": "Kids meals",
+"item": "Mini Mezze",
+"price": 8.55,
+"cal": 295,
+"small": false,
+"veg": false,
+"ings": [
+{
+"name": "Cucumber",
+"cat": "Fresh vegetables",
+"raw": "cucumbers"
+},
+{
+"name": "Rosemary focaccia",
+"cat": "Breads & chips",
+"raw": "focaccia breadstick"
+},
+{
+"name": "Hummus",
+"cat": "Dips & spreads",
+"raw": "hummus"
+},
+{
+"name": "Roasted chicken",
+"cat": "Chicken",
+"raw": "roasted chicken"
+}
+],
+"parts": [
+[
+"cucumbers",
+"Cucumber"
+],
+[
+"focaccia breadstick",
+"Rosemary focaccia"
+],
+[
+"hummus",
+"Hummus"
+],
+[
+"roasted chicken",
+"Roasted chicken"
+]
+]
+},
+{
+"group": "Sweetgreen",
+"line": "Sides & sweets",
+"section": "Sides",
+"item": "Molly's Double Chick Scoop",
+"price": 7.75,
+"cal": 385,
+"small": true,
+"veg": false,
+"ings": [
+{
+"name": "Chicken salad",
+"cat": "Chicken",
+"raw": "Molly's chicken salad"
+},
+{
+"name": "Pickles",
+"cat": "Pickled & brined",
+"raw": "pickle spear"
+}
+],
+"parts": [
+[
+"Molly's chicken salad",
+"Chicken salad"
+],
+[
+"pickle spear",
+"Pickles"
+]
+]
+},
+{
+"group": "Sweetgreen",
+"line": "Sides & sweets",
+"section": "Sides",
+"item": "Roasted Bacon Brussels",
+"price": 6.75,
+"cal": 440,
+"small": true,
+"veg": false,
+"ings": [
+{
+"name": "Maple glazed brussels",
+"cat": "Fresh vegetables",
+"raw": "maple glazed brussels"
+},
+{
+"name": "Bacon",
+"cat": "Beef, pork & lamb",
+"raw": "crumbled bacon"
+},
+{
+"name": "Charred jalapeño ranch",
+"cat": "Dressings",
+"raw": "charred jalapeño ranch"
+}
+],
+"parts": [
+[
+"maple glazed brussels",
+"Maple glazed brussels"
+],
+[
+"crumbled bacon",
+"Bacon"
+],
+[
+"charred jalapeño ranch",
+"Charred jalapeño ranch"
+]
+]
+},
+{
+"group": "Sweetgreen",
+"line": "Sides & sweets",
+"section": "Sides",
+"item": "Roasted Brussels",
+"price": 5.45,
+"cal": 370,
+"small": true,
+"veg": true,
+"ings": [
+{
+"name": "Maple glazed brussels",
+"cat": "Fresh vegetables",
+"raw": "maple glazed brussels"
+},
+{
+"name": "Charred jalapeño ranch",
+"cat": "Dressings",
+"raw": "charred jalapeno ranch"
+}
+],
+"parts": [
+[
+"maple glazed brussels",
+"Maple glazed brussels"
+],
+[
+"charred jalapeno ranch",
+"Charred jalapeño ranch"
+]
+]
+},
+{
+"group": "Sweetgreen",
+"line": "Sides & sweets",
+"section": "Sides",
+"item": "Olive Oil Tortilla",
+"price": 1.45,
+"cal": 320,
+"small": true,
+"veg": true,
+"ings": [
+{
+"name": "Flour tortilla",
+"cat": "Breads & chips",
+"raw": "olive oil tortilla"
+}
+],
+"parts": [
+[
+"olive oil tortilla",
+"Flour tortilla"
+]
+]
+},
+{
+"group": "Sweetgreen",
+"line": "Sides & sweets",
+"section": "Sides",
+"item": "Fishwife Albacore Tuna",
+"price": 8.95,
+"cal": 190,
+"small": true,
+"veg": false,
+"ings": [
+{
+"name": "Albacore tuna",
+"cat": "Seafood",
+"raw": "albacore tuna"
+},
+{
+"name": "Lemon",
+"cat": "Fruit & botanicals",
+"raw": "Spanish lemon"
+}
+],
+"parts": [
+[
+"albacore tuna",
+"Albacore tuna"
+],
+[
+"Spanish lemon",
+"Lemon"
+]
+]
+},
+{
+"group": "Sweetgreen",
+"line": "Sides & sweets",
+"section": "Sides",
+"item": "Rosemary Focaccia",
+"price": 3.25,
+"cal": 230,
+"small": true,
+"veg": true,
+"ings": [
+{
+"name": "Rosemary focaccia",
+"cat": "Breads & chips",
+"raw": "rosemary focaccia"
+}
+],
+"parts": [
+[
+"rosemary focaccia",
+"Rosemary focaccia"
+]
+]
+},
+{
+"group": "Sweetgreen",
+"line": "Sides & sweets",
+"section": "Sweets",
+"item": "Crispy Rice Treat",
+"price": null,
+"cal": 190,
+"small": true,
+"veg": true,
+"ings": [
+{
+"name": "Puffed grains",
+"cat": "Desserts & pantry",
+"raw": "crispy organic brown rice"
+},
+{
+"name": "Golden quinoa",
+"cat": "Grains & legumes",
+"raw": "quinoa"
+},
+{
+"name": "Honey",
+"cat": "Desserts & pantry",
+"raw": "honey date caramel"
+}
+],
+"parts": [
+[
+"crispy organic brown rice",
+"Puffed grains"
+],
+[
+"quinoa",
+"Golden quinoa"
+],
+[
+"puffed millet",
+"Puffed grains"
+],
+[
+"honey date caramel",
+"Honey"
+]
+]
+},
+{
+"group": "Sweetgreen",
+"line": "Sides & sweets",
+"section": "Sweets",
+"item": "Hu Cashews + Vanilla Bean Hunks",
+"price": null,
+"cal": 170,
+"small": true,
+"veg": true,
+"ings": [
+{
+"name": "Chocolate",
+"cat": "Desserts & pantry",
+"raw": "dark chocolate"
+},
+{
+"name": "Cashews",
+"cat": "Desserts & pantry",
+"raw": "cashews"
+},
+{
+"name": "Salt",
+"cat": "Spices & seasonings",
+"raw": "sea salt"
+}
+],
+"parts": [
+[
+"dark chocolate",
+"Chocolate"
+],
+[
+"cashews",
+"Cashews"
+],
+[
+"sea salt",
+"Salt"
+]
+]
+},
+{
+"group": "Sweetgreen",
+"line": "Sides & sweets",
+"section": "Sweets",
+"item": "Hu Salty Dark Chocolate Bar",
+"price": null,
+"cal": 380,
+"small": true,
+"veg": true,
+"ings": [
+{
+"name": "Chocolate",
+"cat": "Desserts & pantry",
+"raw": "dark chocolate"
+},
+{
+"name": "Salt",
+"cat": "Spices & seasonings",
+"raw": "sea salt"
+}
+],
+"parts": [
+[
+"dark chocolate",
+"Chocolate"
+],
+[
+"sea salt",
+"Salt"
+]
+]
+},
+{
+"group": "Sweetgreen",
+"line": "Bottled drinks",
+"section": "Kids drinks",
+"item": "Honest Kids Apple Juice",
+"price": 2.25,
+"cal": 35,
+"small": true,
+"veg": true,
+"ings": [
+{
+"name": "Apple juice",
+"cat": "Kids drinks",
+"raw": "organic apple juice"
+}
+],
+"parts": [
+[
+"organic apple juice",
+"Apple juice"
+]
+]
+},
+{
+"group": "Sweetgreen",
+"line": "Bottled drinks",
+"section": "Kids drinks",
+"item": "Mott's Apple Juice",
+"price": 2.25,
+"cal": 100,
+"small": true,
+"veg": true,
+"ings": [
+{
+"name": "Apple juice",
+"cat": "Kids drinks",
+"raw": "apple juice"
+}
+],
+"parts": [
+[
+"apple juice",
+"Apple juice"
+]
+]
+},
+{
+"group": "Sweetgreen",
+"line": "Bottled drinks",
+"section": "Bottled drinks",
+"item": "Open Water Still Water",
+"price": null,
+"cal": 0,
+"small": true,
+"veg": true,
+"ings": [
+{
+"name": "Still water",
+"cat": "Tea, soda & water",
+"raw": "still water"
+}
+],
+"parts": [
+[
+"still water",
+"Still water"
+]
+]
+},
+{
+"group": "Sweetgreen",
+"line": "Bottled drinks",
+"section": "Bottled drinks",
+"item": "Open Water Sparkling Water",
+"price": null,
+"cal": 0,
+"small": true,
+"veg": true,
+"ings": [
+{
+"name": "Sparkling water",
+"cat": "Tea, soda & water",
+"raw": "sparkling water"
+}
+],
+"parts": [
+[
+"sparkling water",
+"Sparkling water"
+]
+]
+},
+{
+"group": "Sweetgreen",
+"line": "Bottled drinks",
+"section": "Bottled drinks",
+"item": "Olipop Lemon Lime Soda",
+"price": null,
+"cal": 35,
+"small": true,
+"veg": true,
+"ings": [
+{
+"name": "Prebiotic soda",
+"cat": "Tea, soda & water",
+"raw": "prebiotic soda"
+},
+{
+"name": "Lemon",
+"cat": "Fruit & botanicals",
+"raw": "lemon"
+},
+{
+"name": "Lime",
+"cat": "Fruit & botanicals",
+"raw": "lime"
+}
+],
+"parts": [
+[
+"prebiotic soda",
+"Prebiotic soda"
+],
+[
+"lemon",
+"Lemon"
+],
+[
+"lime",
+"Lime"
+]
+]
+},
+{
+"group": "Sweetgreen",
+"line": "Bottled drinks",
+"section": "Bottled drinks",
+"item": "Olipop Vintage Cola",
+"price": null,
+"cal": 25,
+"small": true,
+"veg": true,
+"ings": [
+{
+"name": "Prebiotic soda",
+"cat": "Tea, soda & water",
+"raw": "prebiotic cola"
+}
+],
+"parts": [
+[
+"prebiotic cola",
+"Prebiotic soda"
+]
+]
+},
+{
+"group": "Sweetgreen",
+"line": "Bottled drinks",
+"section": "Bottled drinks",
+"item": "Spindrift Raspberry Lime",
+"price": null,
+"cal": 5,
+"small": true,
+"veg": true,
+"ings": [
+{
+"name": "Sparkling water",
+"cat": "Tea, soda & water",
+"raw": "sparkling water"
+},
+{
+"name": "Mixed berries",
+"cat": "Fruit & botanicals",
+"raw": "raspberry"
+},
+{
+"name": "Lime",
+"cat": "Fruit & botanicals",
+"raw": "lime"
+}
+],
+"parts": [
+[
+"sparkling water",
+"Sparkling water"
+],
+[
+"raspberry",
+"Mixed berries"
+],
+[
+"lime",
+"Lime"
+]
+]
+},
+{
+"group": "Sweetgreen",
+"line": "Bottled drinks",
+"section": "Bottled drinks",
+"item": "Spindrift Grapefruit",
+"price": null,
+"cal": 17,
+"small": true,
+"veg": true,
+"ings": [
+{
+"name": "Sparkling water",
+"cat": "Tea, soda & water",
+"raw": "sparkling water"
+},
+{
+"name": "Grapefruit",
+"cat": "Fruit & botanicals",
+"raw": "grapefruit"
+}
+],
+"parts": [
+[
+"sparkling water",
+"Sparkling water"
+],
+[
+"grapefruit",
+"Grapefruit"
+]
+]
+},
+{
+"group": "Sweetgreen",
+"line": "Bottled drinks",
+"section": "Teas & lemonade",
+"item": "Jasmine Green Tea",
+"price": null,
+"cal": 0,
+"small": true,
+"veg": true,
+"ings": [
+{
+"name": "Jasmine green tea",
+"cat": "Tea, soda & water",
+"raw": "jasmine green tea"
+},
+{
+"name": "Herbal tea",
+"cat": "Tea, soda & water",
+"raw": "yaupon"
+}
+],
+"parts": [
+[
+"jasmine green tea",
+"Jasmine green tea"
+],
+[
+"yaupon",
+"Herbal tea"
+]
+]
+},
+{
+"group": "Sweetgreen",
+"line": "Bottled drinks",
+"section": "Teas & lemonade",
+"item": "Hibiscus Berry Clover Tea",
+"price": null,
+"cal": 0,
+"small": true,
+"veg": true,
+"ings": [
+{
+"name": "Hibiscus",
+"cat": "Fruit & botanicals",
+"raw": "hibiscus"
+},
+{
+"name": "Herbal tea",
+"cat": "Tea, soda & water",
+"raw": "clover tea"
+}
+],
+"parts": [
+[
+"hibiscus",
+"Hibiscus"
+],
+[
+"clover tea",
+"Herbal tea"
+]
+]
+},
+{
+"group": "Sweetgreen",
+"line": "Bottled drinks",
+"section": "Teas & lemonade",
+"item": "Harney + Sons Organic Lemonade",
+"price": null,
+"cal": 80,
+"small": true,
+"veg": true,
+"ings": [
+{
+"name": "Lemon",
+"cat": "Fruit & botanicals",
+"raw": "organic lemons"
+},
+{
+"name": "Maple syrup",
+"cat": "Desserts & pantry",
+"raw": "maple syrup"
+}
+],
+"parts": [
+[
+"organic lemons",
+"Lemon"
+],
+[
+"maple syrup",
+"Maple syrup"
+]
+]
+},
+{
+"group": "Sweetgreen",
+"line": "Bottled drinks",
+"section": "Bottled drinks",
+"item": "Health-Ade Kombucha Pink Lady Apple",
+"price": null,
+"cal": 50,
+"small": true,
+"veg": true,
+"ings": [
+{
+"name": "Kombucha",
+"cat": "Tea, soda & water",
+"raw": "kombucha"
+},
+{
+"name": "Apple",
+"cat": "Fruit & botanicals",
+"raw": "apple cider"
+}
+],
+"parts": [
+[
+"kombucha",
+"Kombucha"
+],
+[
+"apple cider",
+"Apple"
+]
+]
+},
+{
+"group": "Sweetgreen",
+"line": "Bottled drinks",
+"section": "Bottled drinks",
+"item": "Health-Ade Kombucha Passionfruit Tangerine",
+"price": null,
+"cal": 50,
+"small": true,
+"veg": true,
+"ings": [
+{
+"name": "Kombucha",
+"cat": "Tea, soda & water",
+"raw": "kombucha"
+},
+{
+"name": "Passion fruit",
+"cat": "Fruit & botanicals",
+"raw": "passionfruit"
+},
+{
+"name": "Orange",
+"cat": "Fruit & botanicals",
+"raw": "tangerine"
+}
+],
+"parts": [
+[
+"kombucha",
+"Kombucha"
+],
+[
+"passionfruit",
+"Passion fruit"
+],
+[
+"tangerine",
+"Orange"
+]
+]
+},
+{
+"group": "Chipotle",
+"line": "Burrito bowls",
+"section": "Featured",
+"item": "CJ Carr's Double Chicken Bowl",
+"price": 13.8,
+"cal": 830,
+"small": false,
+"veg": false,
+"ings": [
+{
+"name": "White rice",
+"cat": "Grains & legumes",
+"raw": "white rice"
+},
+{
+"name": "Black beans",
+"cat": "Grains & legumes",
+"raw": "black beans"
+},
+{
+"name": "Adobo chicken",
+"cat": "Chicken",
+"raw": "double chicken"
+},
+{
+"name": "Shredded cheese",
+"cat": "Cheese, dairy & avocado",
+"raw": "cheese"
+},
+{
+"name": "Romaine",
+"cat": "Greens",
+"raw": "lettuce"
+},
+{
+"name": "Tomatillo-red chili salsa",
+"cat": "Salsas",
+"raw": "light tomatillo-red chili salsa"
+}
+],
+"parts": [
+[
+"white rice",
+"White rice"
+],
+[
+"black beans",
+"Black beans"
+],
+[
+"double chicken",
+"Adobo chicken"
+],
+[
+"cheese",
+"Shredded cheese"
+],
+[
+"lettuce",
+"Romaine"
+],
+[
+"light tomatillo-red chili salsa",
+"Tomatillo-red chili salsa"
+]
+]
+},
+{
+"group": "Chipotle",
+"line": "Burrito bowls",
+"section": "Featured",
+"item": "The Lola Bowl",
+"price": 18.4,
+"cal": 1565,
+"small": false,
+"veg": false,
+"ings": [
+{
+"name": "White rice",
+"cat": "Grains & legumes",
+"raw": "white rice"
+},
+{
+"name": "Grilled steak",
+"cat": "Beef, pork & lamb",
+"raw": "half steak"
+},
+{
+"name": "Adobo chicken",
+"cat": "Chicken",
+"raw": "half chicken"
+},
+{
+"name": "Corn salsa",
+"cat": "Salsas",
+"raw": "roasted chili-corn salsa"
+},
+{
+"name": "Queso blanco",
+"cat": "Dips & spreads",
+"raw": "queso blanco"
+},
+{
+"name": "Sour cream",
+"cat": "Cheese, dairy & avocado",
+"raw": "sour cream"
+},
+{
+"name": "Shredded cheese",
+"cat": "Cheese, dairy & avocado",
+"raw": "cheese"
+},
+{
+"name": "Guacamole",
+"cat": "Dips & spreads",
+"raw": "guacamole"
+},
+{
+"name": "Tortilla chips",
+"cat": "Breads & chips",
+"raw": "side of chips"
+}
+],
+"parts": [
+[
+"white rice",
+"White rice"
+],
+[
+"half steak",
+"Grilled steak"
+],
+[
+"half chicken",
+"Adobo chicken"
+],
+[
+"roasted chili-corn salsa",
+"Corn salsa"
+],
+[
+"queso blanco",
+"Queso blanco"
+],
+[
+"sour cream",
+"Sour cream"
+],
+[
+"cheese",
+"Shredded cheese"
+],
+[
+"guacamole",
+"Guacamole"
+],
+[
+"side of chips",
+"Tortilla chips"
+]
+]
+},
+{
+"group": "Chipotle",
+"line": "Burrito bowls",
+"section": "Featured",
+"item": "Pollo Asado Burrito Bowl",
+"price": 13.35,
+"cal": 960,
+"small": false,
+"veg": false,
+"ings": [
+{
+"name": "White rice",
+"cat": "Grains & legumes",
+"raw": "white rice"
+},
+{
+"name": "Black beans",
+"cat": "Grains & legumes",
+"raw": "black beans"
+},
+{
+"name": "Pollo asado",
+"cat": "Chicken",
+"raw": "pollo asado"
+},
+{
+"name": "Fresh tomato salsa",
+"cat": "Salsas",
+"raw": "fresh tomato salsa"
+},
+{
+"name": "Corn salsa",
+"cat": "Salsas",
+"raw": "roasted chili-corn salsa"
+},
+{
+"name": "Shredded cheese",
+"cat": "Cheese, dairy & avocado",
+"raw": "cheese"
+},
+{
+"name": "Guacamole",
+"cat": "Dips & spreads",
+"raw": "guacamole"
+}
+],
+"parts": [
+[
+"white rice",
+"White rice"
+],
+[
+"black beans",
+"Black beans"
+],
+[
+"pollo asado",
+"Pollo asado"
+],
+[
+"fresh tomato salsa",
+"Fresh tomato salsa"
+],
+[
+"roasted chili-corn salsa",
+"Corn salsa"
+],
+[
+"cheese",
+"Shredded cheese"
+],
+[
+"guacamole",
+"Guacamole"
+]
+]
+},
+{
+"group": "Chipotle",
+"line": "Burrito bowls",
+"section": "High protein menu",
+"item": "Double High Protein Bowl",
+"price": 13.8,
+"cal": 760,
+"small": false,
+"veg": false,
+"ings": [
+{
+"name": "Adobo chicken",
+"cat": "Chicken",
+"raw": "double adobo chicken"
+},
+{
+"name": "White rice",
+"cat": "Grains & legumes",
+"raw": "light white rice"
+},
+{
+"name": "Black beans",
+"cat": "Grains & legumes",
+"raw": "black beans"
+},
+{
+"name": "Fajita veggies",
+"cat": "Fresh vegetables",
+"raw": "fajita veggies"
+},
+{
+"name": "Fresh tomato salsa",
+"cat": "Salsas",
+"raw": "fresh tomato salsa"
+},
+{
+"name": "Shredded cheese",
+"cat": "Cheese, dairy & avocado",
+"raw": "Monterey Jack cheese"
+},
+{
+"name": "Romaine",
+"cat": "Greens",
+"raw": "extra shredded romaine lettuce"
+}
+],
+"parts": [
+[
+"double adobo chicken",
+"Adobo chicken"
+],
+[
+"light white rice",
+"White rice"
+],
+[
+"black beans",
+"Black beans"
+],
+[
+"fajita veggies",
+"Fajita veggies"
+],
+[
+"fresh tomato salsa",
+"Fresh tomato salsa"
+],
+[
+"Monterey Jack cheese",
+"Shredded cheese"
+],
+[
+"extra shredded romaine lettuce",
+"Romaine"
+]
+]
+},
+{
+"group": "Chipotle",
+"line": "Burrito bowls",
+"section": "High protein menu",
+"item": "High Protein-High Fiber Bowl",
+"price": 9.8,
+"cal": 540,
+"small": false,
+"veg": false,
+"ings": [
+{
+"name": "Adobo chicken",
+"cat": "Chicken",
+"raw": "adobo chicken"
+},
+{
+"name": "Brown rice",
+"cat": "Grains & legumes",
+"raw": "light brown rice"
+},
+{
+"name": "Black beans",
+"cat": "Grains & legumes",
+"raw": "black beans"
+},
+{
+"name": "Fajita veggies",
+"cat": "Fresh vegetables",
+"raw": "fajita veggies"
+},
+{
+"name": "Corn salsa",
+"cat": "Salsas",
+"raw": "corn salsa"
+},
+{
+"name": "Fresh tomato salsa",
+"cat": "Salsas",
+"raw": "fresh tomato salsa"
+},
+{
+"name": "Romaine",
+"cat": "Greens",
+"raw": "lettuce"
+}
+],
+"parts": [
+[
+"adobo chicken",
+"Adobo chicken"
+],
+[
+"light brown rice",
+"Brown rice"
+],
+[
+"black beans",
+"Black beans"
+],
+[
+"fajita veggies",
+"Fajita veggies"
+],
+[
+"corn salsa",
+"Corn salsa"
+],
+[
+"fresh tomato salsa",
+"Fresh tomato salsa"
+],
+[
+"lettuce",
+"Romaine"
+]
+]
+},
+{
+"group": "Chipotle",
+"line": "Burrito bowls",
+"section": "High protein menu",
+"item": "High Protein - Low Calorie Bowl",
+"price": 12.75,
+"cal": 470,
+"small": false,
+"veg": false,
+"ings": [
+{
+"name": "Adobo chicken",
+"cat": "Chicken",
+"raw": "adobo chicken"
+},
+{
+"name": "Supergreens mix",
+"cat": "Greens",
+"raw": "supergreens lettuce mix"
+},
+{
+"name": "Fajita veggies",
+"cat": "Fresh vegetables",
+"raw": "fajita veggies"
+},
+{
+"name": "Fresh tomato salsa",
+"cat": "Salsas",
+"raw": "fresh tomato salsa"
+},
+{
+"name": "Guacamole",
+"cat": "Dips & spreads",
+"raw": "guacamole"
+}
+],
+"parts": [
+[
+"adobo chicken",
+"Adobo chicken"
+],
+[
+"supergreens lettuce mix",
+"Supergreens mix"
+],
+[
+"fajita veggies",
+"Fajita veggies"
+],
+[
+"fresh tomato salsa",
+"Fresh tomato salsa"
+],
+[
+"guacamole",
+"Guacamole"
+]
+]
+},
+{
+"group": "Chipotle",
+"line": "Burritos & tacos",
+"section": "Featured",
+"item": "Pollo Asado Burrito",
+"price": 10.4,
+"cal": 1060,
+"small": false,
+"veg": false,
+"ings": [
+{
+"name": "Flour tortilla",
+"cat": "Breads & chips",
+"raw": "flour tortilla"
+},
+{
+"name": "White rice",
+"cat": "Grains & legumes",
+"raw": "white rice"
+},
+{
+"name": "Pollo asado",
+"cat": "Chicken",
+"raw": "pollo asado"
+},
+{
+"name": "Fresh tomato salsa",
+"cat": "Salsas",
+"raw": "fresh tomato salsa"
+},
+{
+"name": "Corn salsa",
+"cat": "Salsas",
+"raw": "roasted chili-corn salsa"
+},
+{
+"name": "Tomatillo-red chili salsa",
+"cat": "Salsas",
+"raw": "tomatillo-red chili salsa"
+},
+{
+"name": "Sour cream",
+"cat": "Cheese, dairy & avocado",
+"raw": "sour cream"
+},
+{
+"name": "Shredded cheese",
+"cat": "Cheese, dairy & avocado",
+"raw": "cheese"
+}
+],
+"parts": [
+[
+"flour tortilla",
+"Flour tortilla"
+],
+[
+"white rice",
+"White rice"
+],
+[
+"pollo asado",
+"Pollo asado"
+],
+[
+"fresh tomato salsa",
+"Fresh tomato salsa"
+],
+[
+"roasted chili-corn salsa",
+"Corn salsa"
+],
+[
+"tomatillo-red chili salsa",
+"Tomatillo-red chili salsa"
+],
+[
+"sour cream",
+"Sour cream"
+],
+[
+"cheese",
+"Shredded cheese"
+]
+]
+},
+{
+"group": "Chipotle",
+"line": "Burritos & tacos",
+"section": "Featured",
+"item": "Pollo Asado Quesadilla",
+"price": 12.45,
+"cal": 1010,
+"small": false,
+"veg": false,
+"ings": [
+{
+"name": "Flour tortilla",
+"cat": "Breads & chips",
+"raw": "flour tortilla"
+},
+{
+"name": "Pollo asado",
+"cat": "Chicken",
+"raw": "pollo asado"
+},
+{
+"name": "Shredded cheese",
+"cat": "Cheese, dairy & avocado",
+"raw": "cheese"
+},
+{
+"name": "Cilantro lime sauce",
+"cat": "Dressings",
+"raw": "cilantro lime sauce"
+},
+{
+"name": "Fresh tomato salsa",
+"cat": "Salsas",
+"raw": "fresh tomato salsa"
+},
+{
+"name": "Corn salsa",
+"cat": "Salsas",
+"raw": "roasted chili-corn salsa"
+}
+],
+"parts": [
+[
+"flour tortilla",
+"Flour tortilla"
+],
+[
+"pollo asado",
+"Pollo asado"
+],
+[
+"cheese",
+"Shredded cheese"
+],
+[
+"cilantro lime sauce",
+"Cilantro lime sauce"
+],
+[
+"fresh tomato salsa",
+"Fresh tomato salsa"
+],
+[
+"roasted chili-corn salsa",
+"Corn salsa"
+]
+]
+},
+{
+"group": "Chipotle",
+"line": "Burritos & tacos",
+"section": "High protein menu",
+"item": "Double High Protein Burrito",
+"price": 13.8,
+"cal": 840,
+"small": false,
+"veg": false,
+"ings": [
+{
+"name": "Flour tortilla",
+"cat": "Breads & chips",
+"raw": "flour tortilla"
+},
+{
+"name": "Adobo chicken",
+"cat": "Chicken",
+"raw": "double adobo chicken"
+},
+{
+"name": "Fajita veggies",
+"cat": "Fresh vegetables",
+"raw": "fajita veggies"
+},
+{
+"name": "Fresh tomato salsa",
+"cat": "Salsas",
+"raw": "fresh tomato salsa"
+},
+{
+"name": "Shredded cheese",
+"cat": "Cheese, dairy & avocado",
+"raw": "Monterey Jack cheese"
+},
+{
+"name": "Romaine",
+"cat": "Greens",
+"raw": "lettuce"
+}
+],
+"parts": [
+[
+"flour tortilla",
+"Flour tortilla"
+],
+[
+"double adobo chicken",
+"Adobo chicken"
+],
+[
+"fajita veggies",
+"Fajita veggies"
+],
+[
+"fresh tomato salsa",
+"Fresh tomato salsa"
+],
+[
+"Monterey Jack cheese",
+"Shredded cheese"
+],
+[
+"lettuce",
+"Romaine"
+]
+]
+},
+{
+"group": "Chipotle",
+"line": "Burritos & tacos",
+"section": "High protein menu",
+"item": "High Protein Taco",
+"price": 3.5,
+"cal": 190,
+"small": false,
+"veg": false,
+"ings": [
+{
+"name": "Flour tortilla",
+"cat": "Breads & chips",
+"raw": "soft flour tortilla"
+},
+{
+"name": "Adobo chicken",
+"cat": "Chicken",
+"raw": "adobo chicken"
+},
+{
+"name": "Fajita veggies",
+"cat": "Fresh vegetables",
+"raw": "fajita veggies"
+},
+{
+"name": "Fresh tomato salsa",
+"cat": "Salsas",
+"raw": "fresh tomato salsa"
+},
+{
+"name": "Shredded cheese",
+"cat": "Cheese, dairy & avocado",
+"raw": "Monterey Jack cheese"
+},
+{
+"name": "Romaine",
+"cat": "Greens",
+"raw": "lettuce"
+}
+],
+"parts": [
+[
+"soft flour tortilla",
+"Flour tortilla"
+],
+[
+"adobo chicken",
+"Adobo chicken"
+],
+[
+"fajita veggies",
+"Fajita veggies"
+],
+[
+"fresh tomato salsa",
+"Fresh tomato salsa"
+],
+[
+"Monterey Jack cheese",
+"Shredded cheese"
+],
+[
+"lettuce",
+"Romaine"
+]
+]
+},
+{
+"group": "Chipotle",
+"line": "Kid's meal",
+"section": "Featured",
+"item": "The Salish Matter Meal",
+"price": 5.2,
+"cal": 880,
+"small": false,
+"veg": true,
+"ings": [
+{
+"name": "Shredded cheese",
+"cat": "Cheese, dairy & avocado",
+"raw": "kid's cheese quesadilla (flour tortilla, cheese)"
+},
+{
+"name": "White rice",
+"cat": "Grains & legumes",
+"raw": "white rice"
+},
+{
+"name": "Black beans",
+"cat": "Grains & legumes",
+"raw": "black beans"
+},
+{
+"name": "Guacamole",
+"cat": "Dips & spreads",
+"raw": "guacamole"
+},
+{
+"name": "Tortilla chips",
+"cat": "Breads & chips",
+"raw": "kid's chips"
+},
+{
+"name": "Chocolate milk",
+"cat": "Kids drinks",
+"raw": "chocolate milk"
+}
+],
+"parts": [
+[
+"kid's cheese quesadilla (flour tortilla, cheese)",
+"Shredded cheese"
+],
+[
+"white rice",
+"White rice"
+],
+[
+"black beans",
+"Black beans"
+],
+[
+"guacamole",
+"Guacamole"
+],
+[
+"kid's chips",
+"Tortilla chips"
+],
+[
+"chocolate milk",
+"Chocolate milk"
+]
+]
+},
+{
+"group": "Chipotle",
+"line": "Chips & sides",
+"section": "Chips & dips",
+"item": "Chips",
+"price": 1.95,
+"cal": 540,
+"small": true,
+"veg": true,
+"ings": [
+{
+"name": "Tortilla chips",
+"cat": "Breads & chips",
+"raw": "tortilla chips"
+}
+],
+"parts": [
+[
+"tortilla chips",
+"Tortilla chips"
+]
+]
+},
+{
+"group": "Chipotle",
+"line": "Chips & sides",
+"section": "Chips & dips",
+"item": "Chili Lime Chips",
+"price": 2.45,
+"cal": 550,
+"small": true,
+"veg": true,
+"ings": [
+{
+"name": "Tortilla chips",
+"cat": "Breads & chips",
+"raw": "tortilla chips"
+},
+{
+"name": "Chili lime seasoning",
+"cat": "Spices & seasonings",
+"raw": "chili lime seasoning"
+}
+],
+"parts": [
+[
+"tortilla chips",
+"Tortilla chips"
+],
+[
+"chili lime seasoning",
+"Chili lime seasoning"
+]
+]
+},
+{
+"group": "Chipotle",
+"line": "Chips & sides",
+"section": "Chips & dips",
+"item": "Chips & Guacamole",
+"price": 4.9,
+"cal": 770,
+"small": true,
+"veg": true,
+"ings": [
+{
+"name": "Tortilla chips",
+"cat": "Breads & chips",
+"raw": "tortilla chips"
+},
+{
+"name": "Guacamole",
+"cat": "Dips & spreads",
+"raw": "guacamole"
+}
+],
+"parts": [
+[
+"tortilla chips",
+"Tortilla chips"
+],
+[
+"guacamole",
+"Guacamole"
+]
+]
+},
+{
+"group": "Chipotle",
+"line": "Chips & sides",
+"section": "Chips & dips",
+"item": "Chips & Queso Blanco",
+"price": 4.9,
+"cal": 780,
+"small": true,
+"veg": true,
+"ings": [
+{
+"name": "Tortilla chips",
+"cat": "Breads & chips",
+"raw": "tortilla chips"
+},
+{
+"name": "Queso blanco",
+"cat": "Dips & spreads",
+"raw": "queso blanco"
+}
+],
+"parts": [
+[
+"tortilla chips",
+"Tortilla chips"
+],
+[
+"queso blanco",
+"Queso blanco"
+]
+]
+},
+{
+"group": "Chipotle",
+"line": "Chips & sides",
+"section": "Chips & dips",
+"item": "Chips & Fresh Tomato Salsa",
+"price": 2.3,
+"cal": 565,
+"small": true,
+"veg": true,
+"ings": [
+{
+"name": "Tortilla chips",
+"cat": "Breads & chips",
+"raw": "tortilla chips"
+},
+{
+"name": "Fresh tomato salsa",
+"cat": "Salsas",
+"raw": "fresh tomato salsa"
+}
+],
+"parts": [
+[
+"tortilla chips",
+"Tortilla chips"
+],
+[
+"fresh tomato salsa",
+"Fresh tomato salsa"
+]
+]
+},
+{
+"group": "Chipotle",
+"line": "Chips & sides",
+"section": "Chips & dips",
+"item": "Chips & Roasted Chili-Corn Salsa",
+"price": 2.3,
+"cal": 620,
+"small": true,
+"veg": true,
+"ings": [
+{
+"name": "Tortilla chips",
+"cat": "Breads & chips",
+"raw": "tortilla chips"
+},
+{
+"name": "Corn salsa",
+"cat": "Salsas",
+"raw": "roasted chili-corn salsa"
+}
+],
+"parts": [
+[
+"tortilla chips",
+"Tortilla chips"
+],
+[
+"roasted chili-corn salsa",
+"Corn salsa"
+]
+]
+},
+{
+"group": "Chipotle",
+"line": "Chips & sides",
+"section": "Chips & dips",
+"item": "Chips & Tomatillo-Green Chili Salsa",
+"price": 2.3,
+"cal": 555,
+"small": true,
+"veg": true,
+"ings": [
+{
+"name": "Tortilla chips",
+"cat": "Breads & chips",
+"raw": "tortilla chips"
+},
+{
+"name": "Tomatillo-green chili salsa",
+"cat": "Salsas",
+"raw": "tomatillo-green chili salsa"
+}
+],
+"parts": [
+[
+"tortilla chips",
+"Tortilla chips"
+],
+[
+"tomatillo-green chili salsa",
+"Tomatillo-green chili salsa"
+]
+]
+},
+{
+"group": "Chipotle",
+"line": "Chips & sides",
+"section": "Chips & dips",
+"item": "Chips & Tomatillo-Red Chili Salsa",
+"price": 2.3,
+"cal": 570,
+"small": true,
+"veg": true,
+"ings": [
+{
+"name": "Tortilla chips",
+"cat": "Breads & chips",
+"raw": "tortilla chips"
+},
+{
+"name": "Tomatillo-red chili salsa",
+"cat": "Salsas",
+"raw": "tomatillo-red chili salsa"
+}
+],
+"parts": [
+[
+"tortilla chips",
+"Tortilla chips"
+],
+[
+"tomatillo-red chili salsa",
+"Tomatillo-red chili salsa"
+]
+]
+},
+{
+"group": "Chipotle",
+"line": "Chips & sides",
+"section": "Single sides",
+"item": "Side of Guacamole",
+"price": 2.95,
+"cal": 230,
+"small": true,
+"veg": true,
+"ings": [
+{
+"name": "Guacamole",
+"cat": "Dips & spreads",
+"raw": "guacamole"
+}
+],
+"parts": [
+[
+"guacamole",
+"Guacamole"
+]
+]
+},
+{
+"group": "Chipotle",
+"line": "Chips & sides",
+"section": "Single sides",
+"item": "Side of Queso Blanco",
+"price": 2.95,
+"cal": 240,
+"small": true,
+"veg": true,
+"ings": [
+{
+"name": "Queso blanco",
+"cat": "Dips & spreads",
+"raw": "queso blanco"
+}
+],
+"parts": [
+[
+"queso blanco",
+"Queso blanco"
+]
+]
+},
+{
+"group": "Chipotle",
+"line": "Chips & sides",
+"section": "Single sides",
+"item": "Side of Cilantro Lime Sauce",
+"price": 1.5,
+"cal": 160,
+"small": true,
+"veg": true,
+"ings": [
+{
+"name": "Cilantro lime sauce",
+"cat": "Dressings",
+"raw": "cilantro lime sauce"
+}
+],
+"parts": [
+[
+"cilantro lime sauce",
+"Cilantro lime sauce"
+]
+]
+},
+{
+"group": "Chipotle",
+"line": "Chips & sides",
+"section": "Single sides",
+"item": "Tortilla on the Side",
+"price": 0.5,
+"cal": 320,
+"small": true,
+"veg": true,
+"ings": [
+{
+"name": "Flour tortilla",
+"cat": "Breads & chips",
+"raw": "flour tortilla"
+}
+],
+"parts": [
+[
+"flour tortilla",
+"Flour tortilla"
+]
+]
+},
+{
+"group": "Chipotle",
+"line": "Chips & sides",
+"section": "High protein cups",
+"item": "High Protein Cup - Chicken",
+"price": 4.0,
+"cal": 180,
+"small": true,
+"veg": false,
+"ings": [
+{
+"name": "Adobo chicken",
+"cat": "Chicken",
+"raw": "adobo chicken"
+}
+],
+"parts": [
+[
+"adobo chicken",
+"Adobo chicken"
+]
+]
+},
+{
+"group": "Chipotle",
+"line": "Chips & sides",
+"section": "High protein cups",
+"item": "High Protein Cup - Steak",
+"price": 6.0,
+"cal": 150,
+"small": true,
+"veg": false,
+"ings": [
+{
+"name": "Grilled steak",
+"cat": "Beef, pork & lamb",
+"raw": "steak"
+}
+],
+"parts": [
+[
+"steak",
+"Grilled steak"
+]
+]
+},
+{
+"group": "Chipotle",
+"line": "Chips & sides",
+"section": "High protein cups",
+"item": "High Protein Cup - Pollo Asado",
+"price": 4.6,
+"cal": 220,
+"small": true,
+"veg": false,
+"ings": [
+{
+"name": "Pollo asado",
+"cat": "Chicken",
+"raw": "pollo asado"
+}
+],
+"parts": [
+[
+"pollo asado",
+"Pollo asado"
+]
+]
+},
+{
+"group": "Chipotle",
+"line": "Fountain & bottled",
+"section": "Aguas frescas & lemonade",
+"item": "Organic Watermelon Limeade",
+"price": 3.2,
+"cal": 230,
+"small": true,
+"veg": true,
+"ings": [
+{
+"name": "Watermelon",
+"cat": "Fruit & botanicals",
+"raw": "watermelon"
+},
+{
+"name": "Lime",
+"cat": "Fruit & botanicals",
+"raw": "lime"
+}
+],
+"parts": [
+[
+"watermelon",
+"Watermelon"
+],
+[
+"lime",
+"Lime"
+]
+]
+},
+{
+"group": "Chipotle",
+"line": "Fountain & bottled",
+"section": "Aguas frescas & lemonade",
+"item": "Organic Lemonade",
+"price": 3.2,
+"cal": 170,
+"small": true,
+"veg": true,
+"ings": [
+{
+"name": "Lemon",
+"cat": "Fruit & botanicals",
+"raw": "lemon"
+}
+],
+"parts": [
+[
+"lemon",
+"Lemon"
+]
+]
+},
+{
+"group": "Chipotle",
+"line": "Fountain & bottled",
+"section": "Aguas frescas & lemonade",
+"item": "Organic Mandarin Agua Fresca",
+"price": 3.2,
+"cal": 190,
+"small": true,
+"veg": true,
+"ings": [
+{
+"name": "Orange",
+"cat": "Fruit & botanicals",
+"raw": "mandarin orange"
+}
+],
+"parts": [
+[
+"mandarin orange",
+"Orange"
+]
+]
+},
+{
+"group": "Chipotle",
+"line": "Fountain & bottled",
+"section": "Aguas frescas & lemonade",
+"item": "Organic Berry Agua Fresca",
+"price": 3.2,
+"cal": 200,
+"small": true,
+"veg": true,
+"ings": [
+{
+"name": "Mixed berries",
+"cat": "Fruit & botanicals",
+"raw": "mixed berries"
+}
+],
+"parts": [
+[
+"mixed berries",
+"Mixed berries"
+]
+]
+},
+{
+"group": "Chipotle",
+"line": "Fountain & bottled",
+"section": "Aguas frescas & lemonade",
+"item": "Tractor Organic Lemonade",
+"price": 3.5,
+"cal": 140,
+"small": true,
+"veg": true,
+"ings": [
+{
+"name": "Lemon",
+"cat": "Fruit & botanicals",
+"raw": "lemon"
+}
+],
+"parts": [
+[
+"lemon",
+"Lemon"
+]
+]
+},
+{
+"group": "Chipotle",
+"line": "Fountain & bottled",
+"section": "Fountain & bottled",
+"item": "Fountain Drink",
+"price": 3.2,
+"cal": null,
+"small": true,
+"veg": true,
+"ings": [
+{
+"name": "Fountain soda",
+"cat": "Tea, soda & water",
+"raw": "fountain soda or iced tea"
+}
+],
+"parts": [
+[
+"fountain soda or iced tea",
+"Fountain soda"
+]
+]
+},
+{
+"group": "Chipotle",
+"line": "Fountain & bottled",
+"section": "Fountain & bottled",
+"item": "Mexican Coca-Cola",
+"price": 3.45,
+"cal": 150,
+"small": true,
+"veg": true,
+"ings": [
+{
+"name": "Cola",
+"cat": "Tea, soda & water",
+"raw": "cola"
+}
+],
+"parts": [
+[
+"cola",
+"Cola"
+]
+]
+},
+{
+"group": "Chipotle",
+"line": "Fountain & bottled",
+"section": "Fountain & bottled",
+"item": "Mexican Sprite",
+"price": 3.45,
+"cal": 160,
+"small": true,
+"veg": true,
+"ings": [
+{
+"name": "Fruit soda",
+"cat": "Tea, soda & water",
+"raw": "lemon-lime soda"
+}
+],
+"parts": [
+[
+"lemon-lime soda",
+"Fruit soda"
+]
+]
+},
+{
+"group": "Chipotle",
+"line": "Fountain & bottled",
+"section": "Fountain & bottled",
+"item": "Coke Zero",
+"price": 3.45,
+"cal": 0,
+"small": true,
+"veg": true,
+"ings": [
+{
+"name": "Cola",
+"cat": "Tea, soda & water",
+"raw": "diet cola"
+}
+],
+"parts": [
+[
+"diet cola",
+"Cola"
+]
+]
+},
+{
+"group": "Chipotle",
+"line": "Fountain & bottled",
+"section": "Fountain & bottled",
+"item": "San Pellegrino Sparkling",
+"price": 3.25,
+"cal": 0,
+"small": true,
+"veg": true,
+"ings": [
+{
+"name": "Sparkling water",
+"cat": "Tea, soda & water",
+"raw": "sparkling water"
+}
+],
+"parts": [
+[
+"sparkling water",
+"Sparkling water"
+]
+]
+},
+{
+"group": "Chipotle",
+"line": "Fountain & bottled",
+"section": "Fountain & bottled",
+"item": "Poppi Strawberry Lemon",
+"price": 3.2,
+"cal": 30,
+"small": true,
+"veg": true,
+"ings": [
+{
+"name": "Prebiotic soda",
+"cat": "Tea, soda & water",
+"raw": "prebiotic soda"
+},
+{
+"name": "Strawberry",
+"cat": "Fruit & botanicals",
+"raw": "strawberry"
+},
+{
+"name": "Lemon",
+"cat": "Fruit & botanicals",
+"raw": "lemon"
+}
+],
+"parts": [
+[
+"prebiotic soda",
+"Prebiotic soda"
+],
+[
+"strawberry",
+"Strawberry"
+],
+[
+"lemon",
+"Lemon"
+]
+]
+},
+{
+"group": "Chipotle",
+"line": "Fountain & bottled",
+"section": "Fountain & bottled",
+"item": "Poppi Orange",
+"price": 3.2,
+"cal": 25,
+"small": true,
+"veg": true,
+"ings": [
+{
+"name": "Prebiotic soda",
+"cat": "Tea, soda & water",
+"raw": "prebiotic soda"
+},
+{
+"name": "Orange",
+"cat": "Fruit & botanicals",
+"raw": "orange"
+}
+],
+"parts": [
+[
+"prebiotic soda",
+"Prebiotic soda"
+],
+[
+"orange",
+"Orange"
+]
+]
+},
+{
+"group": "Chipotle",
+"line": "Fountain & bottled",
+"section": "Fountain & bottled",
+"item": "Jarritos Mango",
+"price": 3.45,
+"cal": 140,
+"small": true,
+"veg": true,
+"ings": [
+{
+"name": "Fruit soda",
+"cat": "Tea, soda & water",
+"raw": "mango soda"
+}
+],
+"parts": [
+[
+"mango soda",
+"Fruit soda"
+]
+]
+},
+{
+"group": "Chipotle",
+"line": "Fountain & bottled",
+"section": "Fountain & bottled",
+"item": "Jarritos Guava",
+"price": 3.45,
+"cal": 110,
+"small": true,
+"veg": true,
+"ings": [
+{
+"name": "Fruit soda",
+"cat": "Tea, soda & water",
+"raw": "guava soda"
+}
+],
+"parts": [
+[
+"guava soda",
+"Fruit soda"
+]
+]
+},
+{
+"group": "Chipotle",
+"line": "Fountain & bottled",
+"section": "Fountain & bottled",
+"item": "Apple Juice",
+"price": 3.5,
+"cal": 240,
+"small": true,
+"veg": true,
+"ings": [
+{
+"name": "Apple juice",
+"cat": "Kids drinks",
+"raw": "apple juice"
+}
+],
+"parts": [
+[
+"apple juice",
+"Apple juice"
+]
+]
+},
+{
+"group": "Chipotle",
+"line": "Fountain & bottled",
+"section": "Fountain & bottled",
+"item": "Open Water Still",
+"price": 3.15,
+"cal": 0,
+"small": true,
+"veg": true,
+"ings": [
+{
+"name": "Still water",
+"cat": "Tea, soda & water",
+"raw": "still water"
+}
+],
+"parts": [
+[
+"still water",
+"Still water"
 ]
 ]
 }

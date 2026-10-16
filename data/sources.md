@@ -1,6 +1,8 @@
 # Menu sources
 
-All data read on Oct 16, 2026 from CAVA's own site. No aggregators.
+All data read on Oct 16, 2026 from each chain's own site, in the desktop app's browser. No aggregators.
+
+# CAVA
 
 ## cava.com/menu (Dupont Circle store selected)
 - URL: https://cava.com/menu. The public menu shows calories only; prices appear after choosing a pickup store in the "Order" modal. Store used: **Dupont, 1222 Connecticut Avenue NW, Washington DC 20036**. CAVA prices vary by location.
@@ -20,3 +22,17 @@ All data read on Oct 16, 2026 from CAVA's own site. No aggregators.
 
 ## Excluded
 Build-your-own bowls, pitas and the kids meal (no fixed ingredients; covered by the station catalog), catering, grocery products.
+
+
+# Sweetgreen (read Oct 16, 2026) — 49 items
+- https://order.sweetgreen.com/farragut-square/menu with the **Farragut Square, 888 17th St NW** store selected (the search for Washington, DC listed Farragut Square first; Sweetgreen has no Dupont Circle store in that list). Prices and calories per item from this page. Lines recorded: Bowls & plates (13: Featured, Bowls, Warm plates), Salads (7), Wraps (4), Kids meals (3), Sides & sweets (9), Bottled drinks (13).
+- https://www.sweetgreen.com/menu (public menu) for the Sweets and Drinks sections, which the store menu page doesn't render: ingredients and calories only, **no price** (blank). Kids juices are priced on the store menu.
+- Judgment calls: "Molly's Chicken Salad" is one component (Chicken salad). "Umami rice"/"white rice" → White rice. "Miso glazed salmon" merges with CAVA's "Glazed salmon". "Caesar" and "caesar dressing" → Caesar dressing. Hummus + Focaccia (public menu) is not on the store menu and was skipped. "Create your own" is build-your-own and excluded.
+
+# Chipotle (read Oct 16, 2026) — 42 items
+- https://www.chipotle.com/ online ordering with the **1300 Connecticut Ave NW Ste 103 (Dupont Circle)** store selected for pickup; prices appear only after a store is chosen. Featured items (6, incl. the Salish Matter kids meal) from the home "Featured" carousel; the High Protein menu (8) from /order/build/high-protein-menu; chips, dips and single sides from the Burrito Bowl builder's add-on list; drinks from /order/build/drinks (range-priced fountain and agua fresca items use the small size, $3.20).
+- Regular burritos, bowls, tacos, quesadillas and salads are build-your-own (price by protein: chicken/sofritas/veggie $9.80, carnitas $10.55, pollo asado $10.40, steak/barbacoa $11.80 at this store) and are not items. The kids-meal builder page did not render. Large chip combos and chili-lime salsa combos were skipped as duplicates of the regular size.
+- Judgment calls: Chipotle "chicken"/"double chicken"/"adobo chicken" → Adobo chicken; "steak" → Grilled steak (merges with CAVA's); "lettuce"/"romaine lettuce" → Romaine; "cheese"/"Monterey Jack cheese" → Shredded cheese; a burrito's or quesadilla's tortilla is recorded as "flour tortilla" even where the menu line doesn't list it. Fountain Drink has no single calorie figure (blank).
+
+# Line names
+Line names must be unique across brands because the dashboard keys on them: Chipotle's lines are "Burrito bowls", "Burritos & tacos", "Chips & sides", "Fountain & bottled" and "Kid's meal"; Sweetgreen's drinks line is "Bottled drinks" and its kids line "Kids meals".

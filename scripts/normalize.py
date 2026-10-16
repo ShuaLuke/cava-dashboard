@@ -11,6 +11,110 @@ import csv, json, re, itertools, collections, sys, pathlib
 
 # (regex on lowercased raw ingredient, canonical name, category). First match wins. None = drop.
 RULES = [
+
+    # ---- competitors (Sweetgreen, Chipotle). Brand-specific preparations stay distinct; generic produce merges. ----
+    # greens
+    (r"kale", "Shredded kale", "Greens"),
+    (r"spring mix", "Spring mix", "Greens"),
+    (r"supergreens lettuce", "Supergreens mix", "Greens"),
+    (r"lettuce", "Romaine", "Greens"),
+    # grains & legumes
+    (r"wild rice", "Wild rice", "Grains & legumes"),
+    (r"umami rice|white rice", "White rice", "Grains & legumes"),
+    (r"quinoa", "Golden quinoa", "Grains & legumes"),
+    (r"black beans", "Black beans", "Grains & legumes"),
+    (r"pinto beans", "Pinto beans", "Grains & legumes"),
+    (r"^(seasoned )?chickpeas$", "Chickpeas", "Grains & legumes"),
+    (r"puffed millet|crispy organic brown rice", "Puffed grains", "Desserts & pantry"),
+    # mains
+    (r"chicken salad", "Chicken salad", "Chicken"),
+    (r"blackened chicken", "Blackened chicken", "Chicken"),
+    (r"roasted chicken", "Roasted chicken", "Chicken"),
+    (r"pollo asado", "Pollo asado", "Chicken"),
+    (r"adobo chicken|double chicken|half chicken", "Adobo chicken", "Chicken"),
+    (r"garlic steak", "Garlic steak", "Beef, pork & lamb"),
+    (r"half steak|^steak$", "Grilled steak", "Beef, pork & lamb"),
+    (r"barbacoa", "Barbacoa", "Beef, pork & lamb"),
+    (r"carnitas", "Carnitas", "Beef, pork & lamb"),
+    (r"bacon", "Bacon", "Beef, pork & lamb"),
+    (r"tuna", "Albacore tuna", "Seafood"),
+    (r"tofu", "Roasted tofu", "Plant-based mains"),
+    (r"sofritas", "Sofritas", "Plant-based mains"),
+    (r"portobello", "Portobello mix", "Plant-based mains"),
+    # dips, salsas & spreads
+    (r"guacamole|^guac$", "Guacamole", "Dips & spreads"),
+    (r"queso blanco", "Queso blanco", "Dips & spreads"),
+    (r"fresh tomato salsa", "Fresh tomato salsa", "Salsas"),
+    (r"chili-corn salsa|corn salsa", "Corn salsa", "Salsas"),
+    (r"tomatillo-green", "Tomatillo-green chili salsa", "Salsas"),
+    (r"tomatillo-red", "Tomatillo-red chili salsa", "Salsas"),
+    # dressings & sauces
+    (r"balsamic vinaigrette", "Balsamic vinaigrette", "Dressings"),
+    (r"caesar", "Caesar dressing", "Dressings"),
+    (r"green goddess ranch", "Green goddess ranch", "Dressings"),
+    (r"jalape[nñ]o ranch", "Charred jalapeño ranch", "Dressings"),
+    (r"pesto vinaigrette", "Pesto vinaigrette", "Dressings"),
+    (r"hot honey mustard", "Hot honey mustard", "Dressings"),
+    (r"miso sesame ginger", "Miso sesame ginger", "Dressings"),
+    (r"spicy cashew", "Spicy cashew dressing", "Dressings"),
+    (r"citrus sesame", "Citrus sesame vinaigrette", "Dressings"),
+    (r"lime cilantro jalape", "Lime cilantro jalapeño", "Dressings"),
+    (r"garlic aioli", "Garlic aioli", "Dressings"),
+    (r"hot sauce", "Hot sauce", "Dressings"),
+    (r"cilantro lime sauce", "Cilantro lime sauce", "Dressings"),
+    # toppings: vegetables & fruit
+    (r"tomatoes", "Tomatoes", "Fresh vegetables"),
+    (r"carrot", "Carrots", "Fresh vegetables"),
+    (r"napa cabbage slaw", "Napa cabbage slaw", "Fresh vegetables"),
+    (r"shredded cabbage", "Shredded cabbage", "Fresh vegetables"),
+    (r"spicy broccoli", "Spicy broccoli", "Fresh vegetables"),
+    (r"sweet potato", "Roasted sweet potatoes", "Fresh vegetables"),
+    (r"brussels", "Maple glazed brussels", "Fresh vegetables"),
+    (r"fajita veggies", "Fajita veggies", "Fresh vegetables"),
+    (r"^apples$", "Apples", "Fresh vegetables"),
+    (r"cilantro", "Cilantro", "Fresh vegetables"),
+    (r"basil", "Basil", "Fresh vegetables"),
+    # toppings: cheese & dairy
+    (r"goat cheese", "Goat cheese", "Cheese, dairy & avocado"),
+    (r"parmesan crisps|parm crisps", "Parmesan crisps", "Crunch & nuts"),
+    (r"parmesan|parm cheese", "Parmesan", "Cheese, dairy & avocado"),
+    (r"white cheddar", "White cheddar", "Cheese, dairy & avocado"),
+    (r"monterey jack|^cheese$|, cheese\)", "Shredded cheese", "Cheese, dairy & avocado"),
+    (r"sour cream", "Sour cream", "Cheese, dairy & avocado"),
+    # toppings: crunch & nuts
+    (r"breadcrumbs", "Garlic breadcrumbs", "Crunch & nuts"),
+    (r"crispy onions", "Crispy onions", "Crunch & nuts"),
+    (r"crispy rice", "Crispy rice", "Crunch & nuts"),
+    (r"sesame crunch|nori sesame", "Sesame crunch", "Crunch & nuts"),
+    (r"crispy noodles", "Crispy noodles", "Crunch & nuts"),
+    (r"almonds", "Roasted almonds", "Crunch & nuts"),
+    (r"caraway", "Caraway seeds", "Spices & seasonings"),
+    (r"chili lime seasoning", "Chili lime seasoning", "Spices & seasonings"),
+    # breads & chips
+    (r"tortilla chips|kid.s chips|side of chips", "Tortilla chips", "Breads & chips"),
+    (r"tortilla", "Flour tortilla", "Breads & chips"),
+    (r"focaccia", "Rosemary focaccia", "Breads & chips"),
+    # sweets
+    (r"cashews", "Cashews", "Desserts & pantry"),
+    (r"sea salt", "Salt", "Spices & seasonings"),
+    (r"caramel", "Honey", "Desserts & pantry"),
+    # drinks
+    (r"watermelon", "Watermelon", "Fruit & botanicals"),
+    (r"mandarin|tangerine|^orange$", "Orange", "Fruit & botanicals"),
+    (r"berries|raspberry", "Mixed berries", "Fruit & botanicals"),
+    (r"strawberry", "Strawberry", "Fruit & botanicals"),
+    (r"grapefruit", "Grapefruit", "Fruit & botanicals"),
+    (r"passionfruit", "Passion fruit", "Fruit & botanicals"),
+    (r"hibiscus", "Hibiscus", "Fruit & botanicals"),
+    (r"yaupon|clover tea", "Herbal tea", "Tea, soda & water"),
+    (r"maple syrup", "Maple syrup", "Desserts & pantry"),
+    (r"apple cider", "Apple", "Fruit & botanicals"),
+    (r"kombucha", "Kombucha", "Tea, soda & water"),
+    (r"prebiotic", "Prebiotic soda", "Tea, soda & water"),
+    (r"\bcola\b", "Cola", "Tea, soda & water"),
+    (r"lemon-lime soda|mango soda|guava soda", "Fruit soda", "Tea, soda & water"),
+    (r"fountain soda or iced tea", "Fountain soda", "Tea, soda & water"),
+    (r"^pickles?( spear)?$|pickle spear", "Pickles", "Pickled & brined"),
     # greens
     (r"power greens", "Power Greens", "Greens"),
     (r"super ?greens", "Super Greens", "Greens"),
@@ -24,9 +128,9 @@ RULES = [
     # mains (before dips/dressings so "harissa honey chicken" isn't harissa)
     (r"harissa honey chicken", "Harissa honey chicken", "Chicken"),
     (r"chicken", "Grilled chicken", "Chicken"),
-    (r"steak", "Grilled steak", "Steak & lamb"),
-    (r"lamb meatball", "Spicy lamb meatballs", "Steak & lamb"),
-    (r"braised lamb", "Braised lamb", "Steak & lamb"),
+    (r"steak", "Grilled steak", "Beef, pork & lamb"),
+    (r"lamb meatball", "Spicy lamb meatballs", "Beef, pork & lamb"),
+    (r"braised lamb", "Braised lamb", "Beef, pork & lamb"),
     (r"salmon", "Glazed salmon", "Seafood"),
     (r"falafel", "Falafel", "Plant-based mains"),
     (r"roasted vegg|roasted vegetables", "Roasted vegetables", "Plant-based mains"),
@@ -40,9 +144,9 @@ RULES = [
     (r"garlic dressing", "Garlic dressing", "Dressings"),
     (r"balsamic date", "Balsamic date vinaigrette", "Dressings"),
     # pita & chips (before "harissa" and "pita")
-    (r"pita crisps", "Pita crisps", "Pita & chips"),
-    (r"pita chips", "Pita chips", "Pita & chips"),
-    (r"\bpita\b", "Pita", "Pita & chips"),
+    (r"pita crisps", "Pita crisps", "Breads & chips"),
+    (r"pita chips", "Pita chips", "Breads & chips"),
+    (r"\bpita\b", "Pita", "Breads & chips"),
     # dips & spreads
     (r"red pepper hummus", "Red pepper hummus", "Dips & spreads"),
     (r"hummus", "Hummus", "Dips & spreads"),
@@ -58,10 +162,10 @@ RULES = [
     (r"corn", "Fire-roasted corn", "Fresh vegetables"),
     (r"cabbage slaw|slaw", "Sumac cabbage slaw", "Fresh vegetables"),
     (r"pickled onion", "Pickled onions", "Pickled & brined"),
-    (r"pickle", "Salt-brined pickles", "Pickled & brined"),
+    (r"pickle", "Pickles", "Pickled & brined"),
     (r"olive", "Kalamata olives", "Pickled & brined"),
-    (r"feta", "Crumbled feta", "Feta & avocado"),
-    (r"avocado", "Avocado", "Feta & avocado"),
+    (r"feta", "Crumbled feta", "Cheese, dairy & avocado"),
+    (r"avocado", "Avocado", "Cheese, dairy & avocado"),
     # drinks
     (r"apple juice", "Apple juice", "Kids drinks"),
     (r"chocolate milk", "Chocolate milk", "Kids drinks"),
@@ -91,8 +195,8 @@ RULES = [
     (r"^salt$", "Salt", "Spices & seasonings"),
 ]
 
-SMALL_LINES = {"Sides", "Drinks", "Desserts"}           # add-ons: not a composed meal
-MEAT_CATS = {"Chicken", "Steak & lamb", "Seafood"}       # anything else counts as vegetarian
+SMALL_LINE = re.compile(r"side|drink|dessert|sweet|chips|bottled|fountain", re.I)  # add-ons: not a composed meal
+MEAT_CATS = {"Chicken", "Beef, pork & lamb", "Seafood"}       # anything else counts as vegetarian
 
 def canon(raw):
     s = raw.strip().lower()
@@ -118,7 +222,7 @@ with open(src, newline="") as f:
             "group": row["group"], "line": row["line"], "section": row["section"], "item": row["item"],
             "price": float(price) if price else None,  # None = menu lists no price
             "cal": int(cal) if cal else None,
-            "small": row["line"] in SMALL_LINES,
+            "small": bool(SMALL_LINE.search(row["line"])),
             "veg": not any(i["cat"] in MEAT_CATS for i in ings),
             "ings": ings, "parts": parts,
         })

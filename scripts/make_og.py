@@ -24,12 +24,13 @@ def shoot(url, out, w, h, scale):
 with tempfile.TemporaryDirectory() as tmp:
     tmp = pathlib.Path(tmp)
     shot = tmp / "dash.png"
-    # a copy of the page that opens Head to head on the first two menu lines (Bowls vs Pitas), so the preview shows the comparison
+    # a copy of the page that opens Head to head on the first two brands (CAVA vs Sweetgreen), or Bowls vs Pitas with one brand
     page_src = (root / "index.html").read_text()
+    groups = list(dict.fromkeys(d["group"] for d in items))
     lines = list(dict.fromkeys(d["line"] for d in items))
-    a, b = lines[0], lines[1]
+    kind, a, b = ("g", groups[0], groups[1]) if len(groups) > 1 else ("r", lines[0], lines[1])
     hook = ('<script>window.__notour = true; addEventListener("load", () => { '
-            f'h2h.a = "r:" + {json.dumps(a)}; h2h.b = "r:" + {json.dumps(b)}; renderH2H(); setView("h2h"); }});</script>')
+            f'h2h.a = "{kind}:" + {json.dumps(a)}; h2h.b = "{kind}:" + {json.dumps(b)}; renderH2H(); setView("h2h"); }});</script>')
     snap = tmp / "snap.html"
     snap.write_text(page_src.replace("</body>", hook + "</body>"))
     shoot(snap.as_uri() + "#h2h", shot, 1200, 800, 1)  # og-card.html's crop assumes this size
@@ -40,6 +41,8 @@ with tempfile.TemporaryDirectory() as tmp:
         "__ITEMS__": str(len(items)),
         "__STATION__": str(len(station)),
         "__INGS__": str(len({i["name"] for d in items for i in d["ings"]})),
+        "__BRANDS__": str(len({d["group"] for d in items})),
+        "__BRAND_LIST__": ", ".join(dict.fromkeys(d["group"] for d in items)),
         "__MEDIAN__": f"${med:.2f}",
         "__DATE__": MENU_DATE,
         "__SHOT__": shot.as_uri(),

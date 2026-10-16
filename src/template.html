@@ -1,13 +1,13 @@
 <title>Spread Sheet · CAVA Menu, by the Component</title>
-<meta name="description" content="An unofficial, interactive look at CAVA's menu: __N_ITEMS__ items across __N_LINES__ menu lines and the __N_STATION__-component build-your-own line. What pairs with what, prices, calories, prep load and menu gaps.">
+<meta name="description" content="An unofficial, interactive look at CAVA's menu by the component, next to Sweetgreen and Chipotle: __N_ITEMS__ items across __N_LINES__ menu lines, plus CAVA's __N_STATION__-component build-your-own line. What pairs with what, prices, calories, prep load and menu gaps.">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Spread Sheet · CAVA Menu, by the Component">
-<meta property="og:description" content="Interactive dashboard of CAVA's menu: __N_ITEMS__ items and __N_STATION__ build-your-own components. What pairs with what, prices and up-charges, calories, prep load and what the curated menu leaves on the line.">
+<meta property="og:description" content="Interactive dashboard of CAVA's menu by the component, compared with Sweetgreen and Chipotle: __N_ITEMS__ items, DC prices, calories, pairings, prep load and menu gaps.">
 <meta property="og:url" content="https://shualuke.github.io/cava-dashboard/">
 <meta property="og:image" content="https://shualuke.github.io/cava-dashboard/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Spread Sheet dashboard: CAVA's __N_ITEMS__ menu items by component, bowls compared with pitas head to head">
+<meta property="og:image:alt" content="Spread Sheet dashboard: CAVA, Sweetgreen and Chipotle menus by component, compared head to head">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#d48a00">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23ffc247'/%3E%3Cstop offset='.55' stop-color='%23d48a00'/%3E%3Cstop offset='1' stop-color='%23c8501f'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='8' fill='url(%23g)'/%3E%3Cg fill='none' stroke='%23fff' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 14h20c0 6-4.5 10-10 10S6 20 6 14z'/%3E%3Cpath d='M11 10c1-2 3-2 4 0s3 2 4 0'/%3E%3C/g%3E%3C/svg%3E">
@@ -547,7 +547,7 @@ table.heat td { text-align: center; font-family: var(--mono); font-size: 11.5px;
       <button class="nav-link" data-view="about">About the data</button>
       <button class="nav-link" id="tour-btn">Take a tour</button>
       <span>Menu read Oct 16, 2026</span>
-      <p class="disclaim">Unofficial fan project. Not affiliated with CAVA Group or its restaurants. Menus change; prices are one DC store's and vary by location.</p>
+      <p class="disclaim">Unofficial fan project. Not affiliated with CAVA, Sweetgreen or Chipotle. Menus change; prices are from one DC store per chain and vary by location.</p>
     </div>
   </aside>
 
@@ -627,15 +627,15 @@ table.heat td { text-align: center; font-family: var(--mono); font-size: 11.5px;
 
     <section class="view panel notes" data-view="about" aria-label="About the data" hidden>
       <ul>
-        <li><b>Unofficial.</b> This is an independent fan project. It isn't affiliated with, endorsed by or connected to CAVA Group, Inc. or its restaurants. CAVA, Crazy Feta and the other names belong to their owners.</li>
-        <li>Menus and prices change. Prices come from CAVA's online ordering menu for the Dupont Circle store (1222 Connecticut Ave NW, Washington, DC), read Oct 16, 2026. Other locations charge differently. Calories are as printed on the menu.</li>
-        <li>Source: cava.com/menu and the bowl builder on cava.com (every build-your-own component with its up-charge), plus CAVA's Nutrition &amp; Allergen Guide PDF for per-component nutrition. The menu lines covered:
+        <li><b>Unofficial.</b> This is an independent fan project. It isn't affiliated with, endorsed by or connected to CAVA Group, Sweetgreen, Chipotle or their restaurants. Brand and menu-item names belong to their owners.</li>
+        <li>Menus and prices change. Prices come from each chain's online ordering menu for one downtown Washington, DC store, read Oct 16, 2026: CAVA Dupont Circle (1222 Connecticut Ave NW), Sweetgreen Farragut Square (888 17th St NW) and Chipotle Dupont Circle (1300 Connecticut Ave NW). Other locations charge differently. Calories are as printed on each menu. Sweetgreen's bottled drinks and sweets aren't priced on its store menu, so they're shown with “—”.</li>
+        <li>Sources: cava.com/menu and its bowl builder (every build-your-own component with its up-charge) plus CAVA's Nutrition &amp; Allergen Guide PDF; order.sweetgreen.com and sweetgreen.com/menu; chipotle.com's online ordering menu (featured items, the High Protein menu, chips &amp; sides, drinks). The brands and menu lines covered:
           <ul id="about-sources" style="margin-top:6px"></ul></li>
-        <li>What counts as an item: the chef-curated bowls and pitas, the sides, drinks and desserts. Build-your-own bowls, pitas and the kids meal have no fixed components, so they live in the station catalog instead (see Prep &amp; inventory and Menu gaps).</li>
-        <li>Each component line on the menu is mapped to one station component, so “corn” and “fire-roasted corn” count the same, plain “rice” counts as saffron basmati rice, and a side dip's description maps to the dip itself rather than to chickpeas and tahini. Drink and dessert components come from the menu descriptions.</li>
-        <li>Bowls and pitas are <b>meals</b>; sides, drinks and desserts are <b>add-ons</b>. <b>Vegetarian</b> means no chicken, steak, lamb or salmon.</li>
+        <li>What counts as an item: each chain's named, fixed-recipe items (curated bowls, pitas, salads, wraps, plates, burritos, kids meals) plus sides, drinks and desserts. Build-your-own orders have no fixed recipe, so they're left out; CAVA's build-your-own line is kept as a station catalog instead (see Prep &amp; inventory and Menu gaps). Chipotle's regular burritos, bowls, tacos and salads are all build-your-own, so only its named items appear.</li>
+        <li>Each ingredient line on a menu is mapped to one component. Generic produce merges across brands (cucumber is cucumber everywhere), while named preparations stay distinct (CAVA's grilled chicken, Sweetgreen's blackened chicken and Chipotle's adobo chicken are three components). Plain “rice” at CAVA counts as saffron basmati rice, and a side dip's description maps to the dip itself. Drink and dessert components come from the menu descriptions.</li>
+        <li>Bowls, pitas, salads, wraps, plates, burritos and kids meals are <b>meals</b>; sides, chips, drinks and desserts are <b>add-ons</b>. <b>Vegetarian</b> means no chicken, beef, pork, lamb or fish.</li>
         <li>The “Cost &amp; sales” tab uses made-up, adjustable cost assumptions and a random simulated sales sample to show what real cost and POS data would make possible. None of those numbers are CAVA's real costs, sales or margins.</li>
-        <li>Operations views use the menu only. Sales and cost data aren't included. Menu gaps compare whichever menu lines are selected.</li>
+        <li>Operations views use the menus only. Sales and cost data aren't included. Menu gaps compare whichever menu lines are selected; Compare brands and Head to head always use every brand.</li>
         <li>A frequent pairing means the menu uses it often. It doesn't rank taste or nutrition.</li>
       </ul>
     </section>
@@ -662,25 +662,25 @@ table.heat td { text-align: center; font-family: var(--mono); font-size: 11.5px;
 <script>
 const ITEMS = __DATA__;
 const FAMS = [
-  ["green", "Greens"], ["grain", "Grains & legumes"], ["dip", "Dips & spreads"],
+  ["green", "Greens"], ["grain", "Grains & legumes"], ["dip", "Dips, salsas & spreads"],
   ["main", "Mains"], ["topping", "Toppings"], ["dressing", "Dressings"],
-  ["bread", "Pita & chips"], ["sweet", "Desserts & pantry"], ["drink", "Drinks"]
+  ["bread", "Breads & chips"], ["sweet", "Desserts & pantry"], ["drink", "Drinks"]
 ];
 const STATION = __STATION__; // every build-your-own component: station, up-charge, nutrition, canonical name
 const BYO_BASE = 11.75;        // build-your-own bowl or pita at the Dupont store, Oct 16, 2026
 const PMAX = 20, PTICKS = [0, 5, 10, 15, 20]; // shared price axis
 const FAM_NAME = Object.fromEntries(FAMS);
 const FAM_ORDER = Object.fromEntries(FAMS.map((f, i) => [f[0], i]));
-const CAT2FAM = { "Greens":"green", "Grains & legumes":"grain", "Dips & spreads":"dip",
-  "Chicken":"main", "Steak & lamb":"main", "Seafood":"main", "Plant-based mains":"main",
-  "Fresh vegetables":"topping", "Pickled & brined":"topping", "Feta & avocado":"topping", "Dressings":"dressing", "Pita & chips":"bread",
+const CAT2FAM = { "Greens":"green", "Grains & legumes":"grain", "Dips & spreads":"dip", "Salsas":"dip",
+  "Chicken":"main", "Beef, pork & lamb":"main", "Seafood":"main", "Plant-based mains":"main",
+  "Fresh vegetables":"topping", "Pickled & brined":"topping", "Cheese, dairy & avocado":"topping", "Crunch & nuts":"topping", "Dressings":"dressing", "Breads & chips":"bread",
   "Desserts & pantry":"sweet", "Spices & seasonings":"sweet", "Kids drinks":"drink", "Fruit & botanicals":"drink", "Tea, soda & water":"drink" };
 const ING_FAM = {}, ING_CAT = {};
 ITEMS.forEach(d => d.ings.forEach(i => { ING_FAM[i.name] = CAT2FAM[i.cat]; ING_CAT[i.name] = i.cat; }));
 const GROUPS = [...new Set(ITEMS.map(d => d.group))];
 const LINE_GROUP = Object.fromEntries(ITEMS.map(d => [d.line, d.group]));
 const LINES = GROUPS.flatMap(g => [...new Set(ITEMS.filter(d => d.group === g).map(d => d.line))]);
-const GROUP_SHORT = { "CAVA": "CAVA" };
+const GROUP_SHORT = { "CAVA": "CAVA", "Sweetgreen": "Sweetgreen", "Chipotle": "Chipotle" };
 const gShort = g => GROUP_SHORT[g] || g.split(" ")[0];
 const HOME = GROUPS[0]; // the brand the dashboard was built around (CAVA); everything opens on it
 const selLines = () => LINES.filter(r => state.lines.has(r));
@@ -1322,9 +1322,9 @@ function renderChordDetail(ds, S, keys, M) {
 document.addEventListener("keydown", e => { if (e.key === "Escape" && state.chSel) { state.chSel = null; renderChord(current(), stats(current())); } });
 
 /* manager's view */
-const PERISH_CATS = new Set(["Greens", "Fresh vegetables", "Feta & avocado", "Chicken", "Steak & lamb", "Seafood", "Plant-based mains", "Dips & spreads", "Fruit & botanicals"]);
+const PERISH_CATS = new Set(["Greens", "Fresh vegetables", "Cheese, dairy & avocado", "Chicken", "Beef, pork & lamb", "Seafood", "Plant-based mains", "Dips & spreads", "Salsas", "Fruit & botanicals"]);
 const isPerish = n => PERISH_CATS.has(ING_CAT[n]);
-const usedNames = () => new Set(ITEMS.flatMap(d => d.ings.map(i => i.name)));
+const usedNames = () => new Set(ITEMS.filter(d => d.group === HOME).flatMap(d => d.ings.map(i => i.name))); // the station catalog is CAVA's
 const stationUnused = () => { const u = usedNames(); return STATION.filter(s => !u.has(s.canon)); };
 const has = (d, n) => d.ings.some(i => i.name === n);
 const ops = { tab: "prep", prepFilter: "perish1", sort: { key: "items", dir: -1 }, rest: null };
@@ -1391,7 +1391,7 @@ function renderPrep(B) {
       <div class="stat" tabindex="0" ${tipAttr(`<b>Single-use components by menu line</b>` + ttRows(selLines().map(r => [esc(r), single.filter(x => x.items[0].line === r).length])))}><b class="num">${single.length}</b><span>appear in only one item (${Math.round(single.length / all.length * 100)}%)</span></div>
       <div class="stat" tabindex="0" ${tipAttr(`<b>Fresh, single-use</b>` + ttList(perish1.map(r => `${esc(r.name)} <span class="tt-k">${esc(r.items[0].item)}, ${esc(r.items[0].line)}</span>`), 12))}><b class="num">${perish1.length}</b><span>of those are fresh produce, proteins, dips or dairy</span></div>
       <div class="stat" tabindex="0" ${tipAttr(`<b>On 2+ menu lines</b>` + ttList(shared.sort((a, b) => b.rests.size - a.rests.size || b.items.length - a.items.length).map(r => `${esc(r.name)} <span class="tt-k">${r.rests.size} lines · ${r.items.length} items</span>`), 12))}><b class="num">${shared.length}</b><span>used on 2 or more menu lines</span></div>
-      <div class="stat" tabindex="0" ${tipAttr(`<b>Build-your-own line · ${STATION.length} components</b>` + ttRows([...new Set(STATION.map(s => s.station))].map(st => [esc(st), STATION.filter(s => s.station === st).length])) + `<div class="tt-k" style="margin-top:4px">In no curated item</div>` + ttList(unused.map(s => `${esc(s.component)} <span class="tt-k">${esc(s.station)}</span>`), 8))}><b class="num">${STATION.length}</b><span>components on the line, ${unused.length} in no curated item</span></div>
+      <div class="stat" tabindex="0" ${tipAttr(`<b>${esc(gShort(HOME))} build-your-own line · ${STATION.length} components</b>` + ttRows([...new Set(STATION.map(s => s.station))].map(st => [esc(st), STATION.filter(s => s.station === st).length])) + `<div class="tt-k" style="margin-top:4px">In no curated item</div>` + ttList(unused.map(s => `${esc(s.component)} <span class="tt-k">${esc(s.station)}</span>`), 8))}><b class="num">${STATION.length}</b><span>components on ${esc(gShort(HOME))}'s line, ${unused.length} in no curated item</span></div>
     </div>
     <div class="ops-two" style="margin-top:18px">
       <div style="display:grid;gap:10px;min-width:0">
@@ -1425,16 +1425,16 @@ function renderPrep(B) {
 
 /* ---------- pricing ---------- */
 const STYLES = [
-  ["Chicken meals", "grilled or harissa honey chicken", d => !d.small && (has(d, "Grilled chicken") || has(d, "Harissa honey chicken"))],
-  ["Steak meals", "grilled steak", d => has(d, "Grilled steak")],
-  ["Salmon bowls", "glazed salmon", d => has(d, "Glazed salmon")],
-  ["Lamb", "spicy lamb meatballs", d => has(d, "Spicy lamb meatballs")],
-  ["Vegetarian meals", "falafel and roasted vegetables", d => !d.small && d.veg],
-  ["With avocado", "the one topping with an up-charge", d => has(d, "Avocado")],
-  ["Dips & spreads", "side portions", d => d.small && d.section === "Dips & spreads"],
-  ["Pita & chips", "side pita, classic and harissa BBQ chips", d => d.small && d.section === "Pita & chips"],
-  ["House-made drinks", "juices, lemonade and teas", d => d.section === "House-made juices & teas"],
-  ["Desserts", "cookies, blondie and brownie", d => d.line === "Desserts"]
+  ["Chicken meals", "any chicken preparation", d => !d.small && d.ings.some(i => i.cat === "Chicken")],
+  ["Beef, pork & lamb meals", "steak, lamb, barbacoa, carnitas, bacon", d => !d.small && d.ings.some(i => i.cat === "Beef, pork & lamb")],
+  ["Seafood meals", "salmon and tuna", d => !d.small && d.ings.some(i => i.cat === "Seafood")],
+  ["Vegetarian meals", "no meat or fish", d => !d.small && d.veg],
+  ["With avocado or guac", "the up-charge topping", d => has(d, "Avocado") || has(d, "Guacamole")],
+  ["Kids meals", "kid-sized builds", d => /kid/i.test(d.line)],
+  ["Side dips & salsas", "dips, spreads and salsas on their own", d => d.small && d.ings.length && d.ings.every(i => ING_FAM[i.name] === "dip")],
+  ["Chips & breads", "pita, chips, tortillas, focaccia", d => d.small && d.ings.some(i => ING_FAM[i.name] === "bread")],
+  ["Lemonades, juices & teas", "house-made and bottled", d => d.small && d.ings.length && d.ings.every(i => ING_FAM[i.name] === "drink")],
+  ["Desserts & sweets", "cookies, bars and treats", d => d.small && d.ings.length && d.ings.every(i => ING_FAM[i.name] === "sweet")]
 ];
 const stackMax = ds => d3.max([...d3.group(ds, d => d.price).values()], l => l.length) || 1;
 function priceStrip(items, w, h, xs, r = 5.5) {
@@ -1478,7 +1478,7 @@ function renderPrice(B) {
       <div class="stat" tabindex="0" ${tipAttr(`<b>Median price by menu line</b>` + ttRows(restRows.map(x => [esc(x.r), money(x.med)])))}><b class="num">${allC.length ? money(d3.median(allC, d => d.price)) : "—"}</b><span>median meal (${allC.length} bowls and pitas)</span></div>
       <div class="stat" tabindex="0" ${tipAttr(`<b>Cheapest and priciest meals</b>` + ttList([...allC].sort((a, b) => a.price - b.price).slice(0, 2).concat([...allC].sort((a, b) => b.price - a.price).slice(0, 2)).map(ttItem), 4))}><b class="num">${allC.length ? `${money(d3.min(allC, d => d.price))}–${money(d3.max(allC, d => d.price))}` : "—"}</b><span>meal price range</span></div>
       <div class="stat" tabindex="0" ${tipAttr(`<b>Median add-on by menu line</b>` + ttRows(restRows.filter(x => x.nz).map(x => [esc(x.r), money(x.zMed)])))}><b class="num">${allZ.length ? money(d3.median(allZ, d => d.price)) : "—"}</b><span>median add-on (${allZ.length} sides, drinks and desserts)${zRatio != null ? `, ${Math.round(zRatio * 100)}% of a meal` : ""}</span></div>
-      <div class="stat" tabindex="0" ${tipAttr(`<b>Build-your-own up-charges</b><div class="tt-k">Bowl or pita from ${money(BYO_BASE)}</div>` + ttRows(ups.map(s => [esc(s.component), "+" + money(s.upcharge)])))}><b class="num">${money(BYO_BASE)}</b><span>build-your-own base, ${ups.length} components add ${money(d3.min(ups, s => s.upcharge))}–${money(d3.max(ups, s => s.upcharge))}</span></div>
+      <div class="stat" tabindex="0" ${tipAttr(`<b>${esc(gShort(HOME))} build-your-own up-charges</b><div class="tt-k">Bowl or pita from ${money(BYO_BASE)}</div>` + ttRows(ups.map(s => [esc(s.component), "+" + money(s.upcharge)])))}><b class="num">${money(BYO_BASE)}</b><span>${esc(gShort(HOME))} build-your-own base, ${ups.length} components add ${money(d3.min(ups, s => s.upcharge))}–${money(d3.max(ups, s => s.upcharge))}</span></div>
     </div>
     <div class="swatch-legend" style="margin-top:14px"><span><i class="solid"></i>Meal</span><span><i class="ring"></i>Add-on</span><span>Hover a dot for the item</span></div>
     <div class="ops-two" style="margin-top:6px">
@@ -1508,7 +1508,7 @@ function renderPrice(B) {
               ${priceStrip(s.ds, SW, h, sx, 4.5)}</svg>`; })()}
           </div>`).join("")}
         <div class="callout" style="margin-top:12px">
-          <b>Price follows the main</b>
+          <b>At ${esc(gShort(HOME))}, price follows the main</b>
           <span>A build-your-own bowl or pita starts at ${money(BYO_BASE)}, the same as the chicken, falafel and veggie meals. Everything else on the line is included except ${ups.map(s => `${esc(s.component)} (+${money(s.upcharge)})`).join(", ")}. The curated meals land on the same ladder.</span>
         </div>
       </div>
@@ -1550,8 +1550,8 @@ function renderGaps(B) {
             <span>${o.both ? '<span class="flag ok">already stocked</span>' : o.one ? '<span class="flag quiet">1 new item</span>' : '<span class="flag quiet">2 new items</span>'}</span>
             <span class="om">${o.ds.length} items on ${o.rs.size} line${o.rs.size === 1 ? "" : "s"}, e.g. ${[...d3.group(o.ds, d => d.line).values()].map(l => l[0]).slice(0, 3).map(d => `${esc(d.item)} (${esc(d.line)})`).join(", ")}</span>
           </div>`).join("") : '<p class="empty">No shared pairings are missing here.</p>'}</div>
-        <div class="sub">On the build-your-own line, but in no curated item</div>
-        <p class="hint" style="margin-bottom:6px">Station components guests can pick that none of the ${ITEMS.filter(d => !d.small).length} curated bowls and pitas (or any side) feature. Whole menu, regardless of the filters.</p>
+        <div class="sub">On ${esc(gShort(HOME))}'s build-your-own line, but in no curated item</div>
+        <p class="hint" style="margin-bottom:6px">Station components guests can pick that none of ${esc(gShort(HOME))}'s ${ITEMS.filter(d => d.group === HOME && !d.small).length} curated bowls and pitas (or any side) feature. Whole ${esc(gShort(HOME))} menu, regardless of the filters.</p>
         <div>${unused.length ? unused.map(s => `
           <div class="opp">
             <span class="on">${esc(s.component)}</span>
@@ -1603,8 +1603,8 @@ function estCost(d) {
 const sim = { seed: 7, leader: "profit" };
 function rng(seed) { let t = seed >>> 0; return () => { t += 0x6D2B79F5; let r = Math.imul(t ^ t >>> 15, 1 | t); r ^= r + Math.imul(r ^ r >>> 7, 61 | r); return ((r ^ r >>> 14) >>> 0) / 4294967296; }; }
 const FOODS = ["Pita chips", "Side dip", "House juice", "Dessert", "Kids meal"];
-const MAIN_STYLE = { "Chicken": "Chicken", "Steak & lamb": "Steak & lamb", "Seafood": "Salmon", "Plant-based mains": "Falafel & veg" };
-const STYLES_SIM = ["Chicken", "Steak & lamb", "Salmon", "Falafel & veg", "No main", "Add-on"];
+const MAIN_STYLE = { "Chicken": "Chicken", "Beef, pork & lamb": "Beef, pork & lamb", "Seafood": "Seafood", "Plant-based mains": "Plant-based" };
+const STYLES_SIM = ["Chicken", "Beef, pork & lamb", "Seafood", "Plant-based", "No main", "Add-on"];
 const styleOf = d => d.small ? "Add-on" : (d.ings.map(i => MAIN_STYLE[i.cat]).find(Boolean) || "No main");
 function simulate(rows) {
   const r = rng(sim.seed);
@@ -1944,7 +1944,7 @@ function renderGroups() {
   out.querySelectorAll("[data-ing]").forEach(el => act(el, () => openDrawer({ type: "ing", a: el.dataset.ing })));
   out.querySelectorAll("[data-pair]").forEach(el => act(el, () => { const [a, b] = el.dataset.pair.split("|"); openDrawer({ type: "pair", a, b }); }));
 }
-const STYLE_COLOR = { "Chicken": "#e7a812", "Steak & lamb": "#b5432d", "Salmon": "#f07a3a", "Falafel & veg": "#3f9b56", "No main": "#8b8a7e", "Add-on": "var(--teal)" };
+const STYLE_COLOR = { "Chicken": "#e7a812", "Beef, pork & lamb": "#b5432d", "Seafood": "#f07a3a", "Plant-based": "#3f9b56", "No main": "#8b8a7e", "Add-on": "var(--teal)" };
 
 
 /* ---------- head to head ---------- */
@@ -2061,15 +2061,15 @@ function renderH2H() {
 
 /* dashboard shell */
 const VIEWS = {
-  overview: { sec: "overview", title: "Overview", sub: "CAVA's menu by the component: every curated bowl, pita, side, drink and dessert, with prices from the Dupont Circle store. Untick menu lines in the sidebar to narrow the view." },
+  overview: { sec: "overview", title: "Overview", sub: "CAVA's menu by the component, with Sweetgreen and Chipotle alongside. Opens on CAVA; tick the other brands or single menu lines in the sidebar. Prices are from each chain's downtown DC store." },
   components: { sec: "components", title: "Component lookup", sub: "Partners are ranked by the number of items that use both. Click one to filter the item list." },
   matrix: { sec: "matrix", title: "Pairing matrix", sub: "The most-used components, grouped by station. Each number is how many items use both. Click a cell to see what else goes in, or a diagonal cell for one component's partners." },
   map: { sec: "map", title: "Pairing map", sub: "Ribbon width is the number of shared items. Click an arc or a ribbon for details, or a category to see the components inside it." },
   prep: { sec: "ops", tab: "prep", title: "Prep & inventory", sub: "What the line has to stock and prep for the curated menu, which components only one item uses, and what sits on the build-your-own line that no curated item shows off." },
   price: { sec: "ops", tab: "price", title: "Pricing", sub: "Every item by menu line, the same style of item compared, and how a bowl's price follows its main." },
   gaps: { sec: "ops", tab: "gaps", title: "Menu gaps", sub: "Pairings the other menu lines use that one doesn't, station components no curated item uses, and how each line's mix compares." },
-  h2h: { sec: "h2h", title: "Head to head", sub: "Pick any two menu lines and compare them side by side: price, calories, what they're built from, and what only one of them uses. Ignores the sidebar filters." },
-  groups: { sec: "groups", title: "Compare brands", sub: "How brands differ. Only CAVA is loaded; add a second brand to data/items_raw.tsv to compare." },
+  h2h: { sec: "h2h", title: "Head to head", sub: "Pick any two menu lines, or two brands, and compare them side by side: price, calories, what they're built from, and what only one of them uses. Ignores the sidebar filters." },
+  groups: { sec: "groups", title: "Compare brands", sub: "How CAVA, Sweetgreen and Chipotle differ: price, add-ons, what they build from, signature components, and the pairings the others use that one doesn't. Uses every brand regardless of the filters." },
   costs: { sec: "costs", title: "Cost & sales (what if)", sub: "A preview of what real cost and sales data would unlock. Costs are adjustable assumptions and sales are a random simulated sample, not CAVA's real numbers." },
   about: { sec: "about", title: "About the data", sub: "Where the numbers come from and how components were grouped." }
 };
@@ -2275,13 +2275,14 @@ render();
 
 /* tour: a spotlight walkthrough. Each step may switch view and names a target element to frame. */
 const TOUR = [
-  { title: "Welcome to Spread Sheet", text: "An unofficial look at what goes into CAVA's menu: every curated bowl, pita, side, drink and dessert on cava.com, plus the build-your-own line. This takes about a minute. Leave any time with ✕ or Esc." },
-  { target: "#rest-controls", title: "Pick menu lines", text: "Everything opens on the whole menu. Untick <b>Sides</b>, <b>Items</b> or <b>Desserts</b> here to focus on bowls and pitas, or switch add-ons off in one click." },
+  { title: "Welcome to Spread Sheet", text: "An unofficial look at what goes into CAVA's menu, with Sweetgreen and Chipotle alongside for comparison, read from the chains' own menus. This takes about a minute. Leave any time with ✕ or Esc." },
+  { target: "#rest-controls", title: "Start with CAVA", text: "The dashboard opens on <b>CAVA</b> only. Tick <b>Sweetgreen</b> or <b>Chipotle</b> here to widen every page, untick a menu line to narrow it, or switch add-ons off in one click." },
   { target: "#strip", title: "Hover anything", text: "Every number has details behind it. <b>Hover</b> a stat on a computer, or <b>tap</b> it on a phone (tap again to open it)." },
   { target: ".ov-grid .card:first-child", title: "Click to drill in", text: "Pairings, components and categories open a side panel with a <b>sub-map</b>: what else goes into those bowls, and what pairs with what, without leaving the page." },
   { view: "map", target: "#chord", title: "The pairing map", text: "Ribbons are shared items. Click a category to see the components inside it, or a ribbon to see which pairs link two categories, then keep drilling." },
   { view: "prep", target: "#ops-prep .ops-tiles", title: "Prep & inventory", text: "What the line has to stock, the <b>fresh components only one curated item uses</b>, and the station components no curated item shows off. Built from the menu alone." },
-  { view: "h2h", target: ".h2h-pick", title: "Head to head", text: "Compare any two menu lines, bowls against pitas to start: prices, calories, what they're built from, and the components and pairings only one of them uses." },
+  { view: "groups", target: ".gtiles", title: "Compare brands", text: "CAVA, Sweetgreen and Chipotle side by side: price, add-ons, what they build from, each brand's signature components, and the pairings the others use that one doesn't." },
+  { view: "h2h", target: ".h2h-pick", title: "Head to head", text: "Compare any two menu lines or two brands: prices, calories, what they're built from, and the components and pairings only one of them uses." },
   { view: "costs", target: "#cost-assume", title: "Cost & sales: a what-if", text: "There's no cost or sales data, so this tab runs on <b>adjustable assumptions and a random sample</b>, clearly labeled. It shows what plugging into the POS would make real." },
   { view: "overview", title: "That's the tour", text: "Sources and caveats are under <b>About the data</b>. You can replay this from <b>Take a tour</b> at the bottom of the sidebar." }
 ];

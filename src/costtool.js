@@ -165,7 +165,7 @@
       ${stores.length > 1 ? `<span class="label">Stores</span>${stores.map(st => `<button class="chip" data-act="store:${esc(st.id)}" aria-pressed="${!s.stores || s.stores.has(st.id)}">${esc(st.name)}</button>`).join("")}` : ""}
       ${months.length > 1 ? `<span class="label">Months</span>${months.map(m => `<button class="chip" data-act="month:${m}" aria-pressed="${!s.months || s.months.has(m)}">${monthName(m)}</button>`).join("")}` : ""}
       ${M.channels.length > 1 ? `<span class="label">Channel</span>${sel("channel", [["all", "All channels"]].concat(M.channels.map(c => [c, CH_LABEL[c]])), s.channel)}` : ""}
-      <span class="label">Target food cost</span><input type="number" data-set="target" value="${s.target}" min="10" max="60" step="0.5" style="width:62px"><span class="label">%</span>
+      <span class="label">Target food cost</span><span style="white-space:nowrap;display:inline-flex;align-items:center;gap:4px"><input type="number" data-set="target" value="${s.target}" min="10" max="60" step="0.5" style="width:62px"><span class="label" style="margin:0">%</span></span>
     </div>`;
   }
   function jobBody(M) {

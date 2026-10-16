@@ -1,0 +1,41 @@
+group	line	section	item	price	cal	ingredients
+CAVA	Bowls	Salads	Greek Goddess Steak Salad	15.45	470	Grilled steak; hummus; tzatziki; tomato + cucumber; pita crisps; olives; sumac cabbage slaw; feta; Power Greens; Greek goddess dressing
+CAVA	Bowls	Bowls	Greek Goddess Salmon	16.00	700	Glazed salmon; hummus; red pepper hummus; pickled onions; fiery broccoli; tomato + onion; sumac cabbage slaw; arugula; basmati rice; Greek goddess dressing
+CAVA	Bowls	Bowls	Pomegranate Glazed Salmon	18.85	1040	Glazed salmon; Crazy Feta®; hummus; avocado; pickled onions; tomato + cucumber; fiery broccoli; saffron basmati rice; Greek vinaigrette
+CAVA	Bowls	Bowls	Salmon + Yogurt Dill	16.00	710	Glazed salmon; Crazy Feta®; hummus; fire-roasted corn; tomato + onion; cucumber; rice; arugula; yogurt dill dressing
+CAVA	Bowls	Bowls	Chicken + Rice	11.75	700	Grilled chicken; hummus; tzatziki; pickled onions; tomato + onion; cucumber; feta; arugula; brown rice; Greek vinaigrette
+CAVA	Bowls	Bowls	Harissa Avocado	16.25	830	Harissa honey chicken; Crazy Feta®; hummus; avocado; corn; cucumber; feta; pickled onions; basmati rice; Super Greens; harissa vinaigrette
+CAVA	Bowls	Bowls	Steak + Harissa	15.45	620	Grilled steak; Crazy Feta®; red pepper hummus; tomato + onion; cucumber; feta; sumac cabbage slaw; brown rice; Super Greens; harissa vinaigrette
+CAVA	Bowls	Salads	Greek Salad	11.75	580	Grilled chicken; tzatziki; hummus; feta; tomato + onion; cucumber; olives; romaine; arugula; Greek vinaigrette
+CAVA	Bowls	Bowls	Falafel Crunch	11.75	860	Half falafel; half roasted veggies; hummus; Crazy Feta®; cucumber; sumac cabbage slaw; romaine; pickled onions; tomato + onion; pita crisps; rice; lentils; skhug
+CAVA	Bowls	Bowls	Spicy Lamb + Avocado	17.05	800	Spicy lamb meatballs; avocado; Crazy Feta®; red pepper hummus; pickled onions; cucumber; tomato + onion; Super Greens; lentils; lemon herb tahini
+CAVA	Pitas	Pitas	Steak + Feta	15.45	820	Grilled steak; Crazy Feta®; red pepper hummus; pickled onions; feta; pickles; romaine; garlic dressing; Greek vinaigrette; pita
+CAVA	Pitas	Pitas	Greek Chicken	11.75	720	Grilled chicken; tzatziki; tomato + onion; olives; feta; romaine; yogurt dill dressing; pita
+CAVA	Pitas	Pitas	Spicy Chicken + Avocado	16.25	930	Harissa honey chicken; Crazy Feta®; avocado; pickles; corn; feta; pickled onions; harissa vinaigrette; pita
+CAVA	Sides	Pita & chips	Harissa BBQ Pita Chips	2.75	280	classic pita chips; cayenne; blend of spices
+CAVA	Sides	Pita & chips	Classic Pita Chips	2.75	280	classic pita chips
+CAVA	Sides	Pita & chips	Side Pita	2.45	320	pita (sprouted grains)
+CAVA	Sides	Dips & spreads	Side Crazy Feta®	4.15	210	Crazy Feta® (feta whipped with jalapeño, onion, olive oil)
+CAVA	Sides	Dips & spreads	Side Hummus	3.45	140	hummus (chickpeas, tahini, lemon juice, garlic, salt)
+CAVA	Sides	Dips & spreads	Side Harissa	3.45	220	harissa (tomato-forward, spices)
+CAVA	Sides	Dips & spreads	Side Tzatziki	3.45	100	tzatziki (Greek yogurt, shredded cucumber, dill)
+CAVA	Sides	Dips & spreads	Side Red Pepper Hummus	3.45	110	red pepper hummus (roasted red peppers, chickpeas, tahini, garlic)
+CAVA	Sides	Dips & spreads	Side Roasted Eggplant	3.65	150	roasted eggplant dip (eggplant, lemon juice, parsley, onions, garlic)
+CAVA	Drinks	House-made juices & teas	Pomegranate Apple	3.75	250	pomegranate; apple
+CAVA	Drinks	House-made juices & teas	Blueberry Lavender	3.75	190	blueberry purée; lavender
+CAVA	Drinks	House-made juices & teas	Cucumber Mint Lime	3.75	240	cucumber; mint; fresh lime juice
+CAVA	Drinks	House-made juices & teas	Classic Lemonade	3.75	360	lemonade (lemon)
+CAVA	Drinks	House-made juices & teas	Jasmine Green Tea	3.75	0	jasmine green tea
+CAVA	Drinks	House-made juices & teas	Unsweet Tea	3.75	0	unsweetened black tea
+CAVA	Drinks	Bottled & fountain	Fountain Soda	3.75	270	Maine Root fountain soda
+CAVA	Drinks	Bottled & fountain	Spindrift Lemon	2.95	3	sparkling water; lemon
+CAVA	Drinks	Bottled & fountain	Spindrift Half Tea & Half Lemon	2.95	5	sparkling water; black tea; lemon
+CAVA	Drinks	Bottled & fountain	Open Water Still	2.95	0	still water
+CAVA	Drinks	Bottled & fountain	Open Water Sparkling	2.95	0	sparkling water
+CAVA	Drinks	Kids drinks	Kids Apple Juice	2.55	35	organic apple juice (Honest Kids)
+CAVA	Drinks	Kids drinks	Kids Milk	2.55	110	organic 1% milk
+CAVA	Drinks	Kids drinks	Kids Chocolate Milk	2.55	150	organic 1% chocolate milk
+CAVA	Desserts	Desserts	Salted Chocolate Oat Cookie	3.35	240	oats; chocolate; salt
+CAVA	Desserts	Desserts	Greyston Blondie	2.75	140	blondie; chocolate chips
+CAVA	Desserts	Desserts	Greyston Brownie	2.75	150	brownie; chocolate
+CAVA	Desserts	Desserts	Apricot Honey Cookie	3.35	220	honey; ginger; dried apricot

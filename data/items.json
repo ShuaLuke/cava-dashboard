@@ -1,0 +1,2101 @@
+[
+{
+"group": "CAVA",
+"line": "Bowls",
+"section": "Salads",
+"item": "Greek Goddess Steak Salad",
+"price": 15.45,
+"cal": 470,
+"small": false,
+"veg": false,
+"ings": [
+{
+"name": "Grilled steak",
+"cat": "Steak & lamb",
+"raw": "Grilled steak"
+},
+{
+"name": "Hummus",
+"cat": "Dips & spreads",
+"raw": "hummus"
+},
+{
+"name": "Tzatziki",
+"cat": "Dips & spreads",
+"raw": "tzatziki"
+},
+{
+"name": "Tomato + cucumber",
+"cat": "Fresh vegetables",
+"raw": "tomato + cucumber"
+},
+{
+"name": "Pita crisps",
+"cat": "Pita & chips",
+"raw": "pita crisps"
+},
+{
+"name": "Kalamata olives",
+"cat": "Pickled & brined",
+"raw": "olives"
+},
+{
+"name": "Sumac cabbage slaw",
+"cat": "Fresh vegetables",
+"raw": "sumac cabbage slaw"
+},
+{
+"name": "Crumbled feta",
+"cat": "Feta & avocado",
+"raw": "feta"
+},
+{
+"name": "Power Greens",
+"cat": "Greens",
+"raw": "Power Greens"
+},
+{
+"name": "Greek goddess dressing",
+"cat": "Dressings",
+"raw": "Greek goddess dressing"
+}
+],
+"parts": [
+[
+"Grilled steak",
+"Grilled steak"
+],
+[
+"hummus",
+"Hummus"
+],
+[
+"tzatziki",
+"Tzatziki"
+],
+[
+"tomato + cucumber",
+"Tomato + cucumber"
+],
+[
+"pita crisps",
+"Pita crisps"
+],
+[
+"olives",
+"Kalamata olives"
+],
+[
+"sumac cabbage slaw",
+"Sumac cabbage slaw"
+],
+[
+"feta",
+"Crumbled feta"
+],
+[
+"Power Greens",
+"Power Greens"
+],
+[
+"Greek goddess dressing",
+"Greek goddess dressing"
+]
+]
+},
+{
+"group": "CAVA",
+"line": "Bowls",
+"section": "Bowls",
+"item": "Greek Goddess Salmon",
+"price": 16.0,
+"cal": 700,
+"small": false,
+"veg": false,
+"ings": [
+{
+"name": "Glazed salmon",
+"cat": "Seafood",
+"raw": "Glazed salmon"
+},
+{
+"name": "Hummus",
+"cat": "Dips & spreads",
+"raw": "hummus"
+},
+{
+"name": "Red pepper hummus",
+"cat": "Dips & spreads",
+"raw": "red pepper hummus"
+},
+{
+"name": "Pickled onions",
+"cat": "Pickled & brined",
+"raw": "pickled onions"
+},
+{
+"name": "Fiery broccoli",
+"cat": "Fresh vegetables",
+"raw": "fiery broccoli"
+},
+{
+"name": "Tomato + onion",
+"cat": "Fresh vegetables",
+"raw": "tomato + onion"
+},
+{
+"name": "Sumac cabbage slaw",
+"cat": "Fresh vegetables",
+"raw": "sumac cabbage slaw"
+},
+{
+"name": "Arugula",
+"cat": "Greens",
+"raw": "arugula"
+},
+{
+"name": "Saffron basmati rice",
+"cat": "Grains & legumes",
+"raw": "basmati rice"
+},
+{
+"name": "Greek goddess dressing",
+"cat": "Dressings",
+"raw": "Greek goddess dressing"
+}
+],
+"parts": [
+[
+"Glazed salmon",
+"Glazed salmon"
+],
+[
+"hummus",
+"Hummus"
+],
+[
+"red pepper hummus",
+"Red pepper hummus"
+],
+[
+"pickled onions",
+"Pickled onions"
+],
+[
+"fiery broccoli",
+"Fiery broccoli"
+],
+[
+"tomato + onion",
+"Tomato + onion"
+],
+[
+"sumac cabbage slaw",
+"Sumac cabbage slaw"
+],
+[
+"arugula",
+"Arugula"
+],
+[
+"basmati rice",
+"Saffron basmati rice"
+],
+[
+"Greek goddess dressing",
+"Greek goddess dressing"
+]
+]
+},
+{
+"group": "CAVA",
+"line": "Bowls",
+"section": "Bowls",
+"item": "Pomegranate Glazed Salmon",
+"price": 18.85,
+"cal": 1040,
+"small": false,
+"veg": false,
+"ings": [
+{
+"name": "Glazed salmon",
+"cat": "Seafood",
+"raw": "Glazed salmon"
+},
+{
+"name": "Crazy Feta",
+"cat": "Dips & spreads",
+"raw": "Crazy Feta®"
+},
+{
+"name": "Hummus",
+"cat": "Dips & spreads",
+"raw": "hummus"
+},
+{
+"name": "Avocado",
+"cat": "Feta & avocado",
+"raw": "avocado"
+},
+{
+"name": "Pickled onions",
+"cat": "Pickled & brined",
+"raw": "pickled onions"
+},
+{
+"name": "Tomato + cucumber",
+"cat": "Fresh vegetables",
+"raw": "tomato + cucumber"
+},
+{
+"name": "Fiery broccoli",
+"cat": "Fresh vegetables",
+"raw": "fiery broccoli"
+},
+{
+"name": "Saffron basmati rice",
+"cat": "Grains & legumes",
+"raw": "saffron basmati rice"
+},
+{
+"name": "Greek vinaigrette",
+"cat": "Dressings",
+"raw": "Greek vinaigrette"
+}
+],
+"parts": [
+[
+"Glazed salmon",
+"Glazed salmon"
+],
+[
+"Crazy Feta®",
+"Crazy Feta"
+],
+[
+"hummus",
+"Hummus"
+],
+[
+"avocado",
+"Avocado"
+],
+[
+"pickled onions",
+"Pickled onions"
+],
+[
+"tomato + cucumber",
+"Tomato + cucumber"
+],
+[
+"fiery broccoli",
+"Fiery broccoli"
+],
+[
+"saffron basmati rice",
+"Saffron basmati rice"
+],
+[
+"Greek vinaigrette",
+"Greek vinaigrette"
+]
+]
+},
+{
+"group": "CAVA",
+"line": "Bowls",
+"section": "Bowls",
+"item": "Salmon + Yogurt Dill",
+"price": 16.0,
+"cal": 710,
+"small": false,
+"veg": false,
+"ings": [
+{
+"name": "Glazed salmon",
+"cat": "Seafood",
+"raw": "Glazed salmon"
+},
+{
+"name": "Crazy Feta",
+"cat": "Dips & spreads",
+"raw": "Crazy Feta®"
+},
+{
+"name": "Hummus",
+"cat": "Dips & spreads",
+"raw": "hummus"
+},
+{
+"name": "Fire-roasted corn",
+"cat": "Fresh vegetables",
+"raw": "fire-roasted corn"
+},
+{
+"name": "Tomato + onion",
+"cat": "Fresh vegetables",
+"raw": "tomato + onion"
+},
+{
+"name": "Cucumber",
+"cat": "Fresh vegetables",
+"raw": "cucumber"
+},
+{
+"name": "Saffron basmati rice",
+"cat": "Grains & legumes",
+"raw": "rice"
+},
+{
+"name": "Arugula",
+"cat": "Greens",
+"raw": "arugula"
+},
+{
+"name": "Yogurt dill dressing",
+"cat": "Dressings",
+"raw": "yogurt dill dressing"
+}
+],
+"parts": [
+[
+"Glazed salmon",
+"Glazed salmon"
+],
+[
+"Crazy Feta®",
+"Crazy Feta"
+],
+[
+"hummus",
+"Hummus"
+],
+[
+"fire-roasted corn",
+"Fire-roasted corn"
+],
+[
+"tomato + onion",
+"Tomato + onion"
+],
+[
+"cucumber",
+"Cucumber"
+],
+[
+"rice",
+"Saffron basmati rice"
+],
+[
+"arugula",
+"Arugula"
+],
+[
+"yogurt dill dressing",
+"Yogurt dill dressing"
+]
+]
+},
+{
+"group": "CAVA",
+"line": "Bowls",
+"section": "Bowls",
+"item": "Chicken + Rice",
+"price": 11.75,
+"cal": 700,
+"small": false,
+"veg": false,
+"ings": [
+{
+"name": "Grilled chicken",
+"cat": "Chicken",
+"raw": "Grilled chicken"
+},
+{
+"name": "Hummus",
+"cat": "Dips & spreads",
+"raw": "hummus"
+},
+{
+"name": "Tzatziki",
+"cat": "Dips & spreads",
+"raw": "tzatziki"
+},
+{
+"name": "Pickled onions",
+"cat": "Pickled & brined",
+"raw": "pickled onions"
+},
+{
+"name": "Tomato + onion",
+"cat": "Fresh vegetables",
+"raw": "tomato + onion"
+},
+{
+"name": "Cucumber",
+"cat": "Fresh vegetables",
+"raw": "cucumber"
+},
+{
+"name": "Crumbled feta",
+"cat": "Feta & avocado",
+"raw": "feta"
+},
+{
+"name": "Arugula",
+"cat": "Greens",
+"raw": "arugula"
+},
+{
+"name": "Brown rice",
+"cat": "Grains & legumes",
+"raw": "brown rice"
+},
+{
+"name": "Greek vinaigrette",
+"cat": "Dressings",
+"raw": "Greek vinaigrette"
+}
+],
+"parts": [
+[
+"Grilled chicken",
+"Grilled chicken"
+],
+[
+"hummus",
+"Hummus"
+],
+[
+"tzatziki",
+"Tzatziki"
+],
+[
+"pickled onions",
+"Pickled onions"
+],
+[
+"tomato + onion",
+"Tomato + onion"
+],
+[
+"cucumber",
+"Cucumber"
+],
+[
+"feta",
+"Crumbled feta"
+],
+[
+"arugula",
+"Arugula"
+],
+[
+"brown rice",
+"Brown rice"
+],
+[
+"Greek vinaigrette",
+"Greek vinaigrette"
+]
+]
+},
+{
+"group": "CAVA",
+"line": "Bowls",
+"section": "Bowls",
+"item": "Harissa Avocado",
+"price": 16.25,
+"cal": 830,
+"small": false,
+"veg": false,
+"ings": [
+{
+"name": "Harissa honey chicken",
+"cat": "Chicken",
+"raw": "Harissa honey chicken"
+},
+{
+"name": "Crazy Feta",
+"cat": "Dips & spreads",
+"raw": "Crazy Feta®"
+},
+{
+"name": "Hummus",
+"cat": "Dips & spreads",
+"raw": "hummus"
+},
+{
+"name": "Avocado",
+"cat": "Feta & avocado",
+"raw": "avocado"
+},
+{
+"name": "Fire-roasted corn",
+"cat": "Fresh vegetables",
+"raw": "corn"
+},
+{
+"name": "Cucumber",
+"cat": "Fresh vegetables",
+"raw": "cucumber"
+},
+{
+"name": "Crumbled feta",
+"cat": "Feta & avocado",
+"raw": "feta"
+},
+{
+"name": "Pickled onions",
+"cat": "Pickled & brined",
+"raw": "pickled onions"
+},
+{
+"name": "Saffron basmati rice",
+"cat": "Grains & legumes",
+"raw": "basmati rice"
+},
+{
+"name": "Super Greens",
+"cat": "Greens",
+"raw": "Super Greens"
+},
+{
+"name": "Hot harissa vinaigrette",
+"cat": "Dressings",
+"raw": "harissa vinaigrette"
+}
+],
+"parts": [
+[
+"Harissa honey chicken",
+"Harissa honey chicken"
+],
+[
+"Crazy Feta®",
+"Crazy Feta"
+],
+[
+"hummus",
+"Hummus"
+],
+[
+"avocado",
+"Avocado"
+],
+[
+"corn",
+"Fire-roasted corn"
+],
+[
+"cucumber",
+"Cucumber"
+],
+[
+"feta",
+"Crumbled feta"
+],
+[
+"pickled onions",
+"Pickled onions"
+],
+[
+"basmati rice",
+"Saffron basmati rice"
+],
+[
+"Super Greens",
+"Super Greens"
+],
+[
+"harissa vinaigrette",
+"Hot harissa vinaigrette"
+]
+]
+},
+{
+"group": "CAVA",
+"line": "Bowls",
+"section": "Bowls",
+"item": "Steak + Harissa",
+"price": 15.45,
+"cal": 620,
+"small": false,
+"veg": false,
+"ings": [
+{
+"name": "Grilled steak",
+"cat": "Steak & lamb",
+"raw": "Grilled steak"
+},
+{
+"name": "Crazy Feta",
+"cat": "Dips & spreads",
+"raw": "Crazy Feta®"
+},
+{
+"name": "Red pepper hummus",
+"cat": "Dips & spreads",
+"raw": "red pepper hummus"
+},
+{
+"name": "Tomato + onion",
+"cat": "Fresh vegetables",
+"raw": "tomato + onion"
+},
+{
+"name": "Cucumber",
+"cat": "Fresh vegetables",
+"raw": "cucumber"
+},
+{
+"name": "Crumbled feta",
+"cat": "Feta & avocado",
+"raw": "feta"
+},
+{
+"name": "Sumac cabbage slaw",
+"cat": "Fresh vegetables",
+"raw": "sumac cabbage slaw"
+},
+{
+"name": "Brown rice",
+"cat": "Grains & legumes",
+"raw": "brown rice"
+},
+{
+"name": "Super Greens",
+"cat": "Greens",
+"raw": "Super Greens"
+},
+{
+"name": "Hot harissa vinaigrette",
+"cat": "Dressings",
+"raw": "harissa vinaigrette"
+}
+],
+"parts": [
+[
+"Grilled steak",
+"Grilled steak"
+],
+[
+"Crazy Feta®",
+"Crazy Feta"
+],
+[
+"red pepper hummus",
+"Red pepper hummus"
+],
+[
+"tomato + onion",
+"Tomato + onion"
+],
+[
+"cucumber",
+"Cucumber"
+],
+[
+"feta",
+"Crumbled feta"
+],
+[
+"sumac cabbage slaw",
+"Sumac cabbage slaw"
+],
+[
+"brown rice",
+"Brown rice"
+],
+[
+"Super Greens",
+"Super Greens"
+],
+[
+"harissa vinaigrette",
+"Hot harissa vinaigrette"
+]
+]
+},
+{
+"group": "CAVA",
+"line": "Bowls",
+"section": "Salads",
+"item": "Greek Salad",
+"price": 11.75,
+"cal": 580,
+"small": false,
+"veg": false,
+"ings": [
+{
+"name": "Grilled chicken",
+"cat": "Chicken",
+"raw": "Grilled chicken"
+},
+{
+"name": "Tzatziki",
+"cat": "Dips & spreads",
+"raw": "tzatziki"
+},
+{
+"name": "Hummus",
+"cat": "Dips & spreads",
+"raw": "hummus"
+},
+{
+"name": "Crumbled feta",
+"cat": "Feta & avocado",
+"raw": "feta"
+},
+{
+"name": "Tomato + onion",
+"cat": "Fresh vegetables",
+"raw": "tomato + onion"
+},
+{
+"name": "Cucumber",
+"cat": "Fresh vegetables",
+"raw": "cucumber"
+},
+{
+"name": "Kalamata olives",
+"cat": "Pickled & brined",
+"raw": "olives"
+},
+{
+"name": "Romaine",
+"cat": "Greens",
+"raw": "romaine"
+},
+{
+"name": "Arugula",
+"cat": "Greens",
+"raw": "arugula"
+},
+{
+"name": "Greek vinaigrette",
+"cat": "Dressings",
+"raw": "Greek vinaigrette"
+}
+],
+"parts": [
+[
+"Grilled chicken",
+"Grilled chicken"
+],
+[
+"tzatziki",
+"Tzatziki"
+],
+[
+"hummus",
+"Hummus"
+],
+[
+"feta",
+"Crumbled feta"
+],
+[
+"tomato + onion",
+"Tomato + onion"
+],
+[
+"cucumber",
+"Cucumber"
+],
+[
+"olives",
+"Kalamata olives"
+],
+[
+"romaine",
+"Romaine"
+],
+[
+"arugula",
+"Arugula"
+],
+[
+"Greek vinaigrette",
+"Greek vinaigrette"
+]
+]
+},
+{
+"group": "CAVA",
+"line": "Bowls",
+"section": "Bowls",
+"item": "Falafel Crunch",
+"price": 11.75,
+"cal": 860,
+"small": false,
+"veg": true,
+"ings": [
+{
+"name": "Falafel",
+"cat": "Plant-based mains",
+"raw": "Half falafel"
+},
+{
+"name": "Roasted vegetables",
+"cat": "Plant-based mains",
+"raw": "half roasted veggies"
+},
+{
+"name": "Hummus",
+"cat": "Dips & spreads",
+"raw": "hummus"
+},
+{
+"name": "Crazy Feta",
+"cat": "Dips & spreads",
+"raw": "Crazy Feta®"
+},
+{
+"name": "Cucumber",
+"cat": "Fresh vegetables",
+"raw": "cucumber"
+},
+{
+"name": "Sumac cabbage slaw",
+"cat": "Fresh vegetables",
+"raw": "sumac cabbage slaw"
+},
+{
+"name": "Romaine",
+"cat": "Greens",
+"raw": "romaine"
+},
+{
+"name": "Pickled onions",
+"cat": "Pickled & brined",
+"raw": "pickled onions"
+},
+{
+"name": "Tomato + onion",
+"cat": "Fresh vegetables",
+"raw": "tomato + onion"
+},
+{
+"name": "Pita crisps",
+"cat": "Pita & chips",
+"raw": "pita crisps"
+},
+{
+"name": "Saffron basmati rice",
+"cat": "Grains & legumes",
+"raw": "rice"
+},
+{
+"name": "Black lentils",
+"cat": "Grains & legumes",
+"raw": "lentils"
+},
+{
+"name": "Skhug",
+"cat": "Dressings",
+"raw": "skhug"
+}
+],
+"parts": [
+[
+"Half falafel",
+"Falafel"
+],
+[
+"half roasted veggies",
+"Roasted vegetables"
+],
+[
+"hummus",
+"Hummus"
+],
+[
+"Crazy Feta®",
+"Crazy Feta"
+],
+[
+"cucumber",
+"Cucumber"
+],
+[
+"sumac cabbage slaw",
+"Sumac cabbage slaw"
+],
+[
+"romaine",
+"Romaine"
+],
+[
+"pickled onions",
+"Pickled onions"
+],
+[
+"tomato + onion",
+"Tomato + onion"
+],
+[
+"pita crisps",
+"Pita crisps"
+],
+[
+"rice",
+"Saffron basmati rice"
+],
+[
+"lentils",
+"Black lentils"
+],
+[
+"skhug",
+"Skhug"
+]
+]
+},
+{
+"group": "CAVA",
+"line": "Bowls",
+"section": "Bowls",
+"item": "Spicy Lamb + Avocado",
+"price": 17.05,
+"cal": 800,
+"small": false,
+"veg": false,
+"ings": [
+{
+"name": "Spicy lamb meatballs",
+"cat": "Steak & lamb",
+"raw": "Spicy lamb meatballs"
+},
+{
+"name": "Avocado",
+"cat": "Feta & avocado",
+"raw": "avocado"
+},
+{
+"name": "Crazy Feta",
+"cat": "Dips & spreads",
+"raw": "Crazy Feta®"
+},
+{
+"name": "Red pepper hummus",
+"cat": "Dips & spreads",
+"raw": "red pepper hummus"
+},
+{
+"name": "Pickled onions",
+"cat": "Pickled & brined",
+"raw": "pickled onions"
+},
+{
+"name": "Cucumber",
+"cat": "Fresh vegetables",
+"raw": "cucumber"
+},
+{
+"name": "Tomato + onion",
+"cat": "Fresh vegetables",
+"raw": "tomato + onion"
+},
+{
+"name": "Super Greens",
+"cat": "Greens",
+"raw": "Super Greens"
+},
+{
+"name": "Black lentils",
+"cat": "Grains & legumes",
+"raw": "lentils"
+},
+{
+"name": "Lemon herb tahini",
+"cat": "Dressings",
+"raw": "lemon herb tahini"
+}
+],
+"parts": [
+[
+"Spicy lamb meatballs",
+"Spicy lamb meatballs"
+],
+[
+"avocado",
+"Avocado"
+],
+[
+"Crazy Feta®",
+"Crazy Feta"
+],
+[
+"red pepper hummus",
+"Red pepper hummus"
+],
+[
+"pickled onions",
+"Pickled onions"
+],
+[
+"cucumber",
+"Cucumber"
+],
+[
+"tomato + onion",
+"Tomato + onion"
+],
+[
+"Super Greens",
+"Super Greens"
+],
+[
+"lentils",
+"Black lentils"
+],
+[
+"lemon herb tahini",
+"Lemon herb tahini"
+]
+]
+},
+{
+"group": "CAVA",
+"line": "Pitas",
+"section": "Pitas",
+"item": "Steak + Feta",
+"price": 15.45,
+"cal": 820,
+"small": false,
+"veg": false,
+"ings": [
+{
+"name": "Grilled steak",
+"cat": "Steak & lamb",
+"raw": "Grilled steak"
+},
+{
+"name": "Crazy Feta",
+"cat": "Dips & spreads",
+"raw": "Crazy Feta®"
+},
+{
+"name": "Red pepper hummus",
+"cat": "Dips & spreads",
+"raw": "red pepper hummus"
+},
+{
+"name": "Pickled onions",
+"cat": "Pickled & brined",
+"raw": "pickled onions"
+},
+{
+"name": "Crumbled feta",
+"cat": "Feta & avocado",
+"raw": "feta"
+},
+{
+"name": "Salt-brined pickles",
+"cat": "Pickled & brined",
+"raw": "pickles"
+},
+{
+"name": "Romaine",
+"cat": "Greens",
+"raw": "romaine"
+},
+{
+"name": "Garlic dressing",
+"cat": "Dressings",
+"raw": "garlic dressing"
+},
+{
+"name": "Greek vinaigrette",
+"cat": "Dressings",
+"raw": "Greek vinaigrette"
+},
+{
+"name": "Pita",
+"cat": "Pita & chips",
+"raw": "pita"
+}
+],
+"parts": [
+[
+"Grilled steak",
+"Grilled steak"
+],
+[
+"Crazy Feta®",
+"Crazy Feta"
+],
+[
+"red pepper hummus",
+"Red pepper hummus"
+],
+[
+"pickled onions",
+"Pickled onions"
+],
+[
+"feta",
+"Crumbled feta"
+],
+[
+"pickles",
+"Salt-brined pickles"
+],
+[
+"romaine",
+"Romaine"
+],
+[
+"garlic dressing",
+"Garlic dressing"
+],
+[
+"Greek vinaigrette",
+"Greek vinaigrette"
+],
+[
+"pita",
+"Pita"
+]
+]
+},
+{
+"group": "CAVA",
+"line": "Pitas",
+"section": "Pitas",
+"item": "Greek Chicken",
+"price": 11.75,
+"cal": 720,
+"small": false,
+"veg": false,
+"ings": [
+{
+"name": "Grilled chicken",
+"cat": "Chicken",
+"raw": "Grilled chicken"
+},
+{
+"name": "Tzatziki",
+"cat": "Dips & spreads",
+"raw": "tzatziki"
+},
+{
+"name": "Tomato + onion",
+"cat": "Fresh vegetables",
+"raw": "tomato + onion"
+},
+{
+"name": "Kalamata olives",
+"cat": "Pickled & brined",
+"raw": "olives"
+},
+{
+"name": "Crumbled feta",
+"cat": "Feta & avocado",
+"raw": "feta"
+},
+{
+"name": "Romaine",
+"cat": "Greens",
+"raw": "romaine"
+},
+{
+"name": "Yogurt dill dressing",
+"cat": "Dressings",
+"raw": "yogurt dill dressing"
+},
+{
+"name": "Pita",
+"cat": "Pita & chips",
+"raw": "pita"
+}
+],
+"parts": [
+[
+"Grilled chicken",
+"Grilled chicken"
+],
+[
+"tzatziki",
+"Tzatziki"
+],
+[
+"tomato + onion",
+"Tomato + onion"
+],
+[
+"olives",
+"Kalamata olives"
+],
+[
+"feta",
+"Crumbled feta"
+],
+[
+"romaine",
+"Romaine"
+],
+[
+"yogurt dill dressing",
+"Yogurt dill dressing"
+],
+[
+"pita",
+"Pita"
+]
+]
+},
+{
+"group": "CAVA",
+"line": "Pitas",
+"section": "Pitas",
+"item": "Spicy Chicken + Avocado",
+"price": 16.25,
+"cal": 930,
+"small": false,
+"veg": false,
+"ings": [
+{
+"name": "Harissa honey chicken",
+"cat": "Chicken",
+"raw": "Harissa honey chicken"
+},
+{
+"name": "Crazy Feta",
+"cat": "Dips & spreads",
+"raw": "Crazy Feta®"
+},
+{
+"name": "Avocado",
+"cat": "Feta & avocado",
+"raw": "avocado"
+},
+{
+"name": "Salt-brined pickles",
+"cat": "Pickled & brined",
+"raw": "pickles"
+},
+{
+"name": "Fire-roasted corn",
+"cat": "Fresh vegetables",
+"raw": "corn"
+},
+{
+"name": "Crumbled feta",
+"cat": "Feta & avocado",
+"raw": "feta"
+},
+{
+"name": "Pickled onions",
+"cat": "Pickled & brined",
+"raw": "pickled onions"
+},
+{
+"name": "Hot harissa vinaigrette",
+"cat": "Dressings",
+"raw": "harissa vinaigrette"
+},
+{
+"name": "Pita",
+"cat": "Pita & chips",
+"raw": "pita"
+}
+],
+"parts": [
+[
+"Harissa honey chicken",
+"Harissa honey chicken"
+],
+[
+"Crazy Feta®",
+"Crazy Feta"
+],
+[
+"avocado",
+"Avocado"
+],
+[
+"pickles",
+"Salt-brined pickles"
+],
+[
+"corn",
+"Fire-roasted corn"
+],
+[
+"feta",
+"Crumbled feta"
+],
+[
+"pickled onions",
+"Pickled onions"
+],
+[
+"harissa vinaigrette",
+"Hot harissa vinaigrette"
+],
+[
+"pita",
+"Pita"
+]
+]
+},
+{
+"group": "CAVA",
+"line": "Sides",
+"section": "Pita & chips",
+"item": "Harissa BBQ Pita Chips",
+"price": 2.75,
+"cal": 280,
+"small": true,
+"veg": true,
+"ings": [
+{
+"name": "Pita chips",
+"cat": "Pita & chips",
+"raw": "classic pita chips"
+},
+{
+"name": "Cayenne",
+"cat": "Spices & seasonings",
+"raw": "cayenne"
+},
+{
+"name": "Spice blend",
+"cat": "Spices & seasonings",
+"raw": "blend of spices"
+}
+],
+"parts": [
+[
+"classic pita chips",
+"Pita chips"
+],
+[
+"cayenne",
+"Cayenne"
+],
+[
+"blend of spices",
+"Spice blend"
+]
+]
+},
+{
+"group": "CAVA",
+"line": "Sides",
+"section": "Pita & chips",
+"item": "Classic Pita Chips",
+"price": 2.75,
+"cal": 280,
+"small": true,
+"veg": true,
+"ings": [
+{
+"name": "Pita chips",
+"cat": "Pita & chips",
+"raw": "classic pita chips"
+}
+],
+"parts": [
+[
+"classic pita chips",
+"Pita chips"
+]
+]
+},
+{
+"group": "CAVA",
+"line": "Sides",
+"section": "Pita & chips",
+"item": "Side Pita",
+"price": 2.45,
+"cal": 320,
+"small": true,
+"veg": true,
+"ings": [
+{
+"name": "Pita",
+"cat": "Pita & chips",
+"raw": "pita (sprouted grains)"
+}
+],
+"parts": [
+[
+"pita (sprouted grains)",
+"Pita"
+]
+]
+},
+{
+"group": "CAVA",
+"line": "Sides",
+"section": "Dips & spreads",
+"item": "Side Crazy Feta®",
+"price": 4.15,
+"cal": 210,
+"small": true,
+"veg": true,
+"ings": [
+{
+"name": "Crazy Feta",
+"cat": "Dips & spreads",
+"raw": "Crazy Feta® (feta whipped with jalapeño, onion, olive oil)"
+}
+],
+"parts": [
+[
+"Crazy Feta® (feta whipped with jalapeño, onion, olive oil)",
+"Crazy Feta"
+]
+]
+},
+{
+"group": "CAVA",
+"line": "Sides",
+"section": "Dips & spreads",
+"item": "Side Hummus",
+"price": 3.45,
+"cal": 140,
+"small": true,
+"veg": true,
+"ings": [
+{
+"name": "Hummus",
+"cat": "Dips & spreads",
+"raw": "hummus (chickpeas, tahini, lemon juice, garlic, salt)"
+}
+],
+"parts": [
+[
+"hummus (chickpeas, tahini, lemon juice, garlic, salt)",
+"Hummus"
+]
+]
+},
+{
+"group": "CAVA",
+"line": "Sides",
+"section": "Dips & spreads",
+"item": "Side Harissa",
+"price": 3.45,
+"cal": 220,
+"small": true,
+"veg": true,
+"ings": [
+{
+"name": "Harissa",
+"cat": "Dips & spreads",
+"raw": "harissa (tomato-forward, spices)"
+}
+],
+"parts": [
+[
+"harissa (tomato-forward, spices)",
+"Harissa"
+]
+]
+},
+{
+"group": "CAVA",
+"line": "Sides",
+"section": "Dips & spreads",
+"item": "Side Tzatziki",
+"price": 3.45,
+"cal": 100,
+"small": true,
+"veg": true,
+"ings": [
+{
+"name": "Tzatziki",
+"cat": "Dips & spreads",
+"raw": "tzatziki (Greek yogurt, shredded cucumber, dill)"
+}
+],
+"parts": [
+[
+"tzatziki (Greek yogurt, shredded cucumber, dill)",
+"Tzatziki"
+]
+]
+},
+{
+"group": "CAVA",
+"line": "Sides",
+"section": "Dips & spreads",
+"item": "Side Red Pepper Hummus",
+"price": 3.45,
+"cal": 110,
+"small": true,
+"veg": true,
+"ings": [
+{
+"name": "Red pepper hummus",
+"cat": "Dips & spreads",
+"raw": "red pepper hummus (roasted red peppers, chickpeas, tahini, garlic)"
+}
+],
+"parts": [
+[
+"red pepper hummus (roasted red peppers, chickpeas, tahini, garlic)",
+"Red pepper hummus"
+]
+]
+},
+{
+"group": "CAVA",
+"line": "Sides",
+"section": "Dips & spreads",
+"item": "Side Roasted Eggplant",
+"price": 3.65,
+"cal": 150,
+"small": true,
+"veg": true,
+"ings": [
+{
+"name": "Roasted eggplant dip",
+"cat": "Dips & spreads",
+"raw": "roasted eggplant dip (eggplant, lemon juice, parsley, onions, garlic)"
+}
+],
+"parts": [
+[
+"roasted eggplant dip (eggplant, lemon juice, parsley, onions, garlic)",
+"Roasted eggplant dip"
+]
+]
+},
+{
+"group": "CAVA",
+"line": "Drinks",
+"section": "House-made juices & teas",
+"item": "Pomegranate Apple",
+"price": 3.75,
+"cal": 250,
+"small": true,
+"veg": true,
+"ings": [
+{
+"name": "Pomegranate",
+"cat": "Fruit & botanicals",
+"raw": "pomegranate"
+},
+{
+"name": "Apple",
+"cat": "Fruit & botanicals",
+"raw": "apple"
+}
+],
+"parts": [
+[
+"pomegranate",
+"Pomegranate"
+],
+[
+"apple",
+"Apple"
+]
+]
+},
+{
+"group": "CAVA",
+"line": "Drinks",
+"section": "House-made juices & teas",
+"item": "Blueberry Lavender",
+"price": 3.75,
+"cal": 190,
+"small": true,
+"veg": true,
+"ings": [
+{
+"name": "Blueberry",
+"cat": "Fruit & botanicals",
+"raw": "blueberry purée"
+},
+{
+"name": "Lavender",
+"cat": "Fruit & botanicals",
+"raw": "lavender"
+}
+],
+"parts": [
+[
+"blueberry purée",
+"Blueberry"
+],
+[
+"lavender",
+"Lavender"
+]
+]
+},
+{
+"group": "CAVA",
+"line": "Drinks",
+"section": "House-made juices & teas",
+"item": "Cucumber Mint Lime",
+"price": 3.75,
+"cal": 240,
+"small": true,
+"veg": true,
+"ings": [
+{
+"name": "Cucumber",
+"cat": "Fresh vegetables",
+"raw": "cucumber"
+},
+{
+"name": "Mint",
+"cat": "Fruit & botanicals",
+"raw": "mint"
+},
+{
+"name": "Lime",
+"cat": "Fruit & botanicals",
+"raw": "fresh lime juice"
+}
+],
+"parts": [
+[
+"cucumber",
+"Cucumber"
+],
+[
+"mint",
+"Mint"
+],
+[
+"fresh lime juice",
+"Lime"
+]
+]
+},
+{
+"group": "CAVA",
+"line": "Drinks",
+"section": "House-made juices & teas",
+"item": "Classic Lemonade",
+"price": 3.75,
+"cal": 360,
+"small": true,
+"veg": true,
+"ings": [
+{
+"name": "Lemon",
+"cat": "Fruit & botanicals",
+"raw": "lemonade (lemon)"
+}
+],
+"parts": [
+[
+"lemonade (lemon)",
+"Lemon"
+]
+]
+},
+{
+"group": "CAVA",
+"line": "Drinks",
+"section": "House-made juices & teas",
+"item": "Jasmine Green Tea",
+"price": 3.75,
+"cal": 0,
+"small": true,
+"veg": true,
+"ings": [
+{
+"name": "Jasmine green tea",
+"cat": "Tea, soda & water",
+"raw": "jasmine green tea"
+}
+],
+"parts": [
+[
+"jasmine green tea",
+"Jasmine green tea"
+]
+]
+},
+{
+"group": "CAVA",
+"line": "Drinks",
+"section": "House-made juices & teas",
+"item": "Unsweet Tea",
+"price": 3.75,
+"cal": 0,
+"small": true,
+"veg": true,
+"ings": [
+{
+"name": "Black tea",
+"cat": "Tea, soda & water",
+"raw": "unsweetened black tea"
+}
+],
+"parts": [
+[
+"unsweetened black tea",
+"Black tea"
+]
+]
+},
+{
+"group": "CAVA",
+"line": "Drinks",
+"section": "Bottled & fountain",
+"item": "Fountain Soda",
+"price": 3.75,
+"cal": 270,
+"small": true,
+"veg": true,
+"ings": [
+{
+"name": "Fountain soda",
+"cat": "Tea, soda & water",
+"raw": "Maine Root fountain soda"
+}
+],
+"parts": [
+[
+"Maine Root fountain soda",
+"Fountain soda"
+]
+]
+},
+{
+"group": "CAVA",
+"line": "Drinks",
+"section": "Bottled & fountain",
+"item": "Spindrift Lemon",
+"price": 2.95,
+"cal": 3,
+"small": true,
+"veg": true,
+"ings": [
+{
+"name": "Sparkling water",
+"cat": "Tea, soda & water",
+"raw": "sparkling water"
+},
+{
+"name": "Lemon",
+"cat": "Fruit & botanicals",
+"raw": "lemon"
+}
+],
+"parts": [
+[
+"sparkling water",
+"Sparkling water"
+],
+[
+"lemon",
+"Lemon"
+]
+]
+},
+{
+"group": "CAVA",
+"line": "Drinks",
+"section": "Bottled & fountain",
+"item": "Spindrift Half Tea & Half Lemon",
+"price": 2.95,
+"cal": 5,
+"small": true,
+"veg": true,
+"ings": [
+{
+"name": "Sparkling water",
+"cat": "Tea, soda & water",
+"raw": "sparkling water"
+},
+{
+"name": "Black tea",
+"cat": "Tea, soda & water",
+"raw": "black tea"
+},
+{
+"name": "Lemon",
+"cat": "Fruit & botanicals",
+"raw": "lemon"
+}
+],
+"parts": [
+[
+"sparkling water",
+"Sparkling water"
+],
+[
+"black tea",
+"Black tea"
+],
+[
+"lemon",
+"Lemon"
+]
+]
+},
+{
+"group": "CAVA",
+"line": "Drinks",
+"section": "Bottled & fountain",
+"item": "Open Water Still",
+"price": 2.95,
+"cal": 0,
+"small": true,
+"veg": true,
+"ings": [
+{
+"name": "Still water",
+"cat": "Tea, soda & water",
+"raw": "still water"
+}
+],
+"parts": [
+[
+"still water",
+"Still water"
+]
+]
+},
+{
+"group": "CAVA",
+"line": "Drinks",
+"section": "Bottled & fountain",
+"item": "Open Water Sparkling",
+"price": 2.95,
+"cal": 0,
+"small": true,
+"veg": true,
+"ings": [
+{
+"name": "Sparkling water",
+"cat": "Tea, soda & water",
+"raw": "sparkling water"
+}
+],
+"parts": [
+[
+"sparkling water",
+"Sparkling water"
+]
+]
+},
+{
+"group": "CAVA",
+"line": "Drinks",
+"section": "Kids drinks",
+"item": "Kids Apple Juice",
+"price": 2.55,
+"cal": 35,
+"small": true,
+"veg": true,
+"ings": [
+{
+"name": "Apple juice",
+"cat": "Kids drinks",
+"raw": "organic apple juice (Honest Kids)"
+}
+],
+"parts": [
+[
+"organic apple juice (Honest Kids)",
+"Apple juice"
+]
+]
+},
+{
+"group": "CAVA",
+"line": "Drinks",
+"section": "Kids drinks",
+"item": "Kids Milk",
+"price": 2.55,
+"cal": 110,
+"small": true,
+"veg": true,
+"ings": [
+{
+"name": "Milk",
+"cat": "Kids drinks",
+"raw": "organic 1% milk"
+}
+],
+"parts": [
+[
+"organic 1% milk",
+"Milk"
+]
+]
+},
+{
+"group": "CAVA",
+"line": "Drinks",
+"section": "Kids drinks",
+"item": "Kids Chocolate Milk",
+"price": 2.55,
+"cal": 150,
+"small": true,
+"veg": true,
+"ings": [
+{
+"name": "Chocolate milk",
+"cat": "Kids drinks",
+"raw": "organic 1% chocolate milk"
+}
+],
+"parts": [
+[
+"organic 1% chocolate milk",
+"Chocolate milk"
+]
+]
+},
+{
+"group": "CAVA",
+"line": "Desserts",
+"section": "Desserts",
+"item": "Salted Chocolate Oat Cookie",
+"price": 3.35,
+"cal": 240,
+"small": true,
+"veg": true,
+"ings": [
+{
+"name": "Oats",
+"cat": "Desserts & pantry",
+"raw": "oats"
+},
+{
+"name": "Chocolate",
+"cat": "Desserts & pantry",
+"raw": "chocolate"
+},
+{
+"name": "Salt",
+"cat": "Spices & seasonings",
+"raw": "salt"
+}
+],
+"parts": [
+[
+"oats",
+"Oats"
+],
+[
+"chocolate",
+"Chocolate"
+],
+[
+"salt",
+"Salt"
+]
+]
+},
+{
+"group": "CAVA",
+"line": "Desserts",
+"section": "Desserts",
+"item": "Greyston Blondie",
+"price": 2.75,
+"cal": 140,
+"small": true,
+"veg": true,
+"ings": [
+{
+"name": "Blondie",
+"cat": "Desserts & pantry",
+"raw": "blondie"
+},
+{
+"name": "Chocolate",
+"cat": "Desserts & pantry",
+"raw": "chocolate chips"
+}
+],
+"parts": [
+[
+"blondie",
+"Blondie"
+],
+[
+"chocolate chips",
+"Chocolate"
+]
+]
+},
+{
+"group": "CAVA",
+"line": "Desserts",
+"section": "Desserts",
+"item": "Greyston Brownie",
+"price": 2.75,
+"cal": 150,
+"small": true,
+"veg": true,
+"ings": [
+{
+"name": "Brownie",
+"cat": "Desserts & pantry",
+"raw": "brownie"
+},
+{
+"name": "Chocolate",
+"cat": "Desserts & pantry",
+"raw": "chocolate"
+}
+],
+"parts": [
+[
+"brownie",
+"Brownie"
+],
+[
+"chocolate",
+"Chocolate"
+]
+]
+},
+{
+"group": "CAVA",
+"line": "Desserts",
+"section": "Desserts",
+"item": "Apricot Honey Cookie",
+"price": 3.35,
+"cal": 220,
+"small": true,
+"veg": true,
+"ings": [
+{
+"name": "Honey",
+"cat": "Desserts & pantry",
+"raw": "honey"
+},
+{
+"name": "Ginger",
+"cat": "Desserts & pantry",
+"raw": "ginger"
+},
+{
+"name": "Dried apricot",
+"cat": "Desserts & pantry",
+"raw": "dried apricot"
+}
+],
+"parts": [
+[
+"honey",
+"Honey"
+],
+[
+"ginger",
+"Ginger"
+],
+[
+"dried apricot",
+"Dried apricot"
+]
+]
+}
+]

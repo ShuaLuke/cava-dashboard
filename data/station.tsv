@@ -1,0 +1,45 @@
+station	component	upcharge	cal	fat	sat_fat	chol	sodium	carb	fiber	sugar	protein
+Greens	Power Greens	0	30	0	0	0	35	4	2	1	2
+Greens	Arugula	0	20	0.5	0	0	25	3	1	2	2
+Greens	Super Greens	0	35	0.5	0	0	35	6	4	2	3
+Greens	Baby Spinach	0	20	0	0	0	70	3	2	0	3
+Greens	Romaine	0	20	0	0	0	10	4	3	1	1
+Grains	Saffron Basmati Rice	0	290	7	1	0	770	54	2	1	5
+Grains	Brown Rice	0	310	10	2	0	770	48	5	2	7
+Grains	Black Lentils	0	270	7	1	0	520	37	15	3	18
+Dips + Spreads	Tzatziki	0	30	2.5	1.5	10	60	1	0	1	2
+Dips + Spreads	Traditional Hummus	0	50	2.5	0	0	90	4	2	0	2
+Dips + Spreads	Crazy Feta®	0	70	6	3	15	230	1	0	0	4
+Dips + Spreads	Harissa	0	70	6	1	0	250	5	1	2	1
+Dips + Spreads	Red Pepper Hummus	0	40	1.5	0	0	105	5	2	1	2
+Dips + Spreads	Roasted Eggplant Dip	0	50	5	0.5	0	160	2	1	0	0
+Mains	Glazed Salmon	4.25	320	23	3.5	90	630	5	0	5	23
+Mains	Grilled Steak	3.70	170	9	3	85	280	1	0	0	23
+Mains	Harissa Honey Chicken	1.65	260	14	3	135	670	7	2	3	26
+Mains	Grilled Chicken	0	250	13	3	150	670	3	1	0	28
+Mains	Falafel	0	350	26	2	0	810	24	5	3	6
+Mains	Spicy Lamb Meatballs	2.45	300	21	8	90	680	3	1	1	24
+Mains	Braised Lamb	3.85	210	12	6	65	450	2	1	0	24
+Mains	Roasted Vegetables	0	100	4.5	0.5	0	600	14	5	5	3
+Toppings	Fiery Broccoli	0	35	2.5	0	0	170	2	1	1	1
+Toppings	Fire-Roasted Corn	0	45	2.5	0	0	105	5	1	2	1
+Toppings	Avocado	2.85	110	10	1.5	0	0	6	4	0	1
+Toppings	Pickled Onions	0	20	0	0	0	0	5	0	4	0
+Toppings	Salt-Brined Pickles	0	5	0	0	0	180	0	0	0	0
+Toppings	Tomato + Onion	0	20	1.5	0	0	125	2	0	1	0
+Toppings	Tomato + Cucumber	0	5	0	0	0	0	1	0	1	0
+Toppings	Sumac Cabbage Slaw	0	30	1.5	0	0	170	3	1	1	1
+Toppings	Kalamata Olives	0	35	3	0.5	0	360	2	2	0	0
+Toppings	Persian Cucumber	0	15	1	0	0	110	1	0	1	0
+Toppings	Shredded Romaine	0	5	0	0	0	0	1	0	0	0
+Toppings	Crumbled Feta	0	35	2.5	1.5	10	125	0	0	1	3
+Toppings	Pita Crisps	0	70	11	1.5	0	25	6	0	0	1
+Dressings	Greek Goddess	0	35	3	1.5	5	115	2	0	0	2
+Dressings	Balsamic Date Vinaigrette	0	60	4	0.5	0	250	7	1	5	0
+Dressings	Yogurt Dill	0	30	2	1	5	190	1	0	0	2
+Dressings	Lemon Herb Tahini	0	70	6	1	0	140	4	2	0	2
+Dressings	Greek Vinaigrette	0	130	14	2	0	230	1	0	0	0
+Dressings	Garlic Dressing	0	180	20	1.5	0	90	0	0	0	0
+Dressings	Skhug	0	80	9	1	0	150	1	0	0	0
+Dressings	Hot Harissa Vinaigrette	0	70	7	1	0	270	1	0	1	0
+Sides	Free Side Pita (quarter)	0	80	1.5	0	0	180	14	2	1	3

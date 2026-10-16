@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400..700&family=Geist+Mono:wght@400..600&display=swap">
+<style>
+/* 1200x630 link-preview card. Rendered by scripts/make_og.py; __TOKENS__ are filled from data/items.json. */
+:root { --bg: #fbfaf8; --ink: #14161f; --muted: #6b6e7b; --line: #ebe8e3; --accent: #d48a00; --accent-deep: #9c6400; --teal: #5f8f3e; }
+* { box-sizing: border-box; margin: 0; }
+html, body { width: 1200px; height: 630px; overflow: hidden; }
+body { background: var(--bg); color: var(--ink); font-family: "Geist", Arial, sans-serif; position: relative; font-variant-numeric: tabular-nums; }
+body::before { content: ""; position: absolute; inset: 0;
+  background:
+    radial-gradient(40rem 28rem at 4% -10%, rgba(255, 196, 80, 0.36), transparent 70%),
+    radial-gradient(34rem 26rem at 96% 0%, rgba(255, 150, 120, 0.2), transparent 70%),
+    radial-gradient(38rem 28rem at 70% 110%, rgba(120, 170, 60, 0.2), transparent 70%); }
+.copy { position: absolute; left: 64px; top: 60px; width: 470px; display: grid; gap: 22px; }
+.brand { display: flex; align-items: center; gap: 14px; font-weight: 600; font-size: 26px; letter-spacing: -0.01em; }
+.mark { width: 48px; height: 48px; border-radius: 13px; background: linear-gradient(140deg, #ffc247, var(--accent) 55%, #c8501f); display: grid; place-items: center; box-shadow: 0 8px 20px -8px rgba(212, 138, 0, 0.7); }
+.brand small { display: block; font-weight: 400; font-size: 17px; color: var(--muted); }
+h1 { font-size: 54px; line-height: 1.04; letter-spacing: -0.035em; font-weight: 680; }
+h1 span { background: linear-gradient(90deg, var(--accent-deep), var(--accent) 45%, #c8501f); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.sub { font-size: 21px; line-height: 1.4; color: var(--muted); }
+.stats { display: grid; grid-template-columns: repeat(3, auto); justify-content: start; gap: 30px; margin-top: 6px; }
+.stats b { display: block; font-size: 38px; font-weight: 660; letter-spacing: -0.02em; }
+.stats b.o { color: var(--accent); }
+.stats span { font-size: 15px; color: var(--muted); }
+.foot { position: absolute; left: 64px; bottom: 44px; font-family: "Geist Mono", monospace; font-size: 15px; color: var(--muted); }
+/* The screenshot is 1200px wide with a 236px sidebar; crop the sidebar and scale by 670/964 so the overview cards and the open drawer both fit. */
+.shot { position: absolute; left: 530px; top: 70px; width: 670px; border-radius: 16px; overflow: hidden; border: 1px solid var(--line);
+  box-shadow: 0 2px 4px rgba(20, 22, 31, 0.05), 0 30px 60px -20px rgba(20, 22, 31, 0.35); transform: rotate(-2deg); transform-origin: top left; background: #fff; }
+.shot img { display: block; width: 834px; margin-left: -164px; }
+</style>
+</head>
+<body>
+  <div class="copy">
+    <div class="brand"><span class="mark"><svg width="26" height="26" viewBox="0 0 16 16" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 7h11c0 3.3-2.5 5.5-5.5 5.5S2.5 10.3 2.5 7z"/><path d="M5.2 4.6c.6-1.1 1.6-1.1 2.2 0s1.6 1.1 2.2 0"/></svg></span>
+      <span>Spread Sheet<small>CAVA's menu, by the component</small></span></div>
+    <h1>What goes into <span>every bowl</span></h1>
+    <p class="sub">An interactive look at CAVA's menu: __ITEMS__ items across __LINES__ menu lines, and the __STATION__ components on the build-your-own line.</p>
+    <div class="stats">
+      <div><b class="o">__ITEMS__</b><span>menu items</span></div>
+      <div><b>__INGS__</b><span>components</span></div>
+      <div><b>__MEDIAN__</b><span>median meal</span></div>
+    </div>
+  </div>
+  <div class="foot">Unofficial fan project · menu read __DATE__ · Dupont Circle prices</div>
+  <div class="shot"><img src="__SHOT__" alt=""></div>
+</body>
+</html>

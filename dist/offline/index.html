@@ -190,9 +190,7 @@ svg text { fill: var(--ink); font-family: var(--body); }
 .notes ul { margin: 0; padding-left: 18px; display: grid; gap: 4px; }
 
 /* operations */
-#ops-tabs { background: var(--raise); border-radius: 999px; padding: 3px; gap: 2px; width: fit-content; max-width: 100%; }
-#ops-tabs .chip { border: 0; background: none; color: var(--muted); padding: 6px 14px; font-size: 13.5px; }
-#ops-tabs .chip[aria-pressed="true"] { background: var(--surface); color: var(--ink); box-shadow: 0 1px 3px rgba(20, 22, 31, 0.12); }
+.tabpanel { display: grid; gap: 16px; min-width: 0; }
 .ops-tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 10px; }
 .ops-tiles .stat { box-shadow: none; background: var(--raise); border-color: transparent; padding: 14px 16px 12px; }
 .ops-tiles .stat b { font-size: 24px; }
@@ -281,7 +279,6 @@ body { min-height: 0; overflow: hidden; }
 .mx-grid { display: grid; grid-template-columns: minmax(0, auto) minmax(280px, 1fr); gap: 20px; align-items: start; }
 .mx-grid .pair-out { min-height: 240px; position: sticky; top: 0; }
 .mx-grid .pair-out .items { max-height: 520px; overflow-y: auto; }
-#ops-tabs { display: none; }
 .notes ul { font-size: 14px; color: #3c3f4b; gap: 8px; }
 
 /* overview widgets */
@@ -659,17 +656,11 @@ svg .sm-node.tip-on, svg .sm-link.tip-on { stroke: none; }
       <span>Spread Sheet <small>CAVA's menu, by the component</small></span>
     </div>
     <nav class="nav" id="nav">
-      <div class="nav-group">Explore</div>
+      <div class="nav-group">Menu</div>
       <button data-view="overview"><svg viewBox="0 0 16 16"><rect x="2" y="2" width="5" height="5" rx="1.2"/><rect x="9" y="2" width="5" height="5" rx="1.2"/><rect x="2" y="9" width="5" height="5" rx="1.2"/><rect x="9" y="9" width="5" height="5" rx="1.2"/></svg>Overview</button>
-      <button data-view="components"><svg viewBox="0 0 16 16"><circle cx="7" cy="7" r="4.2"/><path d="M10.2 10.2 14 14"/></svg>Component lookup</button>
-      <button data-view="matrix"><svg viewBox="0 0 16 16"><path d="M2 2h12v12H2z"/><path d="M6 2v12M10 2v12M2 6h12M2 10h12"/></svg>Pairing matrix</button>
-      <button data-view="map"><svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="6"/><path d="M3.5 5.5C7 7 9 9 11 13.5M12.5 4.5C9 6 6 9 5 13.6"/></svg>Pairing map</button>
-      <div class="nav-group">Operations</div>
-      <button data-view="prep"><svg viewBox="0 0 16 16"><path d="M2.5 5 8 2l5.5 3v6L8 14l-5.5-3z"/><path d="M2.5 5 8 8l5.5-3M8 8v6"/></svg>Prep &amp; inventory</button>
-      <button data-view="price"><svg viewBox="0 0 16 16"><path d="M8.6 2H14v5.4L7.4 14 2 8.6z"/><circle cx="11" cy="5" r="1"/></svg>Pricing</button>
-      <button data-view="gaps"><svg viewBox="0 0 16 16"><path d="M8 2v3M8 11v3M2 8h3M11 8h3M3.8 3.8l2 2M10.2 10.2l2 2M12.2 3.8l-2 2M5.8 10.2l-2 2"/></svg>Menu gaps</button>
-      <button data-view="groups"><svg viewBox="0 0 16 16"><rect x="2" y="3" width="4" height="10" rx="1"/><rect x="10" y="3" width="4" height="10" rx="1"/><path d="M6 8h4"/></svg>Compare brands</button>
-      <button data-view="h2h"><svg viewBox="0 0 16 16"><path d="M2 4h5v8H2zM9 4h5v8H9z"/><path d="M4.5 6.5v3M11.5 6.5v3"/></svg>Head to head</button>
+      <button data-view="components"><svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="6"/><path d="M3.5 5.5C7 7 9 9 11 13.5M12.5 4.5C9 6 6 9 5 13.6"/></svg>Components</button>
+      <button data-view="prep"><svg viewBox="0 0 16 16"><path d="M2.5 5 8 2l5.5 3v6L8 14l-5.5-3z"/><path d="M2.5 5 8 8l5.5-3M8 8v6"/></svg>Operations</button>
+      <button data-view="groups"><svg viewBox="0 0 16 16"><rect x="2" y="3" width="4" height="10" rx="1"/><rect x="10" y="3" width="4" height="10" rx="1"/><path d="M6 8h4"/></svg>Compare</button>
       <div class="nav-group">Your data</div>
       <button data-view="costs"><svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="6"/><path d="M10 5.8c-.4-.6-1.1-.9-2-.9-1.1 0-2 .6-2 1.5 0 2 4 1.1 4 3.2 0 .9-.9 1.5-2 1.5-.9 0-1.7-.4-2.1-1M8 3.6v1.3M8 11.1v1.3"/></svg>Cost &amp; sales</button>
     </nav>
@@ -699,16 +690,21 @@ svg .sm-node.tip-on, svg .sm-link.tip-on { stroke: none; }
       <div class="ov-grid" id="ov-grid"></div>
     </section>
 
-    <section class="view panel" data-view="components" aria-label="Component lookup" hidden>
+    <section class="view panel" data-view="comp" aria-label="Components" hidden>
+      <div class="controls seg" role="tablist" aria-label="Component views" id="comp-tabs">
+        <button class="chip" role="tab" data-view="components" data-tab="lookup">Lookup</button>
+        <button class="chip" role="tab" data-view="matrix" data-tab="matrix">Pairing matrix</button>
+        <button class="chip" role="tab" data-view="map" data-tab="map">Pairing map</button>
+      </div>
+      <div class="tabpanel" data-panel="lookup" role="tabpanel">
       <div class="search-row">
         <input id="ing-input" list="ing-list" placeholder="Try hummus, feta, avocado…" autocomplete="off" aria-label="Component">
         <datalist id="ing-list"></datalist>
         <div class="quick" id="quick"></div>
       </div>
       <div id="ing-out"></div>
-    </section>
-
-    <section class="view panel" data-view="matrix" aria-label="Pairing matrix" hidden>
+      </div>
+      <div class="tabpanel" data-panel="matrix" role="tabpanel" hidden>
       <div class="view-tools">
         <div class="legend" id="legend-mx"></div>
         <div class="controls" id="mx-size"></div>
@@ -717,9 +713,8 @@ svg .sm-node.tip-on, svg .sm-link.tip-on { stroke: none; }
         <div class="scroll"><svg id="matrix" role="img" aria-label="Component co-occurrence matrix"></svg></div>
         <div class="pair-out ch-detail" id="pair-out"></div>
       </div>
-    </section>
-
-    <section class="view panel" data-view="map" aria-label="Pairing map" hidden>
+      </div>
+      <div class="tabpanel" data-panel="map" role="tabpanel" hidden>
       <div class="ch-tools">
         <div class="fam-toggles" id="legend-ch" aria-label="Show or hide categories"></div>
         <div class="controls" id="ch-mode"></div>
@@ -734,10 +729,11 @@ svg .sm-node.tip-on, svg .sm-link.tip-on { stroke: none; }
         <div class="chord-wrap"><svg id="chord" role="group" aria-label="Chord diagram of component pairings"></svg></div>
         <aside class="ch-detail" id="ch-detail" aria-live="polite"></aside>
       </div>
+      </div>
     </section>
 
     <section class="view panel" id="ops" data-view="ops" aria-label="Operations" hidden>
-      <div class="controls" role="tablist" aria-label="Operations views" id="ops-tabs">
+      <div class="controls seg" role="tablist" aria-label="Operations views" id="ops-tabs">
         <button class="chip" role="tab" data-tab="prep" id="tab-prep">Prep &amp; inventory</button>
         <button class="chip" role="tab" data-tab="price" id="tab-price">Pricing</button>
         <button class="chip" role="tab" data-tab="gaps" id="tab-gaps">Menu gaps</button>
@@ -747,12 +743,13 @@ svg .sm-node.tip-on, svg .sm-link.tip-on { stroke: none; }
       <div id="ops-gaps" role="tabpanel" aria-labelledby="tab-gaps" hidden></div>
     </section>
 
-    <section class="view panel" data-view="h2h" aria-label="Head to head" hidden>
-      <div id="h2h-out"></div>
-    </section>
-
-    <section class="view panel" data-view="groups" aria-label="Compare brands" hidden>
-      <div id="groups-out"></div>
+    <section class="view panel" data-view="compare" aria-label="Compare" hidden>
+      <div class="controls seg" role="tablist" aria-label="Comparison views" id="cmp-tabs">
+        <button class="chip" role="tab" data-view="groups" data-tab="groups">Brands</button>
+        <button class="chip" role="tab" data-view="h2h" data-tab="h2h">Head to head</button>
+      </div>
+      <div class="tabpanel" data-panel="groups" role="tabpanel"><div id="groups-out"></div></div>
+      <div class="tabpanel" data-panel="h2h" role="tabpanel" hidden><div id="h2h-out"></div></div>
     </section>
 
     <section class="view panel" data-view="costs" aria-label="Cost and sales what-if" hidden>
@@ -765,7 +762,7 @@ svg .sm-node.tip-on, svg .sm-link.tip-on { stroke: none; }
         <li>Menus and prices change. Prices come from each chain's online ordering menu for one downtown Washington, DC store, read Oct 16, 2026: CAVA Dupont Circle (1222 Connecticut Ave NW), Sweetgreen Farragut Square (888 17th St NW) and Chipotle Dupont Circle (1300 Connecticut Ave NW). Other locations charge differently. Calories are as printed on each menu. Sweetgreen's bottled drinks and sweets aren't priced on its store menu, so they're shown with “—”.</li>
         <li>Sources: cava.com/menu and its bowl builder (every build-your-own component with its up-charge) plus CAVA's Nutrition &amp; Allergen Guide PDF; order.sweetgreen.com and sweetgreen.com/menu; chipotle.com's online ordering menu (featured items, the High Protein menu, chips &amp; sides, drinks). The brands and menu lines covered:
           <ul id="about-sources" style="margin-top:6px"></ul></li>
-        <li>What counts as an item: each chain's named, fixed-recipe items (curated bowls, pitas, salads, wraps, plates, burritos, kids meals) plus sides, drinks and desserts. Build-your-own orders have no fixed recipe, so they're left out; CAVA's build-your-own line is kept as a station catalog instead (see Prep &amp; inventory and Menu gaps). Chipotle's regular burritos, bowls, tacos and salads are all build-your-own, so only its named items appear.</li>
+        <li>What counts as an item: each chain's named, fixed-recipe items (curated bowls, pitas, salads, wraps, plates, burritos, kids meals) plus sides, drinks and desserts. Build-your-own orders have no fixed recipe, so they're left out; CAVA's build-your-own line is kept as a station catalog instead (see Operations → Prep &amp; inventory and Menu gaps). Chipotle's regular burritos, bowls, tacos and salads are all build-your-own, so only its named items appear.</li>
         <li>Each ingredient line on a menu is mapped to one component. Generic produce merges across brands (cucumber is cucumber everywhere), while named preparations stay distinct (CAVA's grilled chicken, Sweetgreen's blackened chicken and Chipotle's adobo chicken are three components). Plain “rice” at CAVA counts as saffron basmati rice, and a side dip's description maps to the dip itself. Drink and dessert components come from the menu descriptions.</li>
         <li>Bowls, pitas, salads, wraps, plates, burritos and kids meals are <b>meals</b>; sides, chips, drinks and desserts are <b>add-ons</b>. <b>Vegetarian</b> means no chicken, beef, pork, lamb or fish.</li>
         <li>The “Cost &amp; sales” tool opens on a <b>synthetic sample dataset</b>: made-up costs inside published fast-casual ranges, CAVA's real menu structure and prices, and seeded random sales for three imaginary stores over three months. None of it is CAVA's real cost, sales or margin data. Loading your own files replaces the sample; the files are parsed and computed in the browser only, with no upload and no storage unless you opt in. Method, data dictionary and security notes are in the <code>docs</code> folder of the repository.</li>
@@ -3158,27 +3155,34 @@ function renderH2H() {
 
 /* dashboard shell */
 const VIEWS = {
-  overview: { sec: "overview", title: "Overview", sub: "CAVA's menu by the component, with Sweetgreen and Chipotle alongside. Opens on CAVA; tick the other brands or single menu lines in the sidebar. Prices are from each chain's downtown DC store." },
-  components: { sec: "components", title: "Component lookup", sub: "Partners are ranked by the number of items that use both. Click one to filter the item list." },
-  matrix: { sec: "matrix", title: "Pairing matrix", sub: "The most-used components, grouped by station. Each number is how many items use both. Click a cell to see what else goes in, or a diagonal cell for one component's partners." },
-  map: { sec: "map", title: "Pairing map", sub: "Ribbon width is the number of shared items. Click an arc or a ribbon for details, or a category to see the components inside it." },
+  overview: { sec: "overview", title: "Overview", sub: "CAVA's menu by the component, with Sweetgreen and Chipotle alongside. Tick other brands or single menu lines in the sidebar. Prices are from one downtown DC store per chain." },
+  components: { sec: "comp", tab: "lookup", title: "Component lookup", sub: "Partners are ranked by the number of items that use both. Click one to filter the item list." },
+  matrix: { sec: "comp", tab: "matrix", title: "Pairing matrix", sub: "The most-used components, grouped by station. Each number is how many items use both. Click a cell to see what else goes in, or a diagonal cell for one component's partners." },
+  map: { sec: "comp", tab: "map", title: "Pairing map", sub: "Ribbon width is the number of shared items. Click an arc or a ribbon for details, or a category to see the components inside it." },
   prep: { sec: "ops", tab: "prep", title: "Prep & inventory", sub: "What the line has to stock and prep for the curated menu, which components only one item uses, and what sits on the build-your-own line that no curated item shows off." },
   price: { sec: "ops", tab: "price", title: "Pricing", sub: "Every item by menu line, the same style of item compared, and how a bowl's price follows its main." },
   gaps: { sec: "ops", tab: "gaps", title: "Menu gaps", sub: "Pairings the other menu lines use that one doesn't, station components no curated item uses, and how each line's mix compares." },
-  h2h: { sec: "h2h", title: "Head to head", sub: "Pick any two menu lines, or two brands, and compare them side by side: price, calories, what they're built from, and what only one of them uses. Ignores the sidebar filters." },
-  groups: { sec: "groups", title: "Compare brands", sub: "How CAVA, Sweetgreen and Chipotle differ: price, add-ons, what they build from, signature components, and the pairings the others use that one doesn't. Uses every brand regardless of the filters." },
+  h2h: { sec: "compare", tab: "h2h", title: "Head to head", sub: "Pick any two menu lines, or two brands, and compare them side by side: price, calories, what they're built from, and what only one of them uses. Ignores the sidebar filters." },
+  groups: { sec: "compare", tab: "groups", title: "Compare brands", sub: "How CAVA, Sweetgreen and Chipotle differ: price, add-ons, what they build from, signature components, and the pairings the others use that one doesn't. Uses every brand regardless of the filters." },
   costs: { sec: "costs", title: "Cost & sales", sub: "Recipe costs, sales mix, menu engineering and what-if scenarios, by the component. Opens on a synthetic sample dataset; load your own recipe-cost and POS files and everything runs in this browser tab, with nothing uploaded. Ignores the sidebar filters." },
   about: { sec: "about", title: "About the data", sub: "Where the numbers come from and how components were grouped." }
 };
 let view = "overview";
+// sections with tabs (Components, Compare): one chip strip, one panel per tab
+function showTab(sec, tab) {
+  const root = document.querySelector(`.view[data-view="${sec}"]`); if (!root) return;
+  root.querySelectorAll("[data-tab]").forEach(b => { const on = b.dataset.tab === tab; b.setAttribute("aria-pressed", on); b.setAttribute("aria-selected", on); b.tabIndex = on ? 0 : -1; });
+  root.querySelectorAll("[data-panel]").forEach(pn => pn.hidden = pn.dataset.panel !== tab);
+}
 function setView(v, opts = {}) {
   if (!VIEWS[v]) v = "overview";
   view = v; const V = VIEWS[v];
   document.querySelectorAll(".main .view").forEach(s => s.hidden = s.dataset.view !== V.sec);
-  document.querySelectorAll("button[data-view]").forEach(b => { if (b.dataset.view === v) b.setAttribute("aria-current", "page"); else b.removeAttribute("aria-current"); });
+  document.querySelectorAll(".nav button[data-view]").forEach(b => { const B = VIEWS[b.dataset.view]; if (B && B.sec === V.sec) b.setAttribute("aria-current", "page"); else b.removeAttribute("aria-current"); });
+  if (V.tab && V.sec !== "ops") showTab(V.sec, V.tab);
   document.getElementById("view-title").textContent = V.title;
   document.getElementById("view-sub").textContent = V.sub;
-  if (V.tab) { ops.tab = V.tab; renderOps(); }
+  if (V.tab && V.sec === "ops") { ops.tab = V.tab; renderOps(); }
   try { history.replaceState(null, "", "#" + v); } catch (e) {}
   try { localStorage.setItem("cv-view", v); } catch (e) {}
   if (!opts.keepScroll) document.getElementById("main").scrollTop = 0;
@@ -3186,7 +3190,7 @@ function setView(v, opts = {}) {
 }
 document.querySelectorAll("[data-view]").forEach(b => { if (b.tagName === "BUTTON") b.addEventListener("click", () => setView(b.dataset.view)); });
 if (matchMedia("(max-width: 900px)").matches) document.getElementById("filters").removeAttribute("open");
-if (GROUPS.length < 2) document.querySelector('.nav button[data-view="groups"]').hidden = true; // nothing to compare until a second brand is added
+if (GROUPS.length < 2) document.querySelector('#cmp-tabs [data-view="groups"]').hidden = true; // nothing to compare until a second brand is added
 
 function scopeLabel() {
   const n = state.lines.size;
@@ -3299,6 +3303,7 @@ function renderOverview(ds, S) {
       <div class="signal" data-go="price" role="button" tabindex="0" ${tipAttr(tZp)}><span class="sv">${zAll.length ? `${money(zLo)}–${money(zHi)}` : "—"}</span><span class="st">Add-on price range</span><span class="sd">${cAll.length ? `Meals run ${money(d3.min(cAll, d => d.price))}–${money(d3.max(cAll, d => d.price))}, median ${money(d3.median(cAll, d => d.price))}` : "No meals selected"}</span></div>
       <div class="signal" data-go="gaps" data-gaprest="${esc(vegLine)}" role="button" tabindex="0" ${tipAttr(tZc)}><span class="sv">${vegMeals.length}</span><span class="st">Vegetarian meal${vegMeals.length === 1 ? "" : "s"} of ${meals.length}</span><span class="sd">${vegMeals.length ? vegMeals.slice(0, 3).map(d => esc(d.item)).join(", ") : "Every meal has meat or fish"}${vegMeals.length > 3 ? "…" : ""}</span></div>
       <div class="signal" data-go="prep" role="button" tabindex="0" ${tipAttr(tShared)}><span class="sv">${shared.length}</span><span class="st">Components on 2+ menu lines</span><span class="sd">${shared.slice(0, 5).map(esc).join(", ")}${shared.length > 5 ? "…" : ""}</span></div>
+      ${costSignal()}
       </div>
     </div>`;
 
@@ -3314,6 +3319,13 @@ function renderOverview(ds, S) {
   grid.querySelectorAll("[data-ing]").forEach(el => act(el, () => openDrawer({ type: "ing", a: el.dataset.ing })));
   grid.querySelectorAll("[data-fam]").forEach(el => act(el, () => openDrawer({ type: "fam", a: el.dataset.fam })));
   grid.querySelectorAll("[data-rest]").forEach(el => act(el, () => { ops.rest = el.dataset.rest; setView("gaps"); }));
+}
+
+// the Cost & sales line on the Overview: reads the tool's summary once it has booted
+function costSignal() {
+  const c = window.ctSummary && window.ctSummary();
+  if (!c) return `<div class="signal" data-go="costs" role="button" tabindex="0"><span class="sv" style="font-size:18px">→</span><span class="st">Cost &amp; sales</span><span class="sd">Load your recipe costs and sales, or explore the sample</span></div>`;
+  return `<div class="signal" data-go="costs" role="button" tabindex="0" ${tipAttr(`<b>Cost &amp; sales · ${esc(c.label)}</b>` + ttRows([["Theoretical food cost", c.fc], ["Target", c.target], ["Best move right now", esc(c.move || "—")]]) + '<div class="tt-hint">Opens the tool</div>')}><span class="sv ${c.over ? "" : ""}" style="color:${c.over ? "var(--warn)" : "var(--teal)"}">${c.fc}</span><span class="st">Food cost, ${esc(c.month)} <span class="zp" style="margin-left:6px">${c.src === "own" ? "your data" : "sample"}</span></span><span class="sd">${c.move ? "Best move: " + esc(c.move) : "Against a " + c.target + " target"}</span></div>`;
 }
 
 /* overview drawer: opens the inspector over the dashboard, with its own back stack */
@@ -4445,10 +4457,11 @@ new MutationObserver(render).observe(document.documentElement, { attributes: tru
     box.addEventListener("change", e => { const el = e.target.closest("[data-set]"); if (el && el.tagName !== "INPUT" || el && el.type === "checkbox") onSet(el.dataset.set, el.value, el); });
     box.addEventListener("input", e => { const el = e.target.closest("[data-set]"); if (el && el.tagName === "INPUT" && el.type !== "checkbox") onSet(el.dataset.set, el.value, el); });
     render();
-    const boot = () => { if (CT.ready) return; try { ensureSample(); } catch (e) { console.error(e); dEl("cost-out").innerHTML = `<p class="empty">Could not build the sample dataset: ${esc(e.message)}</p>`; return; } CT.ready = true; restore().then(render, render); };
+    const boot = () => { if (CT.ready) return; try { ensureSample(); } catch (e) { console.error(e); dEl("cost-out").innerHTML = `<p class="empty">Could not build the sample dataset: ${esc(e.message)}</p>`; return; } CT.ready = true; restore().then(render, render); try { window.render && window.render(); } catch (e) {} };
     const sec = document.querySelector('.view[data-view="costs"]');
     if (sec && !sec.hidden) setTimeout(boot, 30); else { new MutationObserver(() => { if (!sec.hidden) setTimeout(boot, 30); }).observe(sec, { attributes: true, attributeFilter: ["hidden"] }); setTimeout(boot, 2500); }
   }
+  window.ctSummary = () => { if (!CT.ready) return null; try { const M = data().M; if (!M.sales.length) return null; const last = M.months[M.months.length - 1]; const t = CT.scope.target; const R = resultsFor({ months: [last] }); const key = "H|" + CT.src + "|" + last + "|" + t; let best = CT.cache.get(key); if (!best) { best = CM.recommend(M, { months: new Set([last]), target: t }, { type: "general" }, { verify: false }); CT.cache.set(key, best); } const top = best.candidates[0]; return { src: CT.src, label: data().label, month: monthName(last), fc: pf(R.totals.fc), over: R.totals.fc > t, target: pf(t, 0), move: top ? `${top.label} (${sgn(top.dGp, $0)})` : null }; } catch (e) { return null; } };
   window.ctInit = init; window.CT = CT;
   init();
 })();

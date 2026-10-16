@@ -7,14 +7,12 @@ An interactive dashboard of [CAVA](https://cava.com)'s menu, with Sweetgreen and
 It is a sibling of [Well & Call](https://github.com/ShuaLuke/back-bar-dashboard), the DC cocktail-menu dashboard, and reuses its code: swap drinks for menu items and bar ingredients for station components.
 
 ## Views
-- **Overview**: KPIs, top pairings, by-menu-line price and calorie spread, most-used components, category mix, signals
-- **Component lookup**: search a component, see ranked partners and the items
-- **Pairing matrix**: co-occurrence heatmap of the top 16/24/32 components
-- **Pairing map**: interactive chord diagram (stations ⇄ components, drill-down, filters)
-- **Prep & inventory / Pricing / Menu gaps**: operations views built from the menu alone: fresh components only one item uses, what sits on the build-your-own line that no curated item features, how a bowl's price follows its main
-- **Head to head**: pick any two menu lines or two brands and compare side by side: price, calories, what they're built from, shared vs. exclusive components and pairings
+Five sections in the sidebar: Overview, Components, Operations, Compare and Cost & sales.
+- **Overview**: KPIs, top pairings, by-menu-line price and calorie spread, most-used components, category mix, and a "worth a look" list of signals (including the latest food cost from the Cost & sales tool)
+- **Components**: three tabs. *Lookup*: search a component, see ranked partners and the items. *Pairing matrix*: co-occurrence heatmap of the top 16/24/32 components. *Pairing map*: interactive chord diagram (stations ⇄ components, drill-down, filters)
+- **Operations**: three tabs. *Prep & inventory*, *Pricing* and *Menu gaps*, built from the menu alone: fresh components only one item uses, what sits on the build-your-own line that no curated item features, how a bowl's price follows its main
+- **Compare**: two tabs. *Brands*: CAVA, Sweetgreen and Chipotle side by side. *Head to head*: pick any two menu lines or two brands and compare side by side: price, calories, what they're built from, shared vs. exclusive components and pairings
 - **Cost & sales**: a cost, sales-mix, menu-engineering and scenario tool that runs on your own recipe-cost and POS files, entirely in the browser tab (nothing is uploaded). Opens on a synthetic sample dataset so every view works before anything is loaded. See below
-- **Compare brands**: CAVA, Sweetgreen and Chipotle side by side: price, add-ons, what they build from, signature components, common ground, and pairings the others use that one doesn't
 
 On a desktop the Overview fits on one screen. Clicking a component, pairing or category opens a detail drawer with sub-maps. Hover any stat for details. On a phone, tap once for details and again to open.
 

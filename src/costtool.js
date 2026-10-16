@@ -1006,10 +1006,11 @@
     box.addEventListener("change", e => { const el = e.target.closest("[data-set]"); if (el && el.tagName !== "INPUT" || el && el.type === "checkbox") onSet(el.dataset.set, el.value, el); });
     box.addEventListener("input", e => { const el = e.target.closest("[data-set]"); if (el && el.tagName === "INPUT" && el.type !== "checkbox") onSet(el.dataset.set, el.value, el); });
     render();
-    const boot = () => { if (CT.ready) return; try { ensureSample(); } catch (e) { console.error(e); dEl("cost-out").innerHTML = `<p class="empty">Could not build the sample dataset: ${esc(e.message)}</p>`; return; } CT.ready = true; restore().then(render, render); };
+    const boot = () => { if (CT.ready) return; try { ensureSample(); } catch (e) { console.error(e); dEl("cost-out").innerHTML = `<p class="empty">Could not build the sample dataset: ${esc(e.message)}</p>`; return; } CT.ready = true; restore().then(render, render); try { window.render && window.render(); } catch (e) {} };
     const sec = document.querySelector('.view[data-view="costs"]');
     if (sec && !sec.hidden) setTimeout(boot, 30); else { new MutationObserver(() => { if (!sec.hidden) setTimeout(boot, 30); }).observe(sec, { attributes: true, attributeFilter: ["hidden"] }); setTimeout(boot, 2500); }
   }
+  window.ctSummary = () => { if (!CT.ready) return null; try { const M = data().M; if (!M.sales.length) return null; const last = M.months[M.months.length - 1]; const t = CT.scope.target; const R = resultsFor({ months: [last] }); const key = "H|" + CT.src + "|" + last + "|" + t; let best = CT.cache.get(key); if (!best) { best = CM.recommend(M, { months: new Set([last]), target: t }, { type: "general" }, { verify: false }); CT.cache.set(key, best); } const top = best.candidates[0]; return { src: CT.src, label: data().label, month: monthName(last), fc: pf(R.totals.fc), over: R.totals.fc > t, target: pf(t, 0), move: top ? `${top.label} (${sgn(top.dGp, $0)})` : null }; } catch (e) { return null; } };
   window.ctInit = init; window.CT = CT;
   init();
 })();

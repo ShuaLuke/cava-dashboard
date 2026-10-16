@@ -1968,7 +1968,7 @@ function renderH2H() {
   const opts = sel => `<optgroup label="Menu lines">${GROUPS.map(g => LINES.filter(r => LINE_GROUP[r] === g).map(r => `<option value="r:${esc(r)}" ${sel === "r:" + r ? "selected" : ""}>${esc(r)} · ${esc(gShort(g))}</option>`).join("")).join("")}</optgroup>
     <optgroup label="Whole brand">${GROUPS.map(g => `<option value="g:${esc(g)}" ${sel === "g:" + g ? "selected" : ""}>${esc(g)}</option>`).join("")}</optgroup>`;
 
-  const stat = e => { const c = e.ds.filter(hasPrice), z = e.ds.filter(d => !d.small && d.veg), cals = e.ds.filter(d => d.cal != null);
+  const stat = e => { const meals = e.ds.filter(d => !d.small && hasPrice(d)), c = meals.length ? meals : e.ds.filter(hasPrice), z = e.ds.filter(d => !d.small && d.veg), cals = e.ds.filter(d => d.cal != null); // price stats use meals when the entity has any
     const cnt = new Map(); e.ds.forEach(d => d.ings.forEach(i => cnt.set(i.name, (cnt.get(i.name) || 0) + 1)));
     return { c, z, cnt, med: c.length ? d3.median(c, d => d.price) : null, lo: c.length ? d3.min(c, d => d.price) : null, hi: c.length ? d3.max(c, d => d.price) : null,
       cal: cals.length ? d3.median(cals, d => d.cal) : null, per: e.ds.length ? d3.mean(e.ds, d => d.ings.length) : 0, sections: new Set(e.ds.map(d => d.section)).size }; };
@@ -2008,7 +2008,7 @@ function renderH2H() {
       <div class="gname"><i class="dot" style="background:${col[i]}"></i>${esc(e.label)} <span class="hint" style="font-weight:400">${esc(e.sub)}</span></div>
       <div class="gstats h2h-stats">
         <span><b>${e.ds.length}</b>items${e.ds.some(d => !d.small) ? ` · ${St.z.length} vegetarian meal${St.z.length === 1 ? "" : "s"}` : ""}</span>
-        <span><b>${money(St.med)}</b>median price${St.lo != null ? ` · ${money(St.lo)}–${money(St.hi)}` : ""}</span>
+        <span><b>${money(St.med)}</b>median ${e.ds.some(d => !d.small) ? "meal" : "price"}${St.lo != null ? ` · ${money(St.lo)}–${money(St.hi)}` : ""}</span>
         <span><b>${St.cnt.size}</b>components · ${St.per.toFixed(1)} per item</span>
         <span><b>${St.cal == null ? "—" : Math.round(St.cal)}</b>median calories · ${St.sections} section${St.sections === 1 ? "" : "s"}</span>
       </div></div>`;
